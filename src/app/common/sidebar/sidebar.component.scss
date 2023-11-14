@@ -1,0 +1,99 @@
+@import "../../../styles.scss";
+
+/* Navbar Styles */
+nav {
+  background: linear-gradient(to right, $primary 40%, $secondary);
+  color: $white;
+  position: fixed;
+  z-index: 2;
+  padding: 16px;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .branding {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 12px;
+
+    i {
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 12px;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+}
+
+/* Backdrop Styles */
+.backdrop {
+  background-color: $secondary;
+  opacity: 0.1;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  background: linear-gradient(to bottom, $primary, $secondary);
+  color: $white;
+  position: fixed;
+  z-index: 2;
+  top: 50px;
+  width: 250px;
+  min-height: calc(100vh - 50px);
+  position: fixed;
+
+  .sidebar-wrapper {
+    .user-info {
+      padding: 12px;
+      text-align: center;
+      border-top: 1px solid $light_gray;
+      border-bottom: 1px solid $light_gray;
+
+      p {
+        color: $accent-1;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+    }
+
+    .menu {
+      a {
+        display: block;
+        padding: 12px;
+
+        &:hover {
+          background-color: $secondary;
+          color: $accent-1;
+          cursor: pointer;
+        }
+      }
+
+      .button-outline {
+        display: block;
+        width: 80%;
+        height: 30px;
+        margin: 16px auto;
+      }
+    }
+  }
+}

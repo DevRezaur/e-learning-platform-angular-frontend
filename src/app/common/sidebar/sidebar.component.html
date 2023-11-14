@@ -1,0 +1,51 @@
+<!-- Navbar Starts -->
+<nav>
+  <div class="branding">
+    <i
+      class="fas"
+      [ngClass]="{ 'fa-bars': !showSidebar, 'fa-times': showSidebar }"
+      (click)="toggleSidebar()"
+    ></i>
+    <p>ELP</p>
+  </div>
+  <div *ngIf="!isLoggedIn" class="user-info">
+    <button class="button-outline">Login</button>
+  </div>
+  <div *ngIf="isLoggedIn" class="user-info">
+    <p>Rezaur Rahman</p>
+    <button class="button-outline">Logout</button>
+  </div>
+</nav>
+<!-- Navbar Ends -->
+
+<!-- Backdrop Starts -->
+<div
+  class="backdrop"
+  [ngClass]="{ hidden: !showSidebar }"
+  (click)="toggleSidebar()"
+></div>
+<!-- Backdrop Ends -->
+
+<!-- Sidebar Starts -->
+<div class="sidebar" [ngClass]="{ hidden: !showSidebar }">
+  <div class="sidebar-wrapper">
+    <div *ngIf="!isLoggedIn" class="user-info">
+      <p>No User</p>
+      <p>(Please Login)</p>
+    </div>
+    <div *ngIf="isLoggedIn" class="user-info">
+      <p>Rezaur Rahman</p>
+    </div>
+    <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
+      <button class="button-outline">Login</button>
+    </div>
+    <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
+      <a>Menu 1</a>
+      <a>Menu 2</a>
+      <a>Menu 3</a>
+      <a>Menu 4</a>
+      <button class="button-outline">Logout</button>
+    </div>
+  </div>
+</div>
+<!-- Sidebar Ends -->
