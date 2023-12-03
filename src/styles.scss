@@ -29,6 +29,23 @@ $accent-2: #505050;
   display: none;
 }
 
+.section {
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @media screen and (min-width: 600px) {
+    max-width: 550px;
+  }
+
+  @media screen and (min-width: 900px) {
+    max-width: 850px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    max-width: 1150px;
+  }
+}
+
 .button-outline {
   background: none;
   color: $white;
@@ -48,4 +65,31 @@ $accent-2: #505050;
 .button-outline:hover {
   color: $accent-1;
   border: 1px solid $accent-1;
+}
+
+.link-btn {
+  display: inline-block;
+  min-width: 150px;
+  padding: 4px 32px;
+  text-align: center;
+  background-color: var(--clr-accent);
+  color: var(--clr-light);
+  border: 1px solid var(--clr-accent);
+  border-radius: 24px;
+}
+
+.link-btn:hover {
+  background: none;
+  color: var(--clr-accent);
+}
+
+.link-btn-outline {
+  display: inline-block;
+  min-width: 150px;
+  padding: 4px 32px;
+  text-align: center;
+  background: none;
+  color: var(--clr-accent);
+  border: 1px solid var(--clr-accent);
+  border-radius: 24px;
 }

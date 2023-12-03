@@ -1,0 +1,70 @@
+@import "../../../styles.scss";
+
+.top-banner {
+  background-color: $dark_gray;
+  height: 400px;
+}
+
+.section {
+  background-color: $off_white;
+  padding: 40px 16px;
+
+  h2 {
+    margin-bottom: 24px;
+  }
+
+  .grid-wrapper {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 24px;
+    column-gap: 24px;
+
+    .card {
+      background-color: $light_gray;
+      width: 100%;
+      max-width: 325px;
+      border-radius: 0px;
+      border: none;
+
+      .top-div {
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+
+        h5 {
+          padding: 16px;
+          text-align: center;
+          border-bottom: 1px solid lightgray;
+        }
+      }
+
+      .mid-div {
+        height: 100%;
+        padding: 16px 16px 0 16px;
+      }
+
+      .bottom-div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 24px 16px;
+        border-top: 1px solid lightgray;
+      }
+    }
+
+    @media (min-width: 750px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+    }
+
+    @media (min-width: 1000px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+    }
+  }
+}
