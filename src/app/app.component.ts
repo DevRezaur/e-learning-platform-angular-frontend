@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'e-learning-platform-angular-frontend';
   showSidebar: boolean = false;
   isLoggedIn: boolean = true;
   userMenu: string[] = [
