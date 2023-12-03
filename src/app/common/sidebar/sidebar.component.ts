@@ -8,10 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   @Input() showSidebar: boolean;
   @Input() isLoggedIn: boolean;
+  @Input() activeMenu: string[];
 
   constructor() {
     this.showSidebar = false;
     this.isLoggedIn = false;
+    this.activeMenu = [];
   }
 
   ngOnInit(): void {}

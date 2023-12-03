@@ -5,7 +5,8 @@
       class="fas"
       [ngClass]="{ 'fa-bars': !showSidebar, 'fa-times': showSidebar }"
       (click)="toggleSidebar()"
-    ></i>
+    >
+    </i>
     <p>ELP</p>
   </div>
   <div *ngIf="!isLoggedIn" class="user-info">
@@ -30,20 +31,21 @@
 <div class="sidebar" [ngClass]="{ hidden: !showSidebar }">
   <div class="wrapper">
     <div *ngIf="!isLoggedIn" class="user-info">
+      <img src="../../../assets/image/male-avatar.svg" alt="male-avatar.svg" />
       <p>No User</p>
       <p>(Please Login)</p>
     </div>
     <div *ngIf="isLoggedIn" class="user-info">
+      <img src="../../../assets/image/male-avatar.svg" alt="male-avatar.svg" />
       <p>Rezaur Rahman</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
       <button class="button-outline">Login</button>
     </div>
     <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
-      <a>Menu 1</a>
-      <a>Menu 2</a>
-      <a>Menu 3</a>
-      <a>Menu 4</a>
+      <a *ngFor="let menuItem of activeMenu">
+        {{ menuItem }}
+      </a>
       <button class="button-outline">Logout</button>
     </div>
   </div>

@@ -42,7 +42,7 @@ nav {
 /* Backdrop Styles */
 .backdrop {
   background-color: $secondary;
-  opacity: 0.1;
+  opacity: 0.3;
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -62,10 +62,19 @@ nav {
 
   .wrapper {
     .user-info {
-      padding: 12px;
+      padding: 24px 12px;
       text-align: center;
       border-top: 1px solid $light_gray;
       border-bottom: 1px solid $light_gray;
+      margin-bottom: 12px;
+
+      img {
+        width: 100%;
+        max-width: 100px;
+        margin-bottom: 16px;
+        background-color: $white;
+        border-radius: 50px;
+      }
 
       p {
         color: $accent-1;
