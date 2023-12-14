@@ -1,9 +1,9 @@
 @import "../../../styles.scss";
 
 footer {
+  padding: 16px;
   background: linear-gradient(to left, $primary, $secondary);
   color: $white;
-  padding: 16px;
 
   .wrapper {
     display: flex;
@@ -41,7 +41,7 @@ footer {
       }
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       flex-direction: column;
       row-gap: 12px;
     }

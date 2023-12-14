@@ -1,21 +1,12 @@
-/*
- * These are the global SCSS style variables. Used by the entire application
- */
-
+/* Global SCSS Style Variables */
 $white: #ffffff;
-$off_white: #f6f6f6;
-$light_gray: #a9b3c1;
-$dark_gray: #445d6e;
 $black: #252525;
-$light_black: #404040;
-//$accent-1: #303030;
 $primary: #1f2833;
 $secondary: #314152;
-//$primary: #536dfe;
-//$secondary: #6c63ff;
 $accent-1: #fc5c7d;
 $accent-2: #505050;
 
+/* Global Style Reset */
 *,
 *::before,
 *::after {
@@ -24,21 +15,40 @@ $accent-2: #505050;
   box-sizing: border-box;
 }
 
-/* Common Styles */
+html {
+  max-width: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--clr-light);
+  color: var(--clr-dark);
+}
+
+/* Custom CSS Classes */
 .hidden {
   display: none;
 }
 
 .section {
-  margin: 0 auto;
-  padding: 0 16px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 576px) {
     max-width: 550px;
   }
 
-  @media screen and (min-width: 900px) {
-    max-width: 850px;
+  @media screen and (min-width: 768px) {
+    max-width: 750px;
+  }
+
+  @media screen and (min-width: 992px) {
+    max-width: 950px;
   }
 
   @media screen and (min-width: 1200px) {
@@ -46,50 +56,43 @@ $accent-2: #505050;
   }
 }
 
-.button-outline {
-  background: none;
-  color: $white;
-  padding: 6px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid $white;
-  border-radius: 20px;
+.button {
+  padding: 4px 16px;
+  background-color: $white;
+  color: $black;
+  display: inline-block;
   text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
   font-size: 14px;
   letter-spacing: 1px;
+  border: none;
+  border-radius: 15px;
   cursor: pointer;
+
+  &:hover {
+    background-color: $accent-1;
+    color: $black;
+    cursor: pointer;
+  }
 }
 
-.button-outline:hover {
-  color: $accent-1;
-  border: 1px solid $accent-1;
-}
-
-.link-btn {
-  display: inline-block;
-  min-width: 150px;
-  padding: 4px 32px;
-  text-align: center;
-  background-color: var(--clr-accent);
-  color: var(--clr-light);
-  border: 1px solid var(--clr-accent);
-  border-radius: 24px;
-}
-
-.link-btn:hover {
+.button-outline {
+  padding: 4px 16px;
   background: none;
-  color: var(--clr-accent);
-}
-
-.link-btn-outline {
+  color: $white;
   display: inline-block;
-  min-width: 150px;
-  padding: 4px 32px;
   text-align: center;
-  background: none;
-  color: var(--clr-accent);
-  border: 1px solid var(--clr-accent);
-  border-radius: 24px;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border: 1px solid $white;
+  border-radius: 15px;
+
+  &:hover {
+    color: $accent-1;
+    border: 1px solid $accent-1;
+    cursor: pointer;
+  }
 }
