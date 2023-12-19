@@ -10,11 +10,11 @@
     <p>ELP</p>
   </div>
   <div *ngIf="!isLoggedIn" class="user-info">
-    <button class="button-outline">Login</button>
+    <button class="button-outline" (click)="login()">Login</button>
   </div>
   <div *ngIf="isLoggedIn" class="user-info">
     <p>Rezaur Rahman</p>
-    <button class="button-outline">Logout</button>
+    <button class="button-outline" (click)="logout()">Logout</button>
   </div>
 </nav>
 <!-- Navbar Ends -->
@@ -40,13 +40,13 @@
       <p>Rezaur Rahman</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
-      <button class="button-outline">Login</button>
+      <button class="button-outline" (click)="login()">Login</button>
     </div>
     <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
       <a *ngFor="let menuItem of activeMenu">
         {{ menuItem }}
       </a>
-      <button class="button-outline">Logout</button>
+      <button class="button-outline" (click)="logout()">Logout</button>
     </div>
   </div>
 </div>
