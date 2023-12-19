@@ -47,10 +47,8 @@ export class AuthService {
           window.location.href === 'http://localhost:4200/common/callback'
         ) {
           if (this.isAdmin()) {
-            alert('Admin login Success');
             this.router.navigate(['/common/home']);
           } else if (this.isUser()) {
-            alert('User login Success');
             this.router.navigate(['/common/home']);
           }
         }
