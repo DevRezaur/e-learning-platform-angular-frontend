@@ -50,7 +50,7 @@ export class AuthService {
         event.type === 'token_received'
       ) {
         if (this.isAdmin()) {
-          this.router.navigate(['/common/home']);
+          this.router.navigate(['/admin']);
         } else if (this.isUser()) {
           this.router.navigate(['/common/home']);
         }
