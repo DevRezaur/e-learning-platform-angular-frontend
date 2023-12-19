@@ -9,24 +9,11 @@ import { AuthService } from './shared/service/auth.service';
 })
 export class AppComponent implements OnInit {
   isLoggedIn: boolean;
-  activeMenu: string[];
-  userMenu: string[] = [
-    'Home',
-    'Learning Dashboard',
-    'Notifications',
-    'Manage Profile',
-  ];
-  adminMenu: string[] = [
-    'Home',
-    'Admin Dashboard',
-    'Notifications',
-    'Manage Users',
-    'Manage Profile',
-  ];
+  isAdmin: boolean;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.activeMenu = [];
+    this.isLoggedIn = false;
+    this.isAdmin = false;
   }
 
   ngOnInit(): void {
@@ -35,9 +22,9 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = this.authService.isLoggedIn();
 
         if (this.isLoggedIn && this.authService.isAdmin()) {
-          this.activeMenu = this.adminMenu;
+          this.isAdmin = true;
         } else {
-          this.activeMenu = this.userMenu;
+          this.isAdmin = false;
         }
       }
     });

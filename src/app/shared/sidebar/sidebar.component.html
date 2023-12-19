@@ -13,7 +13,7 @@
     <button class="button-outline" (click)="login()">Login</button>
   </div>
   <div *ngIf="isLoggedIn" class="user-info">
-    <p>Rezaur Rahman</p>
+    <p>{{ getUserName() }}</p>
     <button class="button-outline" (click)="logout()">Logout</button>
   </div>
 </nav>
@@ -37,14 +37,14 @@
     </div>
     <div *ngIf="isLoggedIn" class="user-info">
       <img src="../../../assets/image/male-avatar.svg" alt="male-avatar.svg" />
-      <p>Rezaur Rahman</p>
+      <p>{{ getUserName() }}</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
       <button class="button-outline" (click)="login()">Login</button>
     </div>
     <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
-      <a *ngFor="let menuItem of activeMenu">
-        {{ menuItem }}
+      <a *ngFor="let menuItem of getActiveMenu()">
+        {{ menuItem.label }}
       </a>
       <button class="button-outline" (click)="logout()">Logout</button>
     </div>
