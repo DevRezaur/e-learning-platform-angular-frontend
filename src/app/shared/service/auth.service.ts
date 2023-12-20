@@ -58,6 +58,7 @@ export class AuthService {
         console.error(event);
       }
     });
+    this.router.navigate(['/']);
   }
 
   public isLoggedIn(): boolean {
