@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FooterComponent } from './footer/footer.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [SidebarComponent, FooterComponent],

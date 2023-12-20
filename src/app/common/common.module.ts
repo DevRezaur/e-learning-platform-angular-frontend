@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-
-import { CallbackComponent } from './callback/callback.component';
 import { CommonRoutingModule } from './common-routing.module';
-import { HomePageComponent } from './home-page/home-page.component';
+import { CallbackComponent } from './component/callback/callback.component';
+import { HomePageComponent } from './component/home-page/home-page.component';
 
 @NgModule({
   declarations: [HomePageComponent, CallbackComponent],

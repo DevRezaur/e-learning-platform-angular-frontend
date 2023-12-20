@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../service/auth.service';
-import { MenuItem } from '../model/menu-item';
+import { AuthService } from '../../service/auth.service';
+import { MenuItem } from '../../model/menu-item';
 
 @Component({
   selector: 'app-sidebar',
