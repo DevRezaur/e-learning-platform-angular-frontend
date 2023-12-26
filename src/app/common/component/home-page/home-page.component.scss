@@ -2,16 +2,16 @@
 
 .top-banner-section {
   height: 400px;
-  background-color: lightgray;
+  background-color: $primary;
 }
 
 .featured-course-section {
   .section {
-    padding: 40px 16px;
-    background-color: $white;
+    padding: 60px 16px;
 
     h2 {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      font-size: 32px;
     }
 
     .grid-wrapper {
@@ -24,7 +24,6 @@
 
       .card {
         width: 100%;
-        background-color: lightgray;
 
         .top-div {
           img {
@@ -36,21 +35,26 @@
           h3 {
             padding: 16px 16px 0 16px;
             text-align: center;
-            border-bottom: 1px solid lightgray;
+            font-size: 20px;
           }
         }
 
         .mid-div {
           padding: 16px 16px 0 16px;
+
+          .desc {
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+          }
         }
 
         .bottom-div {
-          padding: 24px 16px 16px 16px;
+          padding: 20px 16px 24px 16px;
           display: flex;
           flex-direction: row;
           justify-content: center;
           align-items: center;
-          border-top: 1px solid lightgray;
         }
       }
 
@@ -73,12 +77,14 @@
 }
 
 .category-section {
+  background-color: $off-white;
+
   .section {
-    padding: 40px 16px;
-    background-color: $white;
+    padding: 60px 16px;
 
     h2 {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      font-size: 32px;
     }
 
     .grid-wrapper {
@@ -91,13 +97,25 @@
 
       .card {
         padding: 48px 16px 24px 16px;
-        background-color: lightgray;
         text-align: center;
-        border: none;
+        background-color: $white;
+
+        &:hover {
+          background-color: $secondary;
+          color: $white;
+          cursor: pointer;
+          transition-delay: 0.05s;
+          -webkit-transition-delay: 0.05s;
+        }
 
         i {
           margin-bottom: 16px;
           color: $accent-1;
+        }
+
+        p {
+          font-size: 16px;
+          letter-spacing: 0.5px;
         }
       }
 

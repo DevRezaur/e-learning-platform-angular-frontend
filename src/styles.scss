@@ -1,5 +1,6 @@
 /* Global SCSS Style Variables */
 $white: #ffffff;
+$off-white: #f5f5f5;
 $black: #252525;
 $primary: #1f2833;
 $secondary: #314152;
@@ -23,6 +24,10 @@ html {
 body {
   max-width: 100%;
   overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
 }
 
 /* Custom CSS Classes */
@@ -55,9 +60,9 @@ body {
 }
 
 .button {
-  padding: 4px 16px;
-  background-color: $white;
-  color: $black;
+  padding: 6px 16px;
+  background-color: $primary;
+  color: $white;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -93,4 +98,9 @@ body {
     border: 1px solid $accent-1;
     cursor: pointer;
   }
+}
+
+.shadow {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
