@@ -137,56 +137,57 @@
       font-size: 32px;
     }
 
-    .grid-wrapper {
-      margin-bottom: 48px;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      row-gap: 24px;
-      column-gap: 24px;
+    .category {
+      h3 {
+        margin-bottom: 20px;
+        margin-left: 2px;
+        font-size: 20px;
+        letter-spacing: 1px;
+        color: $accent-1;
+      }
 
-      .card {
-        padding: 48px 16px 24px 16px;
-        text-align: center;
-        background-color: $white;
+      .grid-wrapper {
+        margin-bottom: 28px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        row-gap: 16px;
+        column-gap: 16px;
 
-        &:hover {
-          background-color: $secondary;
-          color: $white;
-          cursor: pointer;
-          transition-delay: 0.05s;
-          -webkit-transition-delay: 0.05s;
+        .item {
+          padding: 16px;
+          background-color: $white;
+
+          &:hover {
+            color: $accent-1;
+            cursor: pointer;
+          }
+
+          p {
+            font-size: 16px;
+            letter-spacing: 1px;
+          }
         }
 
-        i {
-          margin-bottom: 16px;
-          color: $accent-1;
+        @media screen and (min-width: 576px) {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
         }
 
-        p {
-          font-size: 16px;
-          letter-spacing: 0.5px;
+        @media screen and (min-width: 768px) {
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-rows: auto;
         }
-      }
 
-      @media screen and (min-width: 576px) {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-      }
+        @media screen and (min-width: 992px) {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          grid-template-rows: auto;
+        }
 
-      @media screen and (min-width: 768px) {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: auto;
-      }
-
-      @media screen and (min-width: 992px) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto;
-      }
-
-      @media screen and (min-width: 1200) {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto;
+        @media screen and (min-width: 1200px) {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+          grid-template-rows: auto;
+        }
       }
     }
   }
