@@ -1,8 +1,58 @@
 @import "../../../../styles.scss";
 
 .top-banner-section {
-  height: 400px;
+  padding: 100px 16px;
   background-color: $primary;
+  color: $white;
+
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "right-div" "left-div";
+    row-gap: 48px;
+    column-gap: 24px;
+
+    .left-div {
+      grid-area: left-div;
+
+      .top-line {
+        margin-bottom: 8px;
+        color: $accent-1;
+        font-size: 20px;
+        letter-spacing: 4px;
+      }
+
+      h2 {
+        margin-bottom: 24px;
+        font-size: 36px;
+      }
+
+      .desc {
+        font-size: 18px;
+        line-height: 24px;
+      }
+    }
+
+    .right-div {
+      grid-area: right-div;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: auto;
+      grid-template-rows: 1fr;
+      grid-template-areas: "left-div right-div";
+    }
+  }
 }
 
 .featured-course-section {
