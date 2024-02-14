@@ -29,10 +29,7 @@
     <div class="grid-wrapper">
       <div class="card shadow" *ngFor="let course of featuredCourses">
         <div class="top-div">
-          <img
-            src="../../../assets/image/baeldung-home-other-content.jpg"
-            alt=""
-          />
+          <img [src]="course.image" alt="" />
         </div>
         <div class="mid-div">
           <h3>{{ course.courseName }}</h3>

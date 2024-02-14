@@ -13,4 +13,10 @@ export class BackendApiService {
   callHomeScreenAPI(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/home-screen-api`);
   }
+
+  callGetContentAPI(contentUrl: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/content-api/${contentUrl}`, {
+      responseType: 'arraybuffer',
+    });
+  }
 }
