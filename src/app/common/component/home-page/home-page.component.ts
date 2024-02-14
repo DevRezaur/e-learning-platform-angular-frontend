@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 
 @Component({
   selector: 'app-home-page',
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  constructor() {}
+  featuredCourses: any[];
 
-  ngOnInit(): void {}
+  constructor(private backendApiService: BackendApiService) {
+    this.featuredCourses = [];
+  }
+
+  ngOnInit(): void {
+    this.backendApiService.callHomeScreenAPI().subscribe({
+      next: (result) =>
+        (this.featuredCourses = result['responseBody']['courseList']),
+      error: (error) => console.error(error),
+    });
+  }
 }
