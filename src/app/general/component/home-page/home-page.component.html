@@ -35,17 +35,21 @@
           />
         </div>
         <div class="mid-div">
-          <h3>JWT-refresh-token-spring-boot</h3>
+          <h3>{{ course.courseName }}</h3>
           <p class="desc">
-            This is a ready to use template code for implementing JWT based
-            authentication with refresh token using Spring Boot. Can be used
-            with any spring-based project.
+            {{ course.description }}
           </p>
         </div>
         <div class="bottom-div">
           <div class="price">
-            <p class="original-price">Price: 10,000 BDT</p>
-            <p><strong>Price:</strong> 5,000 BDT</p>
+            <p class="original-price">{{ course.courseFee }} BDT</p>
+            <p>
+              <strong>Price:</strong>
+              {{
+                course.courseFee - (course.courseFee * course.discount) / 100
+              }}
+              BDT
+            </p>
           </div>
           <a
             class="button"
