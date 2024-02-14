@@ -4,13 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'common',
+    redirectTo: 'general',
     pathMatch: 'full',
   },
   {
-    path: 'common',
+    path: 'general',
     loadChildren: () =>
-      import('./common/common.module').then((module) => module.CommonModule),
+      import('./general/general.module').then((module) => module.GeneralModule),
   },
   {
     path: 'user',
