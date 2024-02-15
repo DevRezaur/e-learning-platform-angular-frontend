@@ -28,7 +28,7 @@ export class AuthService {
     clientId: 'spa-client',
     scope: 'openid profile email offline_access',
     issuer: 'http://localhost:8080/realms/e-learning-platform',
-    redirectUri: window.location.origin + '/common/callback',
+    redirectUri: window.location.origin + '/general/callback',
     postLogoutRedirectUri: window.location.origin,
     requireHttps: false,
     disableAtHashCheck: true,
