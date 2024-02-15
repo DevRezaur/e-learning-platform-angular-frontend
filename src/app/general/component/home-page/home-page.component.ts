@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 
 @Component({
@@ -8,25 +9,21 @@ import { BackendApiService } from 'src/app/shared/service/backend-api.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  featuredCourses: any[];
+  featuredCourses: any[] = [];
 
   constructor(
     private backendApiService: BackendApiService,
     private sanitizer: DomSanitizer
-  ) {
-    this.featuredCourses = [];
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.loadHomeScreenData();
+  }
+
+  loadHomeScreenData(): void {
     this.backendApiService.callHomeScreenAPI().subscribe({
       next: (response) => {
-        this.featuredCourses = response['responseBody']['courseList'].map(
-          (course: any) => ({
-            ...course,
-            image: null,
-            loading: true,
-          })
-        );
+        this.featuredCourses = response?.responseBody?.courseList || [];
         this.loadImages();
       },
       error: (error) => console.error(error),
@@ -34,25 +31,19 @@ export class HomePageComponent implements OnInit {
   }
 
   loadImages(): void {
-    this.featuredCourses.forEach((course, index) => {
-      this.backendApiService.callGetContentAPI(course.imageUrl).subscribe({
-        next: (response: ArrayBuffer) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const imageDataUrl = reader.result as string;
-            const sanitizedUrl =
-              this.sanitizer.bypassSecurityTrustUrl(imageDataUrl);
-            this.featuredCourses[index].image = sanitizedUrl;
-            this.featuredCourses[index].loading = false; // Set loading to false once image is loaded
-          };
-          reader.readAsDataURL(new Blob([response]));
+    this.featuredCourses.forEach((course) => {
+      this.getImage(course.imageUrl).subscribe({
+        next: (image) => {
+          course.image = this.sanitizer.bypassSecurityTrustUrl(image);
         },
-        error: (error) => {
-          console.error('Error loading image:', error);
-          // Optionally handle the error or provide a fallback image
-          this.featuredCourses[index].loading = false; // Set loading to false if image loading fails
-        },
+        error: (error) => console.error(error),
       });
     });
+  }
+
+  getImage(imageUrl: string): Observable<string> {
+    return this.backendApiService
+      .callGetContentAPI(imageUrl)
+      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
   }
 }

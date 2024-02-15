@@ -39,7 +39,9 @@
         </div>
         <div class="bottom-div">
           <div class="price">
-            <p class="original-price">{{ course.courseFee }} BDT</p>
+            <p class="original-price" *ngIf="course.discount != 0">
+              {{ course.courseFee }} BDT
+            </p>
             <p>
               <strong>Price:</strong>
               {{
