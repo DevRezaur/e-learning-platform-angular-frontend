@@ -1,11 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { GeneralRoutingModule } from './general-routing.module';
 import { CallbackComponent } from './component/callback/callback.component';
 import { HomePageComponent } from './component/home-page/home-page.component';
-import { CommonModule } from '@angular/common';
+import { ProfileComponent } from './component/profile/profile.component';
+import { GeneralRoutingModule } from './general-routing.module';
 
 @NgModule({
-  declarations: [HomePageComponent, CallbackComponent],
+  declarations: [HomePageComponent, CallbackComponent, ProfileComponent],
   imports: [GeneralRoutingModule, CommonModule],
   exports: [],
 })
