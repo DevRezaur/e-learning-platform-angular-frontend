@@ -33,6 +33,17 @@ nav {
     align-items: center;
     column-gap: 12px;
 
+    .button-outline {
+      color: $white;
+      border: 1px solid $white;
+
+      &:hover {
+        background: none;
+        color: $accent-1;
+        border: 1px solid $accent-1;
+      }
+    }
+
     @media screen and (max-width: 768px) {
       display: none;
     }
