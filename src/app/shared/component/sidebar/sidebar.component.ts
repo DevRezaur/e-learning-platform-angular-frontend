@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
 import { MenuItem } from '../../model/menu-item';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,10 +20,11 @@ export class SidebarComponent {
   ];
   adminMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
-    { label: 'Admin Dashboard', route: '/' },
-    { label: 'Notifications', route: '/' },
-    { label: 'Manage Users', route: '/' },
-    { label: 'Manage Profile', route: '/' },
+    { label: 'Dashboard', route: '/admin/dashboard' },
+    { label: 'Profile', route: '/admin/profile' },
+    { label: 'Notifications', route: '/admin/notification' },
+    { label: 'Payment Requests', route: '/admin/payments' },
+    { label: 'Statistics', route: '/admin/statistics' },
   ];
 
   constructor(private authService: AuthService) {

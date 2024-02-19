@@ -43,7 +43,7 @@
       <button class="button-outline" (click)="login()">Login</button>
     </div>
     <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
-      <a *ngFor="let menuItem of getActiveMenu()">
+      <a *ngFor="let menuItem of getActiveMenu()" [routerLink]="menuItem.route">
         {{ menuItem.label }}
       </a>
       <button class="button-outline" (click)="logout()">Logout</button>
