@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'common',
+    redirectTo: 'general',
     pathMatch: 'full',
   },
 ];

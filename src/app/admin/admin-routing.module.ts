@@ -12,6 +12,13 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
   },
+  {
+    path: 'general',
+    loadChildren: () =>
+      import('../general/general.module').then(
+        (module) => module.GeneralModule
+      ),
+  },
 ];
 
 @NgModule({
