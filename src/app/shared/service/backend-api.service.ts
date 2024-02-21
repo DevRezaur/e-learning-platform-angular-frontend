@@ -19,4 +19,10 @@ export class BackendApiService {
       responseType: 'arraybuffer',
     });
   }
+
+  callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
+    );
+  }
 }

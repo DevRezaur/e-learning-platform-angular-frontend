@@ -2,27 +2,27 @@
   <div class="section">
     <h2>Course Management Panel</h2>
     <div class="grid-wrapper">
-      <div class="card shadow">
+      <div class="card shadow" *ngFor="let course of courseList">
         <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
+          <img [src]="course.image" alt="" />
         </div>
         <div class="mid-div">
-          <h3>Dummy Course Name</h3>
+          <h3>{{ course.courseName }}</h3>
           <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
+            {{ course.description }}
           </p>
         </div>
         <div class="bottom-div">
           <div class="price">
-            <p class="original-price">10000 BDT</p>
+            <p class="original-price" *ngIf="course.discount != 0">
+              {{ course.courseFee }} BDT
+            </p>
             <p>
               <strong>Price:</strong>
-              5000 BDT
+              {{
+                course.courseFee - (course.courseFee * course.discount) / 100
+              }}
+              BDT
             </p>
           </div>
           <a
@@ -30,174 +30,22 @@
             href="https://github.com/DevRezaur/spring-security-JWT-module"
             target="_blank"
           >
-            Edit Course
-          </a>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
-        </div>
-        <div class="mid-div">
-          <h3>Dummy Course Name</h3>
-          <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
-          </p>
-        </div>
-        <div class="bottom-div">
-          <div class="price">
-            <p class="original-price">10000 BDT</p>
-            <p>
-              <strong>Price:</strong>
-              5000 BDT
-            </p>
-          </div>
-          <a
-            class="button"
-            href="https://github.com/DevRezaur/spring-security-JWT-module"
-            target="_blank"
-          >
-            Edit Course
-          </a>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
-        </div>
-        <div class="mid-div">
-          <h3>Dummy Course Name</h3>
-          <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
-          </p>
-        </div>
-        <div class="bottom-div">
-          <div class="price">
-            <p class="original-price">10000 BDT</p>
-            <p>
-              <strong>Price:</strong>
-              5000 BDT
-            </p>
-          </div>
-          <a
-            class="button"
-            href="https://github.com/DevRezaur/spring-security-JWT-module"
-            target="_blank"
-          >
-            Edit Course
-          </a>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
-        </div>
-        <div class="mid-div">
-          <h3>Dummy Course Name</h3>
-          <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
-          </p>
-        </div>
-        <div class="bottom-div">
-          <div class="price">
-            <p class="original-price">10000 BDT</p>
-            <p>
-              <strong>Price:</strong>
-              5000 BDT
-            </p>
-          </div>
-          <a
-            class="button"
-            href="https://github.com/DevRezaur/spring-security-JWT-module"
-            target="_blank"
-          >
-            Edit Course
-          </a>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
-        </div>
-        <div class="mid-div">
-          <h3>Dummy Course Name</h3>
-          <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
-          </p>
-        </div>
-        <div class="bottom-div">
-          <div class="price">
-            <p class="original-price">10000 BDT</p>
-            <p>
-              <strong>Price:</strong>
-              5000 BDT
-            </p>
-          </div>
-          <a
-            class="button"
-            href="https://github.com/DevRezaur/spring-security-JWT-module"
-            target="_blank"
-          >
-            Edit Course
-          </a>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img
-            src="../../../../assets/image/baeldung-home-java-series.jpg"
-            alt=""
-          />
-        </div>
-        <div class="mid-div">
-          <h3>Dummy Course Name</h3>
-          <p class="desc">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum at
-            voluptate officiis expedita dolore corrupti provident, pariatur
-            optio corporis dolor!
-          </p>
-        </div>
-        <div class="bottom-div">
-          <div class="price">
-            <p class="original-price">10000 BDT</p>
-            <p>
-              <strong>Price:</strong>
-              5000 BDT
-            </p>
-          </div>
-          <a
-            class="button"
-            href="https://github.com/DevRezaur/spring-security-JWT-module"
-            target="_blank"
-          >
-            Edit Course
+            Manage Course
           </a>
         </div>
       </div>
     </div>
     <div class="button-wrapper">
-      <button class="button">Back</button>
-      <button class="button">Next</button>
+      <button
+        class="button"
+        (click)="onPageChange(pageNumber - 1)"
+        [disabled]="pageNumber == 1"
+      >
+        Back
+      </button>
+      <button class="button" (click)="onPageChange(pageNumber + 1)">
+        Next
+      </button>
     </div>
   </div>
 </div>

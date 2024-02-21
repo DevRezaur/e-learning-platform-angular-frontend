@@ -81,6 +81,12 @@ a {
     color: $black;
     cursor: pointer;
   }
+
+  &:disabled {
+    background-color: $dark-gray;
+    color: $white;
+    cursor: auto;
+  }
 }
 
 .button-outline {
@@ -100,6 +106,12 @@ a {
     color: $white;
     background-color: $accent-1;
     cursor: pointer;
+  }
+
+  &:disabled {
+    color: $dark-gray;
+    border: 1px solid $dark-gray;
+    cursor: auto;
   }
 }
 
