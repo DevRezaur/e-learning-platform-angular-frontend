@@ -17,11 +17,11 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadHomeScreenData();
+    this.loadHomePageData();
   }
 
-  loadHomeScreenData(): void {
-    this.backendApiService.callHomeScreenAPI().subscribe({
+  loadHomePageData(): void {
+    this.backendApiService.callHomePageAPI().subscribe({
       next: (response) => {
         this.featuredCourses = response?.responseBody?.courseList || [];
         this.loadImages();

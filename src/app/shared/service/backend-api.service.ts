@@ -10,8 +10,8 @@ export class BackendApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  callHomeScreenAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/home-screen-api`);
+  callHomePageAPI(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/home-page-api`);
   }
 
   callGetContentAPI(contentUrl: string): Observable<any> {
