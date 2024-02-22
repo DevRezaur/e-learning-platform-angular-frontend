@@ -36,7 +36,7 @@ export class ProfilePageComponent implements OnInit {
 
   loadProfileData(): void {
     this.backendApiService
-      .callGetProfileDataAPI(this.authService.getUserId())
+      .callGetUserDataAPI(this.authService.getUserId())
       .subscribe({
         next: (response) => {
           const userData = response?.responseBody?.user || [];
@@ -64,8 +64,17 @@ export class ProfilePageComponent implements OnInit {
 
   updateProfileData(): void {
     this.markFormGroupTouched(this.profileDataForm);
-    const updatedData = this.profileDataForm.value;
-    console.log(updatedData);
+    if (this.profileDataForm.valid) {
+      const userId = this.profileDataForm.get('userId')?.value;
+      const email = this.profileDataForm.get('email')?.value;
+      const formData = { ...this.profileDataForm.value, userId, email };
+      this.backendApiService.callUpdateUserDataAPI(formData).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => console.error(error),
+      });
+    }
   }
 
   markFormGroupTouched(formGroup: FormGroup) {

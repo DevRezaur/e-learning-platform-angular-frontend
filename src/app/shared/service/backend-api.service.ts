@@ -26,7 +26,11 @@ export class BackendApiService {
     );
   }
 
-  callGetProfileDataAPI(userId: string): Observable<any> {
+  callGetUserDataAPI(userId: string): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/profile-page-api/${userId}`);
+  }
+
+  callUpdateUserDataAPI(userData: any): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/profile-page-api`, userData);
   }
 }
