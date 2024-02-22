@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
+import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -17,6 +18,7 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private backendApiService: BackendApiService,
+    private popNotificationService: PopNotificationService,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer
   ) {
@@ -70,9 +72,11 @@ export class ProfilePageComponent implements OnInit {
       const formData = { ...this.profileDataForm.value, userId, email };
       this.backendApiService.callUpdateUserDataAPI(formData).subscribe({
         next: (response) => {
-          console.log(response);
+          this.popNotificationService.success(response.responseBody.message);
         },
-        error: (error) => console.error(error),
+        error: (error) => {
+          this.popNotificationService.error(error.error.errorMessage);
+        },
       });
     }
   }
