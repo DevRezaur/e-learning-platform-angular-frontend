@@ -87,6 +87,19 @@
                   <option value="Other">Other</option>
                 </select>
               </div>
+              <div
+                *ngIf="
+                  profileDataForm.get('gender')?.invalid &&
+                  profileDataForm.get('gender')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('gender')?.hasError('required')"
+                >
+                  Gender is required!
+                </div>
+              </div>
             </div>
             <div class="field">
               <label for="dateOfBirth">Date of Birth</label>
