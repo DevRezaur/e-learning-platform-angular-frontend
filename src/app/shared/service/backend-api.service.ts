@@ -25,4 +25,8 @@ export class BackendApiService {
       `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
     );
   }
+
+  callGetProfileDataAPI(userId: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/profile-page-api/${userId}`);
+  }
 }

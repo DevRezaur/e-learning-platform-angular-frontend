@@ -14,7 +14,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:9090'],
+        allowedUrls: ['http://localhost:9191'],
         sendAccessToken: true,
       },
     }),

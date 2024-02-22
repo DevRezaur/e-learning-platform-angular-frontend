@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -6,7 +11,69 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
-  constructor() {}
+  profileDataForm: FormGroup;
+  profileImage: any;
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private backendApiService: BackendApiService,
+    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {
+    this.profileDataForm = this.formBuilder.group({
+      userId: [{ value: '', disabled: true }, Validators.required],
+      email: [{ value: '', disabled: true }, [Validators.required]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadProfileData();
+  }
+
+  loadProfileData(): void {
+    this.backendApiService
+      .callGetProfileDataAPI(this.authService.getUserId())
+      .subscribe({
+        next: (response) => {
+          const userData = response?.responseBody?.user || [];
+          this.profileDataForm.patchValue(userData);
+          this.loadImage(userData.imageUrl);
+        },
+        error: (error) => console.error(error),
+      });
+  }
+
+  loadImage(imageUrl: string): void {
+    this.getImage(imageUrl).subscribe({
+      next: (image) => {
+        this.profileImage = this.sanitizer.bypassSecurityTrustUrl(image);
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
+  getImage(imageUrl: string): Observable<string> {
+    return this.backendApiService
+      .callGetContentAPI(imageUrl)
+      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
+  }
+
+  updateProfileData(): void {
+    this.markFormGroupTouched(this.profileDataForm);
+    const updatedData = this.profileDataForm.value;
+    console.log(updatedData);
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 }

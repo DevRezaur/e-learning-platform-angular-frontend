@@ -2,50 +2,114 @@
   <div class="section">
     <div class="grid-wrapper">
       <div class="left-div">
-        <img src="../../../../assets/image/male-avatar.svg" alt="" />
+        <img [src]="profileImage" alt="" />
         <button class="button">Change Picture</button>
       </div>
       <div class="right-div">
         <h3>Personal Information</h3>
-        <form>
+        <form [formGroup]="profileDataForm" (ngSubmit)="updateProfileData()">
           <div class="field-wrapper">
             <div class="field">
               <div class="field">
                 <label for="userId">User Id</label>
-                <input type="text" id="userId" disabled />
+                <input type="text" id="userId" formControlName="userId" />
               </div>
             </div>
             <div class="field">
               <div class="field">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" disabled />
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  autocomplete="email"
+                />
               </div>
             </div>
           </div>
           <div class="field-wrapper">
             <div class="field">
               <label for="firstName">First Name</label>
-              <input type="text" id="firstName" />
+              <input type="text" id="firstName" formControlName="firstName" />
+              <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div>
             </div>
             <div class="field">
               <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" />
+              <input type="text" id="lastName" formControlName="lastName" />
+              <div
+                *ngIf="
+                  profileDataForm.get('lastName')?.invalid &&
+                  profileDataForm.get('lastName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('lastName')?.hasError('required')"
+                >
+                  Last name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('lastName')?.hasError('minlength')"
+                >
+                  Last name must be at least 3 characters long!
+                </div>
+              </div>
             </div>
           </div>
           <div class="field-wrapper">
             <div class="field">
               <label for="gender">Gender</label>
               <div class="dropdown">
-                <select id="gender">
-                  <option value="male" selected>Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                <select id="gender" formControlName="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
             <div class="field">
               <label for="dateOfBirth">Date of Birth</label>
-              <input type="date" id="dateOfBirth" />
+              <input
+                type="date"
+                id="dateOfBirth"
+                formControlName="dateOfBirth"
+              />
+              <div
+                *ngIf="
+                  profileDataForm.get('dateOfBirth')?.invalid &&
+                  profileDataForm.get('dateOfBirth')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('dateOfBirth')?.hasError('required')
+                  "
+                >
+                  Date of Birth is required!
+                </div>
+              </div>
             </div>
           </div>
           <button class="button">Save Changes</button>
