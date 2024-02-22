@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CallbackComponent } from './component/callback/callback.component';
-import { HomePageComponent } from './component/home-page/home-page.component';
-import { ProfilePageComponent } from './component/profile-page/profile-page.component';
+import { CallbackPageComponent } from './page/callback-page/callback-page.component';
+import { HomePageComponent } from './page/home-page/home-page.component';
+import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'callback',
-    component: CallbackComponent,
+    component: CallbackPageComponent,
   },
   {
     path: 'profile',

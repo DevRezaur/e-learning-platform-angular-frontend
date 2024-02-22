@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CallbackComponent } from './component/callback/callback.component';
-import { HomePageComponent } from './component/home-page/home-page.component';
-import { ProfilePageComponent } from './component/profile-page/profile-page.component';
+import { CallbackPageComponent } from './page/callback-page/callback-page.component';
+import { HomePageComponent } from './page/home-page/home-page.component';
+import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { GeneralRoutingModule } from './general-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [HomePageComponent, CallbackComponent, ProfilePageComponent],
+  declarations: [
+    HomePageComponent,
+    CallbackPageComponent,
+    ProfilePageComponent,
+  ],
   imports: [GeneralRoutingModule, CommonModule, ReactiveFormsModule],
   exports: [],
 })
