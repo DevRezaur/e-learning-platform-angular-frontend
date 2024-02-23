@@ -138,8 +138,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   updatePasswordData(): void {
-    if (this.passwordDataForm.valid) {
-      alert('sasas');
-    }
+    this.backendApiService
+      .callUpdatePasswordAPI(
+        this.authService.getUserId(),
+        this.passwordDataForm.get('newPassword')?.value
+      )
+      .subscribe({
+        next: (response) => {
+          this.popNotificationService.success(response.responseBody.message);
+        },
+        error: (error) => {
+          this.popNotificationService.error(error.error.errorMessage);
+        },
+      });
   }
 }

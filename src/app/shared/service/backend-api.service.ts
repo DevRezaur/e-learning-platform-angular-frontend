@@ -48,4 +48,11 @@ export class BackendApiService {
       { headers: headers }
     );
   }
+
+  callUpdatePasswordAPI(userId: string, password: string): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/profile-page-api/password`, {
+      userId: userId,
+      password: password,
+    });
+  }
 }
