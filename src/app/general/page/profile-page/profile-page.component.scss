@@ -39,6 +39,10 @@
         }
 
         form {
+          &:not(:last-child) {
+            margin-bottom: 40px;
+          }
+
           .field-wrapper {
             display: grid;
             grid-column: 1fr;

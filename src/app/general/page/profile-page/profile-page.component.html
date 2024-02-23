@@ -2,12 +2,14 @@
   <div class="section">
     <div class="grid-wrapper">
       <div class="left-div">
-        <img *ngIf="profileImage" [src]="profileImage" alt="" />
         <img
-          *ngIf="!profileImage"
-          src="../../../../assets/image/male-avatar.svg"
+          *ngIf="profileImage; else defaultImage"
+          [src]="profileImage"
           alt=""
         />
+        <ng-template #defaultImage>
+          <img src="../../../../assets/image/male-avatar.svg" alt="" />
+        </ng-template>
         <input
           type="file"
           class="hidden"
@@ -140,6 +142,84 @@
             </div>
           </div>
           <button class="button">Update Info</button>
+        </form>
+        <h3>Change Password</h3>
+        <form [formGroup]="passwordDataForm" (ngSubmit)="updatePasswordData()">
+          <div class="field-wrapper">
+            <div class="field">
+              <div class="field">
+                <label for="newPassword">New Password</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  formControlName="newPassword"
+                />
+                <div
+                  *ngIf="
+                    passwordDataForm.get('newPassword')?.invalid &&
+                    (passwordDataForm.get('newPassword')?.dirty ||
+                      passwordDataForm.get('newPassword')?.touched)
+                  "
+                >
+                  <div
+                    class="error"
+                    *ngIf="
+                      passwordDataForm.get('newPassword')?.hasError('required')
+                    "
+                  >
+                    Password is required!
+                  </div>
+                  <div
+                    class="error"
+                    *ngIf="
+                      passwordDataForm.get('newPassword')?.hasError('pattern')
+                    "
+                  >
+                    Password must contain at least one uppercase letter, one
+                    lowercase letter, one digit, one special character, and be
+                    at least 8 characters long.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                />
+                <div
+                  *ngIf="
+                    passwordDataForm.invalid &&
+                    (passwordDataForm.get('confirmPassword')?.dirty ||
+                      passwordDataForm.get('confirmPassword')?.touched)
+                  "
+                >
+                  <div
+                    class="error"
+                    *ngIf="
+                      passwordDataForm
+                        .get('confirmPassword')
+                        ?.hasError('required')
+                    "
+                  >
+                    Please confirm your password!
+                  </div>
+                  <div
+                    class="error"
+                    *ngIf="passwordDataForm?.hasError('mismatch')"
+                  >
+                    Passwords do not match!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="button" [disabled]="passwordDataForm.invalid">
+            Change Password
+          </button>
         </form>
       </div>
     </div>

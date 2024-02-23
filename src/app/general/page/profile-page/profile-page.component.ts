@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -12,8 +18,9 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
-  profileDataForm: FormGroup;
   profileImage: any;
+  profileDataForm: FormGroup;
+  passwordDataForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -30,10 +37,32 @@ export class ProfilePageComponent implements OnInit {
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
     });
+    this.passwordDataForm = this.formBuilder.group(
+      {
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+            ),
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: [this.confirmPasswordValidator] }
+    );
   }
 
   ngOnInit(): void {
     this.loadProfileData();
+  }
+
+  confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    return !control.value.confirmPassword ||
+      control.value.newPassword === control.value.confirmPassword
+      ? null
+      : { mismatch: true };
   }
 
   loadProfileData(): void {
@@ -105,6 +134,12 @@ export class ProfilePageComponent implements OnInit {
           this.popNotificationService.error(error.error.errorMessage);
         },
       });
+    }
+  }
+
+  updatePasswordData(): void {
+    if (this.passwordDataForm.valid) {
+      alert('sasas');
     }
   }
 }
