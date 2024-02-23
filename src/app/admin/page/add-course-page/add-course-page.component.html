@@ -1,1 +1,46 @@
-<p>add-course-page works!</p>
+<div class="add-course-section">
+  <div class="section">
+    <div class="grid-wrapper">
+      <div class="left-div">
+        <img
+          src="../../../../assets/image/baeldung-home-java-series.jpg"
+          alt=""
+        />
+        <input type="file" class="s" accept="image/*" #fileInput />
+      </div>
+      <div class="right-div">
+        <h3>Course Details</h3>
+        <form>
+          <div class="field">
+            <label for="title">Course Title</label>
+            <input type="text" id="title" />
+          </div>
+          <div class="field">
+            <label for="description">Description</label>
+            <textarea rows="4" maxlength="250" id="description"></textarea>
+          </div>
+          <div class="field-wrapper">
+            <div class="field">
+              <label for="courseFee">Course Fee</label>
+              <input type="number" id="courseFee" />
+            </div>
+            <div class="field">
+              <label for="discount">Discount Percentage (If applicable)</label>
+              <input type="number" id="discount" />
+            </div>
+            <div class="field">
+              <label for="gender">Enrollment Status</label>
+              <div class="dropdown">
+                <select id="isEnrollmentEnabled">
+                  <option value="true">Open For Enrollment</option>
+                  <option value="false">Close For Enrollment</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="button">Add Course</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
