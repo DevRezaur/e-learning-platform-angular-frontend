@@ -2,8 +2,22 @@
   <div class="section">
     <div class="grid-wrapper">
       <div class="left-div">
-        <img [src]="profileImage" alt="" />
-        <button class="button">Change Picture</button>
+        <img *ngIf="profileImage" [src]="profileImage" alt="" />
+        <img
+          *ngIf="!profileImage"
+          src="../../../../assets/image/male-avatar.svg"
+          alt=""
+        />
+        <input
+          type="file"
+          class="hidden"
+          (change)="onImageSelected($event)"
+          accept="image/*"
+          #fileInput
+        />
+        <button class="button" (click)="fileInput.click()">
+          Change Picture
+        </button>
       </div>
       <div class="right-div">
         <h3>Personal Information</h3>

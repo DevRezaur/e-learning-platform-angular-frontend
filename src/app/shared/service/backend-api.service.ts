@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -32,5 +32,20 @@ export class BackendApiService {
 
   callUpdateUserDataAPI(userData: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/profile-page-api`, userData);
+  }
+
+  callUpdateUserImageAPI(userId: string, image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.httpClient.post(
+      `${this.baseUrl}/profile-page-api/image/${userId}`,
+      formData,
+      { headers: headers }
+    );
   }
 }

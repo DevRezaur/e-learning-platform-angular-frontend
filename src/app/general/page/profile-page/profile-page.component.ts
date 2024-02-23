@@ -89,4 +89,22 @@ export class ProfilePageComponent implements OnInit {
       }
     });
   }
+
+  onImageSelected(event: any) {
+    const image: File = event.target.files[0];
+    if (image) {
+      const userId = this.authService.getUserId();
+      this.backendApiService.callUpdateUserImageAPI(userId, image).subscribe({
+        next: (response) => {
+          this.popNotificationService.success(response.responseBody.message);
+          this.profileImage = this.sanitizer.bypassSecurityTrustUrl(
+            URL.createObjectURL(image)
+          );
+        },
+        error: (error) => {
+          this.popNotificationService.error(error.error.errorMessage);
+        },
+      });
+    }
+  }
 }
