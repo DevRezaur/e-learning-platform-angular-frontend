@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/menu-item';
 import { AuthService } from '../../service/auth.service';
+import { BackendApiService } from '../../service/backend-api.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +13,7 @@ import { AuthService } from '../../service/auth.service';
 export class SidebarComponent implements OnInit {
   isLoggedIn: boolean;
   isAdmin: boolean;
+  userImage: any;
   showSidebar: boolean;
   userMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
@@ -26,17 +30,53 @@ export class SidebarComponent implements OnInit {
     { label: 'Statistics', route: '/admin/statistics' },
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private backendApiService: BackendApiService,
+    private sanitizer: DomSanitizer
+  ) {
     this.isLoggedIn = false;
     this.isAdmin = false;
     this.showSidebar = false;
   }
 
   ngOnInit(): void {
+    this.setLoginStatusAndLoadUserInfo();
+  }
+
+  setLoginStatusAndLoadUserInfo(): void {
     this.authService.isLoggedIn().subscribe((loggedInStatus) => {
       this.isLoggedIn = loggedInStatus;
       this.isAdmin = this.authService.isAdmin();
+      this.loadProfileData();
     });
+  }
+
+  loadProfileData(): void {
+    this.backendApiService
+      .callGetUserDataAPI(this.authService.getUserId())
+      .subscribe({
+        next: (response) => {
+          const userData = response?.responseBody?.user || [];
+          this.loadImage(userData.imageUrl);
+        },
+        error: (error) => console.error(error),
+      });
+  }
+
+  loadImage(imageUrl: string): void {
+    this.getImage(imageUrl).subscribe({
+      next: (image) => {
+        this.userImage = this.sanitizer.bypassSecurityTrustUrl(image);
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
+  getImage(imageUrl: string): Observable<string> {
+    return this.backendApiService
+      .callGetContentAPI(imageUrl)
+      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
   }
 
   login(): void {

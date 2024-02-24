@@ -31,12 +31,12 @@
 <div class="sidebar" [ngClass]="{ hidden: !showSidebar }">
   <div class="wrapper">
     <div *ngIf="!isLoggedIn" class="user-info">
-      <img src="../../../assets/image/male-avatar.svg" alt="male-avatar.svg" />
+      <img src="../../../assets/image/male-avatar.svg" alt="" />
       <p>No User</p>
       <p>(Please Login)</p>
     </div>
     <div *ngIf="isLoggedIn" class="user-info">
-      <img src="../../../assets/image/male-avatar.svg" alt="male-avatar.svg" />
+      <img [src]="userImage" alt="" />
       <p>{{ getUserName() }}</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
