@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/menu-item';
 import { AuthService } from '../../service/auth.service';
 
@@ -7,10 +7,9 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
-  @Input() isLoggedIn: boolean;
-  @Input() isAdmin: boolean;
-
+export class SidebarComponent implements OnInit {
+  isLoggedIn: boolean;
+  isAdmin: boolean;
   showSidebar: boolean;
   userMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
@@ -31,6 +30,13 @@ export class SidebarComponent {
     this.isLoggedIn = false;
     this.isAdmin = false;
     this.showSidebar = false;
+  }
+
+  ngOnInit(): void {
+    this.authService.isLoggedIn().subscribe((loggedInStatus) => {
+      this.isLoggedIn = loggedInStatus;
+      this.isAdmin = this.authService.isAdmin();
+    });
   }
 
   login(): void {

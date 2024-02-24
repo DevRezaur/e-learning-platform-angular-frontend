@@ -7,13 +7,17 @@ import {
   OAuthService,
   OAuthSuccessEvent,
 } from 'angular-oauth2-oidc';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedInStatus = new BehaviorSubject<boolean>(false);
+
   constructor(private oauthService: OAuthService, private router: Router) {
     this.configure();
+    this.setIsLoggedInStatus();
   }
 
   public configure() {
@@ -49,6 +53,7 @@ export class AuthService {
         event instanceof OAuthSuccessEvent &&
         event.type === 'token_received'
       ) {
+        this.setIsLoggedInStatus();
         if (this.isAdmin()) {
           this.router.navigate(['/admin']);
         } else if (this.isUser()) {
@@ -60,8 +65,14 @@ export class AuthService {
     });
   }
 
-  public isLoggedIn(): boolean {
-    return this.oauthService.hasValidIdToken();
+  private setIsLoggedInStatus(): void {
+    this.oauthService.hasValidAccessToken()
+      ? this.loggedInStatus.next(true)
+      : this.loggedInStatus.next(false);
+  }
+
+  public isLoggedIn(): Observable<boolean> {
+    return this.loggedInStatus.asObservable();
   }
 
   public isAdmin(): boolean {
