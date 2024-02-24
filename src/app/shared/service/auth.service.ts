@@ -97,7 +97,7 @@ export class AuthService {
 
   public getUsername(): string {
     let claims: any = this.oauthService.getIdentityClaims();
-    return claims ? claims.preferred_username : '';
+    return claims ? `${claims.given_name} ${claims.family_name}` : '';
   }
 
   public getIdToken(): string {
