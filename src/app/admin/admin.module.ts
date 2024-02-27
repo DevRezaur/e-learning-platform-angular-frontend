@@ -4,6 +4,7 @@ import { DashboardPageComponent } from './page/dashboard-page/dashboard-page.com
 import { ManageCoursePageComponent } from './page/manage-course-page/manage-course-page.component';
 import { CommonModule } from '@angular/common';
 import { AddCoursePageComponent } from './page/add-course-page/add-course-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,6 @@ import { AddCoursePageComponent } from './page/add-course-page/add-course-page.c
     ManageCoursePageComponent,
     AddCoursePageComponent,
   ],
-  imports: [AdminRoutingModule, CommonModule],
+  imports: [AdminRoutingModule, CommonModule, ReactiveFormsModule],
 })
 export class AdminModule {}

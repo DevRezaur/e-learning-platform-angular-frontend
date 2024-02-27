@@ -3,42 +3,164 @@
     <div class="grid-wrapper">
       <div class="left-div">
         <img
-          src="../../../../assets/image/baeldung-home-java-series.jpg"
+          *ngIf="courseImage; else defaultImage"
+          [src]="courseImage"
           alt=""
         />
-        <input type="file" class="s" accept="image/*" #fileInput />
+        <ng-template #defaultImage>
+          <img src="../../../../assets/image/no-image.png" alt="" />
+        </ng-template>
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          #fileInput
+        />
       </div>
       <div class="right-div">
         <h3>Course Details</h3>
-        <form>
+        <form [formGroup]="courseDataForm" (ngSubmit)="saveCourseData()">
           <div class="field">
-            <label for="title">Course Title</label>
-            <input type="text" id="title" />
+            <label for="courseName">Course Name</label>
+            <input type="text" id="courseName" formControlName="courseName" />
+            <div
+              *ngIf="
+                courseDataForm.get('courseName')?.invalid &&
+                courseDataForm.get('courseName')?.touched
+              "
+            >
+              <div
+                class="error"
+                *ngIf="courseDataForm.get('courseName')?.hasError('required')"
+              >
+                Course name is required!
+              </div>
+            </div>
           </div>
           <div class="field">
             <label for="description">Description</label>
-            <textarea rows="4" maxlength="250" id="description"></textarea>
+            <textarea
+              rows="4"
+              maxlength="251"
+              id="description"
+              formControlName="description"
+            ></textarea>
+            <div
+              *ngIf="
+                courseDataForm.get('description')?.invalid &&
+                courseDataForm.get('description')?.touched
+              "
+            >
+              <div
+                class="error"
+                *ngIf="courseDataForm.get('description')?.hasError('required')"
+              >
+                Course description is required!
+              </div>
+              <div
+                class="error"
+                *ngIf="courseDataForm.get('description')?.hasError('maxlength')"
+              >
+                Course description shouldn't exceed 250 char length!
+              </div>
+            </div>
           </div>
           <div class="field-wrapper">
             <div class="field">
               <label for="courseFee">Course Fee</label>
-              <input type="number" id="courseFee" />
+              <input type="number" id="courseFee" formControlName="courseFee" />
+              <div
+                *ngIf="
+                  courseDataForm.get('courseFee')?.invalid &&
+                  courseDataForm.get('courseFee')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('courseFee')?.hasError('required')"
+                >
+                  Course fee is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('courseFee')?.hasError('min')"
+                >
+                  Course fee should be at least 100 BDT!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('courseFee')?.hasError('max')"
+                >
+                  Course fee should be at max 100,000 BDT!
+                </div>
+              </div>
             </div>
             <div class="field">
               <label for="discount">Discount Percentage (If applicable)</label>
-              <input type="number" value="0" id="discount" />
+              <input
+                type="number"
+                value="0"
+                id="discount"
+                formControlName="discount"
+              />
+              <div
+                *ngIf="
+                  courseDataForm.get('discount')?.invalid &&
+                  courseDataForm.get('discount')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('discount')?.hasError('required')"
+                >
+                  Discount is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('discount')?.hasError('min')"
+                >
+                  Discount can't be less than 0%!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="courseDataForm.get('discount')?.hasError('max')"
+                >
+                  Discount can't be more than 90%!
+                </div>
+              </div>
             </div>
             <div class="field">
-              <label for="gender">Enrollment Status</label>
+              <label for="isEnrollmentEnabled">Enrollment Status</label>
               <div class="dropdown">
-                <select id="isEnrollmentEnabled">
+                <select
+                  id="isEnrollmentEnabled"
+                  formControlName="isEnrollmentEnabled"
+                >
+                  <option value="">Not Selected</option>
                   <option value="true">Open For Enrollment</option>
                   <option value="false">Close For Enrollment</option>
                 </select>
+                <div
+                  *ngIf="
+                    courseDataForm.get('isEnrollmentEnabled')?.invalid &&
+                    courseDataForm.get('isEnrollmentEnabled')?.touched
+                  "
+                >
+                  <div
+                    class="error"
+                    *ngIf="
+                      courseDataForm
+                        .get('isEnrollmentEnabled')
+                        ?.hasError('required')
+                    "
+                  >
+                    Enrollment Status is required!
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <button class="button">Add Course</button>
+          <button class="button">Create Course</button>
         </form>
       </div>
     </div>
