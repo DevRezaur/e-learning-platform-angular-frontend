@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, catchError, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
@@ -11,8 +12,7 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./course-details-page.component.scss'],
 })
 export class CourseDetailsPageComponent implements OnInit {
-  mode: any = 'update';
-  courseId: any = '678d9452-94c2-4d28-a2f0-75a10c291b19';
+  courseId: string | null = null;
   courseImage: any;
   courseImageUrl: any;
   courseImageFile: any;
@@ -20,6 +20,7 @@ export class CourseDetailsPageComponent implements OnInit {
 
   constructor(
     private backendApiService: BackendApiService,
+    private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer
@@ -40,7 +41,12 @@ export class CourseDetailsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchCourseDetails(this.courseId);
+    this.route.params.subscribe((params) => {
+      this.courseId = params['courseId'];
+      if (this.courseId) {
+        this.fetchCourseDetails(this.courseId);
+      }
+    });
   }
 
   fetchCourseDetails(courseId: string): void {

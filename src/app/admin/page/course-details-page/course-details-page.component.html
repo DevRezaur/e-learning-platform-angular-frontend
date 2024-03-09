@@ -19,7 +19,10 @@
       </div>
       <div class="right-div">
         <h3>Course Details</h3>
-        <form [formGroup]="courseDataForm" (ngSubmit)="updateCourseData()">
+        <form
+          [formGroup]="courseDataForm"
+          (ngSubmit)="courseId ? updateCourseData() : saveCourseData()"
+        >
           <div class="field">
             <label for="courseName">Course Name</label>
             <input type="text" id="courseName" formControlName="courseName" />
@@ -160,7 +163,9 @@
               </div>
             </div>
           </div>
-          <button class="button">Create Course</button>
+          <button class="button">
+            {{ courseId ? "Update Course" : "Create Course" }}
+          </button>
         </form>
       </div>
     </div>

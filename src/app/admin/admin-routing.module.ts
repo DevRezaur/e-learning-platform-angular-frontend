@@ -23,6 +23,10 @@ const routes: Routes = [
     component: CourseDetailsPageComponent,
   },
   {
+    path: 'course-details/:courseId',
+    component: CourseDetailsPageComponent,
+  },
+  {
     path: 'general',
     loadChildren: () =>
       import('../general/general.module').then(
