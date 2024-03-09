@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable, catchError, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
@@ -10,6 +11,7 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./add-course-page.component.scss'],
 })
 export class AddCoursePageComponent {
+  courseImageFile: any;
   courseImage: any;
   courseDataForm: FormGroup;
 
@@ -35,17 +37,26 @@ export class AddCoursePageComponent {
   }
 
   onImageSelected(event: any) {
-    const image: File = event.target.files[0];
-    if (image) {
+    this.courseImageFile = event.target.files[0];
+    if (this.courseImageFile) {
       this.courseImage = this.sanitizer.bypassSecurityTrustUrl(
-        URL.createObjectURL(image)
+        URL.createObjectURL(this.courseImageFile)
       );
     }
   }
 
   saveCourseData(): void {
     this.markFormGroupTouched(this.courseDataForm);
-    console.log(this.courseDataForm.value);
+    if (this.courseDataForm.valid) {
+      this.saveCourseImage().subscribe({
+        next: (response) => {
+          this.createNewCourse(response);
+        },
+        error: (error) => {
+          this.popNotificationService.error(error);
+        },
+      });
+    }
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -54,6 +65,34 @@ export class AddCoursePageComponent {
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
+    });
+  }
+
+  saveCourseImage(): Observable<string> {
+    return this.backendApiService
+      .callSaveContentsAPI([this.courseImageFile])
+      .pipe(
+        map((response) =>
+          response.responseBody.urlList &&
+          response.responseBody.urlList.length > 0
+            ? response.responseBody.urlList[0]
+            : ''
+        ),
+        catchError((error) => {
+          throw new Error(error.error.errorMessage);
+        })
+      );
+  }
+
+  createNewCourse(courseImageUrl: string): void {
+    const formData = { ...this.courseDataForm.value, imageUrl: courseImageUrl };
+    this.backendApiService.callCreateCourseAPI(formData).subscribe({
+      next: (response) => {
+        this.popNotificationService.success(response.responseBody.message);
+      },
+      error: (error) => {
+        this.popNotificationService.error(error.error.errorMessage);
+      },
     });
   }
 }

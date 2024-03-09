@@ -20,10 +20,29 @@ export class BackendApiService {
     });
   }
 
+  callSaveContentsAPI(contents: any[]): Observable<any> {
+    const formData = new FormData();
+    contents.forEach((content) => {
+      formData.append('contents', content);
+    });
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.httpClient.post(`${this.baseUrl}/content-api`, formData, {
+      headers: headers,
+    });
+  }
+
   callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
     );
+  }
+
+  callCreateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/course-page-api`, courseData);
   }
 
   callGetUserDataAPI(userId: string): Observable<any> {
