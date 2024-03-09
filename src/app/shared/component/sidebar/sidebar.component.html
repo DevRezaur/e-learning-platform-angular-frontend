@@ -36,7 +36,10 @@
       <p>(Please Login)</p>
     </div>
     <div *ngIf="isLoggedIn" class="user-info">
-      <img [src]="userImage" alt="" />
+      <img *ngIf="userImage; else defaultImage" [src]="userImage" alt="" />
+      <ng-template #defaultImage>
+        <img src="../../../../assets/image/male-avatar.svg" alt="" />
+      </ng-template>
       <p>{{ getUserName() }}</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
