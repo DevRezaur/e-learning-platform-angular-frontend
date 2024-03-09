@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, catchError, map } from 'rxjs';
@@ -10,9 +10,12 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   templateUrl: './add-course-page.component.html',
   styleUrls: ['./add-course-page.component.scss'],
 })
-export class AddCoursePageComponent {
-  courseImageFile: any;
+export class AddCoursePageComponent implements OnInit {
+  mode: any = 'update';
+  courseId: any = '678d9452-94c2-4d28-a2f0-75a10c291b19';
   courseImage: any;
+  courseImageUrl: any;
+  courseImageFile: any;
   courseDataForm: FormGroup;
 
   constructor(
@@ -36,6 +39,47 @@ export class AddCoursePageComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.fetchCourseDetails(this.courseId);
+  }
+
+  fetchCourseDetails(courseId: string): void {
+    this.backendApiService.callGetCourseAPI(courseId).subscribe({
+      next: (response) => {
+        const courseDetails = response.responseBody.course;
+        this.courseDataForm.patchValue({
+          courseName: courseDetails.courseName,
+          description: courseDetails.description,
+          courseFee: courseDetails.courseFee,
+          discount: courseDetails.discount,
+          isEnrollmentEnabled: courseDetails.isEnrollmentEnabled,
+        });
+        if (courseDetails.imageUrl) {
+          this.courseImageUrl = courseDetails.imageUrl;
+          this.loadCourseImage(this.courseImageUrl);
+        }
+      },
+      error: (error) => {
+        this.popNotificationService.error(error.error.errorMessage);
+      },
+    });
+  }
+
+  loadCourseImage(imageUrl: string): void {
+    this.getCourseImage(imageUrl).subscribe({
+      next: (image) => {
+        this.courseImage = this.sanitizer.bypassSecurityTrustUrl(image);
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
+  getCourseImage(imageUrl: string): Observable<string> {
+    return this.backendApiService
+      .callGetContentAPI(imageUrl)
+      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
+  }
+
   onImageSelected(event: any) {
     this.courseImageFile = event.target.files[0];
     if (this.courseImageFile) {
@@ -50,12 +94,32 @@ export class AddCoursePageComponent {
     if (this.courseDataForm.valid) {
       this.saveCourseImage().subscribe({
         next: (response) => {
-          this.createNewCourse(response);
+          this.courseImageUrl = response;
+          this.createNewCourse();
         },
-        error: (error) => {
-          this.popNotificationService.error(error);
+        error: () => {
+          this.popNotificationService.error('Choose a course image!');
         },
       });
+    }
+  }
+
+  updateCourseData(): void {
+    this.markFormGroupTouched(this.courseDataForm);
+    if (this.courseDataForm.valid) {
+      if (this.courseImageFile) {
+        this.saveCourseImage().subscribe({
+          next: (response) => {
+            this.courseImageUrl = response;
+            this.updateCourse();
+          },
+          error: () => {
+            this.popNotificationService.error('Choose a course image!');
+          },
+        });
+      } else {
+        this.updateCourse();
+      }
     }
   }
 
@@ -84,9 +148,28 @@ export class AddCoursePageComponent {
       );
   }
 
-  createNewCourse(courseImageUrl: string): void {
-    const formData = { ...this.courseDataForm.value, imageUrl: courseImageUrl };
+  createNewCourse(): void {
+    const formData = {
+      ...this.courseDataForm.value,
+      imageUrl: this.courseImageUrl,
+    };
     this.backendApiService.callCreateCourseAPI(formData).subscribe({
+      next: (response) => {
+        this.popNotificationService.success(response.responseBody.message);
+      },
+      error: (error) => {
+        this.popNotificationService.error(error.error.errorMessage);
+      },
+    });
+  }
+
+  updateCourse(): void {
+    const formData = {
+      ...this.courseDataForm.value,
+      courseId: this.courseId,
+      imageUrl: this.courseImageUrl,
+    };
+    this.backendApiService.callUpdateCourseAPI(formData).subscribe({
       next: (response) => {
         this.popNotificationService.success(response.responseBody.message);
       },

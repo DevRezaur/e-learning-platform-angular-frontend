@@ -41,8 +41,19 @@ export class BackendApiService {
     );
   }
 
+  callGetCourseAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/course-page-api/${courseId}`);
+  }
+
   callCreateCourseAPI(courseData: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/course-page-api`, courseData);
+  }
+
+  callUpdateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-page-api/update`,
+      courseData
+    );
   }
 
   callGetUserDataAPI(userId: string): Observable<any> {

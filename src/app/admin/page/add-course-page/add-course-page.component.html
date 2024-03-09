@@ -19,7 +19,7 @@
       </div>
       <div class="right-div">
         <h3>Course Details</h3>
-        <form [formGroup]="courseDataForm" (ngSubmit)="saveCourseData()">
+        <form [formGroup]="courseDataForm" (ngSubmit)="updateCourseData()">
           <div class="field">
             <label for="courseName">Course Name</label>
             <input type="text" id="courseName" formControlName="courseName" />
