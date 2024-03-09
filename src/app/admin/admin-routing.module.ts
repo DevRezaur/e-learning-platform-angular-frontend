@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardPageComponent } from './page/dashboard-page/dashboard-page.component';
 import { ManageCoursePageComponent } from './page/manage-course-page/manage-course-page.component';
-import { AddCoursePageComponent } from './page/add-course-page/add-course-page.component';
+import { CourseDetailsPageComponent } from './page/course-details-page/course-details-page.component';
 
 const routes: Routes = [
   {
@@ -19,8 +19,8 @@ const routes: Routes = [
     component: ManageCoursePageComponent,
   },
   {
-    path: 'add-course',
-    component: AddCoursePageComponent,
+    path: 'course-details',
+    component: CourseDetailsPageComponent,
   },
   {
     path: 'general',

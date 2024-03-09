@@ -6,11 +6,11 @@ import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
 @Component({
-  selector: 'app-add-course-page',
-  templateUrl: './add-course-page.component.html',
-  styleUrls: ['./add-course-page.component.scss'],
+  selector: 'course-details-page',
+  templateUrl: './course-details-page.component.html',
+  styleUrls: ['./course-details-page.component.scss'],
 })
-export class AddCoursePageComponent implements OnInit {
+export class CourseDetailsPageComponent implements OnInit {
   mode: any = 'update';
   courseId: any = '678d9452-94c2-4d28-a2f0-75a10c291b19';
   courseImage: any;
