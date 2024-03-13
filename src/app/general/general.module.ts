@@ -5,12 +5,14 @@ import { HomePageComponent } from './page/home-page/home-page.component';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { GeneralRoutingModule } from './general-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegistrationPageComponent } from './page/registration-page/registration-page.component';
 
 @NgModule({
   declarations: [
     HomePageComponent,
     CallbackPageComponent,
     ProfilePageComponent,
+    RegistrationPageComponent,
   ],
   imports: [GeneralRoutingModule, CommonModule, ReactiveFormsModule],
   exports: [],
