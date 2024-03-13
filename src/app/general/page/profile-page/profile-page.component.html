@@ -26,21 +26,17 @@
         <form [formGroup]="profileDataForm" (ngSubmit)="updateProfileData()">
           <div class="field-wrapper">
             <div class="field">
-              <div class="field">
-                <label for="userId">User Id</label>
-                <input type="text" id="userId" formControlName="userId" />
-              </div>
+              <label for="userId">User Id</label>
+              <input type="text" id="userId" formControlName="userId" />
             </div>
             <div class="field">
-              <div class="field">
-                <label for="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  formControlName="email"
-                  autocomplete="email"
-                />
-              </div>
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                autocomplete="email"
+              />
             </div>
           </div>
           <div class="field-wrapper">
