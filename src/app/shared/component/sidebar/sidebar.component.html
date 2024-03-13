@@ -10,7 +10,10 @@
     <p>ELP</p>
   </div>
   <div *ngIf="!isLoggedIn" class="user-info">
-    <button class="button-outline" (click)="login()">Login</button>
+    <button class="button-outline" [routerLink]="['/general/registration']">
+      Sign Up
+    </button>
+    <button class="button" (click)="login()">Login</button>
   </div>
   <div *ngIf="isLoggedIn" class="user-info">
     <p>{{ getUserName() }}</p>
@@ -43,7 +46,10 @@
       <p>{{ getUserName() }}</p>
     </div>
     <div *ngIf="!isLoggedIn" class="menu" (click)="toggleSidebar()">
-      <button class="button-outline" (click)="login()">Login</button>
+      <button class="button-outline" [routerLink]="['/general/registration']">
+        Sign Up
+      </button>
+      <button class="button" (click)="login()">Login</button>
     </div>
     <div *ngIf="isLoggedIn" class="menu" (click)="toggleSidebar()">
       <a *ngFor="let menuItem of getActiveMenu()" [routerLink]="menuItem.route">

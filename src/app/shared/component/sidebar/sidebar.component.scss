@@ -33,6 +33,15 @@ nav {
     align-items: center;
     column-gap: 12px;
 
+    .button {
+      background-color: $white;
+      color: $black;
+
+      &:hover {
+        background-color: $accent-1;
+      }
+    }
+
     .button-outline {
       color: $white;
       border: 1px solid $white;
@@ -103,6 +112,19 @@ nav {
           background-color: $secondary;
           color: $accent-1;
           cursor: pointer;
+        }
+      }
+
+      .button {
+        background-color: $white;
+        color: $black;
+        height: 30px;
+        width: 80%;
+        margin: 20px auto;
+        display: block;
+
+        &:hover {
+          background-color: $accent-1;
         }
       }
 
