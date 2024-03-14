@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './page/profile-page/profile-page.component
 import { GeneralRoutingModule } from './general-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationPageComponent } from './page/registration-page/registration-page.component';
+import { CoursePreviewPageComponent } from './page/course-preview-page/course-preview-page.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { RegistrationPageComponent } from './page/registration-page/registration
     CallbackPageComponent,
     ProfilePageComponent,
     RegistrationPageComponent,
+    CoursePreviewPageComponent,
   ],
   imports: [GeneralRoutingModule, CommonModule, ReactiveFormsModule],
   exports: [],
