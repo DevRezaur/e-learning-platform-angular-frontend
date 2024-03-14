@@ -161,7 +161,16 @@
             </div>
           </div>
         </div>
-        <button class="button">Register</button>
+        <button
+          class="button"
+          type="submit"
+          *ngIf="!isRegistrationSuccessful; else showLoginButton"
+        >
+          Register
+        </button>
+        <ng-template #showLoginButton>
+          <button class="button" type="button" (click)="login()">Login</button>
+        </ng-template>
       </form>
     </div>
   </div>

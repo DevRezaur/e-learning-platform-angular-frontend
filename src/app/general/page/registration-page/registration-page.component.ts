@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
@@ -15,13 +16,16 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./registration-page.component.scss'],
 })
 export class RegistrationPageComponent {
+  isRegistrationSuccessful: boolean;
   userDataForm: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private popNotificationService: PopNotificationService,
     private formBuilder: FormBuilder
   ) {
+    this.isRegistrationSuccessful = false;
     this.userDataForm = this.formBuilder.group(
       {
         firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,6 +56,20 @@ export class RegistrationPageComponent {
 
   registerUser(): void {
     this.markFormGroupTouched(this.userDataForm);
+    if (this.userDataForm.valid) {
+      this.backendApiService
+        .callUserRegistrationAPI(this.userDataForm.value)
+        .subscribe({
+          next: (response) => {
+            this.popNotificationService.success(response.responseBody.message);
+            this.isRegistrationSuccessful = true;
+          },
+          error: (error) => {
+            this.popNotificationService.error(error.error.errorMessage);
+            this.isRegistrationSuccessful = false;
+          },
+        });
+    }
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -61,5 +79,9 @@ export class RegistrationPageComponent {
         this.markFormGroupTouched(control);
       }
     });
+  }
+
+  login(): void {
+    this.authService.login();
   }
 }
