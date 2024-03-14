@@ -9,36 +9,157 @@
     </div>
     <div class="right-div">
       <h3>User Registration Form</h3>
-      <form>
+      <form [formGroup]="userDataForm" (ngSubmit)="registerUser()">
         <div class="field">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" />
+          <input type="text" id="firstName" formControlName="firstName" />
+          <div
+            *ngIf="
+              userDataForm.get('firstName')?.invalid &&
+              (userDataForm.get('firstName')?.touched ||
+                userDataForm.get('firstName')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('firstName')?.hasError('required')"
+            >
+              First name is required!
+            </div>
+            <div
+              class="error"
+              *ngIf="userDataForm.get('firstName')?.hasError('minlength')"
+            >
+              First name must be at least 3 characters long!
+            </div>
+          </div>
         </div>
         <div class="field">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" />
+          <input type="text" id="lastName" formControlName="lastName" />
+          <div
+            *ngIf="
+              userDataForm.get('lastName')?.invalid &&
+              (userDataForm.get('lastName')?.touched ||
+                userDataForm.get('lastName')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('lastName')?.hasError('required')"
+            >
+              Last name is required!
+            </div>
+            <div
+              class="error"
+              *ngIf="userDataForm.get('lastName')?.hasError('minlength')"
+            >
+              Last name must be at least 3 characters long!
+            </div>
+          </div>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" />
+          <input
+            type="email"
+            id="email"
+            autocomplete="email"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              userDataForm.get('email')?.invalid &&
+              (userDataForm.get('email')?.touched ||
+                userDataForm.get('email')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('email')?.hasError('required')"
+            >
+              Email is required!
+            </div>
+            <div
+              class="error"
+              *ngIf="userDataForm.get('email')?.hasError('email')"
+            >
+              Invalid email format!
+            </div>
+          </div>
         </div>
         <div class="field">
           <label for="gender">Gender</label>
           <div class="dropdown">
-            <select id="gender">
+            <select id="gender" formControlName="gender">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
           </div>
+          <div
+            *ngIf="
+              userDataForm.get('gender')?.invalid &&
+              userDataForm.get('gender')?.touched
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('gender')?.hasError('required')"
+            >
+              Gender is required!
+            </div>
+          </div>
         </div>
         <div class="field">
-          <label for="newPassword">Password</label>
-          <input type="password" id="newPassword" />
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" />
+          <div
+            *ngIf="
+              userDataForm.get('password')?.invalid &&
+              (userDataForm.get('password')?.touched ||
+                userDataForm.get('password')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('password')?.hasError('required')"
+            >
+              Password is required!
+            </div>
+            <div
+              class="error"
+              *ngIf="userDataForm.get('password')?.hasError('pattern')"
+            >
+              Password must contain at least one uppercase letter, one lowercase
+              letter, one digit, one special character, and be at least 8
+              characters long.
+            </div>
+          </div>
         </div>
         <div class="field">
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" />
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+              userDataForm.invalid &&
+              (userDataForm.get('confirmPassword')?.touched ||
+                userDataForm.get('confirmPassword')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="userDataForm.get('confirmPassword')?.hasError('required')"
+            >
+              Please confirm your password!
+            </div>
+            <div class="error" *ngIf="userDataForm.hasError('mismatch')">
+              Passwords do not match!
+            </div>
+          </div>
         </div>
         <button class="button">Register</button>
       </form>

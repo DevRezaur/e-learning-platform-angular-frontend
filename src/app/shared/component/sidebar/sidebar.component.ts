@@ -47,8 +47,10 @@ export class SidebarComponent implements OnInit {
   setLoginStatusAndLoadUserInfo(): void {
     this.authService.isLoggedIn().subscribe((loggedInStatus) => {
       this.isLoggedIn = loggedInStatus;
-      this.isAdmin = this.authService.isAdmin();
-      this.loadProfileData();
+      if (this.isLoggedIn) {
+        this.isAdmin = this.authService.isAdmin();
+        this.loadProfileData();
+      }
     });
   }
 
