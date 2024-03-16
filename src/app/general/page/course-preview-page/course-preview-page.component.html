@@ -1,25 +1,30 @@
 <div class="top-banner-section">
   <div class="section">
-    <div class="grid-wrapper">
+    <div class="grid-wrapper" *ngIf="courseData">
       <div class="left-div">
-        <img
-          src="../../../../assets/image/baeldung-home-java-series.jpg"
-          alt=""
-        />
+        <img *ngIf="courseImage" [src]="courseImage" alt="" />
       </div>
       <div class="right-div">
-        <h2>Introduction to Programming</h2>
+        <h2>{{ courseData.courseName }}</h2>
         <p class="desc">
-          Learn the basics of programming with our easy and intuitive
-          programming course. Highly recommended for CS students.
+          {{ courseData.description }}
         </p>
         <div class="info-section">
           <div class="statistics">
-            <p><strong>Total Enrolled:</strong> 532</p>
+            <p><strong>Total Enrolled:</strong> --</p>
           </div>
           <div class="price">
-            <p class="original-price">1000 BDT</p>
-            <p><strong>Price:</strong> 5000 BDT</p>
+            <p class="original-price" *ngIf="courseData.discount != 0">
+              {{ courseData.courseFee }} BDT
+            </p>
+            <p>
+              <strong>Price:</strong>
+              {{
+                courseData.courseFee -
+                  (courseData.courseFee * courseData.discount) / 100
+              }}
+              BDT
+            </p>
           </div>
         </div>
         <button class="button">Purchase Course</button>
@@ -28,15 +33,18 @@
   </div>
 </div>
 
-<div class="course-content-section">
+<div
+  class="course-content-section"
+  *ngIf="courseData && courseData.courseContents.length > 0"
+>
   <div class="section">
     <h2>Course Contents</h2>
     <hr />
-    <p><strong>Lecture No 1:</strong> Dummy Section Title</p>
-    <p><strong>Lecture No 2:</strong> Dummy Section Title</p>
-    <p><strong>Lecture No 3:</strong> Dummy Section Title</p>
-    <p><strong>Lecture No 4:</strong> Dummy Section Title</p>
-    <p><strong>Lecture No 5:</strong> Dummy Section Title</p>
-    <p><strong>Lecture No 6:</strong> Dummy Section Title</p>
+    <div *ngFor="let courseContent of courseData.courseContents">
+      <p>
+        <strong>Lecture No {{ courseContent.contentSequence }}:</strong>
+        {{ courseContent.contentTitle }}
+      </p>
+    </div>
   </div>
 </div>
