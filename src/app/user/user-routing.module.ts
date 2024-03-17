@@ -4,7 +4,7 @@ import { CoursePurchasePageComponent } from './page/course-purchase-page/course-
 
 const routes: Routes = [
   {
-    path: 'purchase-course',
+    path: 'purchase-course/:courseId',
     component: CoursePurchasePageComponent,
   },
 ];

@@ -27,7 +27,12 @@
             </p>
           </div>
         </div>
-        <button class="button">Purchase Course</button>
+        <button
+          class="button"
+          [routerLink]="['/user/purchase-course', courseData.courseId]"
+        >
+          Purchase Course
+        </button>
       </div>
     </div>
   </div>
