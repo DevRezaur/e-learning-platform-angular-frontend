@@ -13,13 +13,16 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
 export class CoursePurchasePageComponent {
   courseData: any;
   courseImage: any;
+  paymentOption: string;
 
   constructor(
     private backendApiService: BackendApiService,
     private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) {
+    this.paymentOption = '';
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

@@ -31,3 +31,275 @@
     </div>
   </div>
 </div>
+
+<div class="payment-section">
+  <div class="section">
+    <h2>Payment Information</h2>
+    <div class="payment-selector">
+      <p class="title">Select Payment Method</p>
+      <div class="button-wrapper">
+        <div>
+          <input
+            type="radio"
+            name="paymentOption"
+            id="bank"
+            value="Bank Payment"
+            [(ngModel)]="paymentOption"
+          />
+          <label for="bank">Bank Payment</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="paymentOption"
+            id="mobileBanking"
+            value="Mobile Banking"
+            [(ngModel)]="paymentOption"
+          />
+          <label for="mobileBanking">Mobile Banking</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-details" *ngIf="paymentOption">
+      <p class="title">Payment Details</p>
+      <form *ngIf="paymentOption === 'Bank Payment'">
+        <div class="instructions">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam
+            eligendi minima enim eveniet harum! Magnam modi, velit aliquam
+            asperiores autem et unde? Eaque, sed? Voluptatum minima temporibus
+            quidem vel enim nemo rem hic natus veritatis qui, quo autem
+            assumenda possimus. Accusamus dolor consequuntur animi quis laborum,
+            voluptatibus quod dignissimos neque!
+          </p>
+        </div>
+        <div class="field-wrapper">
+          <div class="field">
+            <label for="paymentVendor">Select Bank</label>
+            <div class="dropdown">
+              <select id="paymentVendor" formControlName="paymentVendor">
+                <option value="">Select Bank</option>
+                <option value="City Bank">City Bank</option>
+                <option value="Dutch Bangla Bank">Dutch Bangla Bank</option>
+                <option value="Islami Bank Bangladesh">
+                  Islami Bank Bangladesh
+                </option>
+              </select>
+            </div>
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('gender')?.invalid &&
+                  profileDataForm.get('gender')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('gender')?.hasError('required')"
+                >
+                  Gender is required!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="sendersAccount">Sender's Account No</label>
+            <input
+              type="text"
+              id="sendersAccount"
+              formControlName="sendersAccount"
+            />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" formControlName="amount" />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="trxId">Check No</label>
+            <input type="text" id="trxId" formControlName="trxId" />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+        </div>
+        <button class="button">Submit</button>
+      </form>
+      <form *ngIf="paymentOption === 'Mobile Banking'">
+        <div class="instructions">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam
+            eligendi minima enim eveniet harum! Magnam modi, velit aliquam
+            asperiores autem et unde? Eaque, sed? Voluptatum minima temporibus
+            quidem vel enim nemo rem hic natus veritatis qui, quo autem
+            assumenda possimus. Accusamus dolor consequuntur animi quis laborum,
+            voluptatibus quod dignissimos neque!
+          </p>
+        </div>
+        <div class="field-wrapper">
+          <div class="field">
+            <label for="paymentVendor">Select Vendor</label>
+            <div class="dropdown">
+              <select id="paymentVendor" formControlName="paymentVendor">
+                <option value="">Select Vendor</option>
+                <option value="BKash">BKash</option>
+                <option value="Nagad">Nagad</option>
+              </select>
+            </div>
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('gender')?.invalid &&
+                  profileDataForm.get('gender')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('gender')?.hasError('required')"
+                >
+                  Gender is required!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="sendersAccount">Sender's Account No</label>
+            <input
+              type="text"
+              id="sendersAccount"
+              formControlName="sendersAccount"
+            />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" formControlName="amount" />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+          <div class="field">
+            <label for="trxId">Transaction Id</label>
+            <input type="text" id="trxId" formControlName="trxId" />
+            <!-- <div
+                *ngIf="
+                  profileDataForm.get('firstName')?.invalid &&
+                  profileDataForm.get('firstName')?.touched
+                "
+              >
+                <div
+                  class="error"
+                  *ngIf="profileDataForm.get('firstName')?.hasError('required')"
+                >
+                  First name is required!
+                </div>
+                <div
+                  class="error"
+                  *ngIf="
+                    profileDataForm.get('firstName')?.hasError('minlength')
+                  "
+                >
+                  First name must be at least 3 characters long!
+                </div>
+              </div> -->
+          </div>
+        </div>
+        <button class="button">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
