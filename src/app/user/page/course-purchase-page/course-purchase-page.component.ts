@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
@@ -14,14 +15,25 @@ export class CoursePurchasePageComponent {
   courseData: any;
   courseImage: any;
   paymentOption: string;
+  paymentData: any;
 
   constructor(
     private backendApiService: BackendApiService,
     private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,
+    private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer
   ) {
     this.paymentOption = '';
+    this.paymentData = this.formBuilder.group({
+      paymentVendor: ['', Validators.required],
+      sendersAccount: ['', Validators.required],
+      amount: [
+        '',
+        [Validators.required, Validators.min(100), Validators.max(100000)],
+      ],
+      trxId: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -58,5 +70,20 @@ export class CoursePurchasePageComponent {
     return this.backendApiService
       .callGetContentAPI(imageUrl)
       .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
+  }
+
+  togglePaymentOption(paymentOption: string) {
+    this.paymentOption = paymentOption;
+    this.paymentData.reset({ paymentVendor: '' });
+  }
+
+  savePaymentInfo(): void {
+    if (this.paymentData.valid) {
+      const paymentInfo = {
+        ...this.paymentData.value,
+        courseId: this.courseData.courseId,
+      };
+      console.log(paymentInfo);
+    }
   }
 }
