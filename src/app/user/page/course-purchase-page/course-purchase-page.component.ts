@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   templateUrl: './course-purchase-page.component.html',
   styleUrls: ['./course-purchase-page.component.scss'],
 })
-export class CoursePurchasePageComponent {
+export class CoursePurchasePageComponent implements OnInit {
   courseData: any;
   courseImage: any;
   paymentOption: string;
