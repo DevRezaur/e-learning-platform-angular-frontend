@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
@@ -18,6 +19,7 @@ export class CoursePurchasePageComponent implements OnInit {
   paymentData: any;
 
   constructor(
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,
@@ -27,7 +29,7 @@ export class CoursePurchasePageComponent implements OnInit {
     this.paymentOption = '';
     this.paymentData = this.formBuilder.group({
       paymentVendor: ['', Validators.required],
-      sendersAccount: ['', Validators.required],
+      senderAccount: ['', Validators.required],
       amount: [
         '',
         [Validators.required, Validators.min(100), Validators.max(100000)],
@@ -81,9 +83,18 @@ export class CoursePurchasePageComponent implements OnInit {
     if (this.paymentData.valid) {
       const paymentInfo = {
         ...this.paymentData.value,
+        userId: this.authService.getUserId(),
         courseId: this.courseData.courseId,
       };
-      console.log(paymentInfo);
+      this.backendApiService.callSavePaymentAPI(paymentInfo).subscribe({
+        next: (response) => {
+          this.popNotificationService.success(response.responseBody.message);
+          this.paymentData.reset();
+        },
+        error: (error) => {
+          this.popNotificationService.error(error.error.errorMessage);
+        },
+      });
     }
   }
 }

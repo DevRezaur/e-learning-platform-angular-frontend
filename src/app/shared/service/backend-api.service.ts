@@ -98,4 +98,8 @@ export class BackendApiService {
       password: password,
     });
   }
+
+  callSavePaymentAPI(paymentInfo: any): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/payment-api`, paymentInfo);
+  }
 }

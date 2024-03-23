@@ -107,22 +107,22 @@
             </div>
           </div>
           <div class="field">
-            <label for="sendersAccount">Sender's Account No</label>
+            <label for="senderAccount">Sender's Account No</label>
             <input
               type="text"
-              id="sendersAccount"
-              formControlName="sendersAccount"
+              id="senderAccount"
+              formControlName="senderAccount"
             />
             <div
               *ngIf="
-                paymentData.get('sendersAccount')?.invalid &&
-                (paymentData.get('sendersAccount')?.touched ||
-                  paymentData.get('sendersAccount')?.dirty)
+                paymentData.get('senderAccount')?.invalid &&
+                (paymentData.get('senderAccount')?.touched ||
+                  paymentData.get('senderAccount')?.dirty)
               "
             >
               <div
                 class="error"
-                *ngIf="paymentData.get('sendersAccount')?.hasError('required')"
+                *ngIf="paymentData.get('senderAccount')?.hasError('required')"
               >
                 Sender's account is required!
               </div>
@@ -220,22 +220,22 @@
             </div>
           </div>
           <div class="field">
-            <label for="sendersAccount">Sender's Account No</label>
+            <label for="senderAccount">Sender's Account No</label>
             <input
               type="text"
-              id="sendersAccount"
-              formControlName="sendersAccount"
+              id="senderAccount"
+              formControlName="senderAccount"
             />
             <div
               *ngIf="
-                paymentData.get('sendersAccount')?.invalid &&
-                (paymentData.get('sendersAccount')?.touched ||
-                  paymentData.get('sendersAccount')?.dirty)
+                paymentData.get('senderAccount')?.invalid &&
+                (paymentData.get('senderAccount')?.touched ||
+                  paymentData.get('senderAccount')?.dirty)
               "
             >
               <div
                 class="error"
-                *ngIf="paymentData.get('sendersAccount')?.hasError('required')"
+                *ngIf="paymentData.get('senderAccount')?.hasError('required')"
               >
                 Sender's account is required!
               </div>
