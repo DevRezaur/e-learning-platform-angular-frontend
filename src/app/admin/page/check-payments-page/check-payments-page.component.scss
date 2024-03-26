@@ -26,6 +26,7 @@
             padding: 8px 16px;
             background-color: $primary;
             color: $white;
+
             &:not(:last-child) {
               border-right: 1px solid $white;
             }
@@ -41,8 +42,35 @@
             padding: 8px 16px;
             white-space: nowrap;
             color: $secondary;
+
             &:not(:last-child) {
               border-right: 1px solid $dark-gray;
+            }
+
+            i {
+              padding: 4px;
+              min-width: 24px;
+              font-size: 16px;
+              text-align: center;
+              cursor: pointer;
+
+              &:not(:last-child) {
+                margin-right: 16px;
+              }
+
+              &:hover {
+                opacity: 0.75;
+              }
+            }
+
+            .success {
+              background-color: $accent-2;
+              color: $white;
+            }
+
+            .failure {
+              background-color: $accent-1;
+              color: $white;
             }
           }
         }

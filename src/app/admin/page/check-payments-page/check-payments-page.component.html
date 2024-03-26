@@ -25,8 +25,21 @@
             <td>{{ paymentInfo.amount }}</td>
             <td>{{ paymentInfo.trxId }}</td>
             <td>{{ paymentInfo.date }}</td>
-            <td>{{ paymentInfo.status }}</td>
-            <td>XXX</td>
+            <td>
+              <p *ngIf="paymentInfo.status == 'IN_REVIEW'">In Review</p>
+              <p *ngIf="paymentInfo.status == 'APPROVED'">Approved</p>
+              <p *ngIf="paymentInfo.status == 'DENIED'">Denied</p>
+            </td>
+            <td class="action">
+              <i
+                class="fas fa-check success"
+                (click)="updatePaymentStatus(paymentInfo.paymentId, 'APPROVED')"
+              ></i>
+              <i
+                class="fas fa-times failure"
+                (click)="updatePaymentStatus(paymentInfo.paymentId, 'DENIED')"
+              ></i>
+            </td>
           </tr>
         </tbody>
       </table>

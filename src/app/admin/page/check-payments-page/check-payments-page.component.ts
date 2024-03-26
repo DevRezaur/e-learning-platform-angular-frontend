@@ -45,4 +45,11 @@ export class CheckPaymentsPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  updatePaymentStatus(paymentId: string, status: string): void {
+    alert(paymentId + ' - ' + status);
+    this.paymentInfoList.find(
+      (paymentInfo) => paymentInfo.paymentId === paymentId
+    ).status = status;
+  }
 }
