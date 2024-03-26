@@ -32,12 +32,12 @@
         <div class="bottom-div">
           <p><strong>Total Course:</strong> 54</p>
           <div class="button-wrapper">
-            <a class="button" [routerLink]="['/admin/manage-course']"
-              >Manage Courses</a
-            >
-            <a class="button" [routerLink]="['/admin/course-details']"
-              >Add New Course</a
-            >
+            <a class="button" [routerLink]="['/admin/manage-course']">
+              Manage Courses
+            </a>
+            <a class="button" [routerLink]="['/admin/course-details']">
+              Add New Course
+            </a>
           </div>
         </div>
       </div>
@@ -60,7 +60,9 @@
         <div class="bottom-div">
           <p><strong>Payment Requests:</strong> 54</p>
           <div class="button-wrapper">
-            <a class="button" href="#">Check Payments</a>
+            <a class="button" [routerLink]="['/admin/check-payment']">
+              Check Payments
+            </a>
           </div>
         </div>
       </div>

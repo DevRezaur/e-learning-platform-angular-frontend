@@ -5,12 +5,14 @@ import { ManageCoursePageComponent } from './page/manage-course-page/manage-cour
 import { CommonModule } from '@angular/common';
 import { CourseDetailsPageComponent } from './page/course-details-page/course-details-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CheckPaymentsPageComponent } from './page/check-payments-page/check-payments-page.component';
 
 @NgModule({
   declarations: [
     DashboardPageComponent,
     ManageCoursePageComponent,
     CourseDetailsPageComponent,
+    CheckPaymentsPageComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, ReactiveFormsModule],
 })
