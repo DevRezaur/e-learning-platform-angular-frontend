@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardPageComponent } from './page/dashboard-page/dashboard-page.component';
 import { ManageCoursePageComponent } from './page/manage-course-page/manage-course-page.component';
 import { CourseDetailsPageComponent } from './page/course-details-page/course-details-page.component';
+import { CheckPaymentsPageComponent } from './page/check-payments-page/check-payments-page.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'course-details/:courseId',
     component: CourseDetailsPageComponent,
+  },
+  {
+    path: 'check-payments',
+    component: CheckPaymentsPageComponent,
   },
   {
     path: 'general',
