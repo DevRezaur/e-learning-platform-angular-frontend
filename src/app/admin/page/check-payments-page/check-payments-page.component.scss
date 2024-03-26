@@ -1,0 +1,52 @@
+@import "../../../../styles.scss";
+
+.payments-section {
+  padding: 40px 16px;
+
+  h2 {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .table-wrapper {
+    min-height: 400px;
+    overflow-x: auto;
+
+    table {
+      background-color: $off-white;
+      border-collapse: collapse;
+
+      thead {
+        tr {
+          th {
+            height: 50px;
+            font-size: 16px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            padding: 8px 16px;
+            background-color: $primary;
+            color: $white;
+            &:not(:last-child) {
+              border-right: 1px solid $white;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid $dark-gray;
+
+          td {
+            padding: 8px 16px;
+            white-space: nowrap;
+            color: $secondary;
+            &:not(:last-child) {
+              border-right: 1px solid $dark-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}

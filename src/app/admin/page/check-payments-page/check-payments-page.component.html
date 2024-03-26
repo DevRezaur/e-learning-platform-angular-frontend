@@ -1,1 +1,35 @@
-<p>check-payments-page works!</p>
+<div class="payments-section">
+  <div class="section">
+    <h2>Payment Request Histories</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>User Id</th>
+            <th>Course Id</th>
+            <th>Payment Vendor</th>
+            <th>Sender Account</th>
+            <th>Amount</th>
+            <th>Transaction Id</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let paymentInfo of paymentInfoList">
+            <td>{{ paymentInfo.userId }}</td>
+            <td>{{ paymentInfo.courseId }}</td>
+            <td>{{ paymentInfo.paymentVendor }}</td>
+            <td>{{ paymentInfo.senderAccount }}</td>
+            <td>{{ paymentInfo.amount }}</td>
+            <td>{{ paymentInfo.trxId }}</td>
+            <td>{{ paymentInfo.date }}</td>
+            <td>{{ paymentInfo.status }}</td>
+            <td>XXX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
