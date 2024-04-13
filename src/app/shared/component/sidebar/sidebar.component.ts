@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   showSidebar: boolean;
   userMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
-    { label: 'Learning Dashboard', route: '/' },
+    { label: 'Learning Dashboard', route: '/user/dashboard' },
     { label: 'Notifications', route: '/' },
     { label: 'Manage Profile', route: '/' },
   ];
