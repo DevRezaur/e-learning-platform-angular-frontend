@@ -102,4 +102,15 @@ export class BackendApiService {
   callSavePaymentAPI(paymentInfo: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/payment-api`, paymentInfo);
   }
+
+  callGetAllPaymentsAPI(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/payment-api`);
+  }
+
+  callUpdatePaymentStatusAPI(paymentStatusMap: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/payment-api/approval`,
+      paymentStatusMap
+    );
+  }
 }

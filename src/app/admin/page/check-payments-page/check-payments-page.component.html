@@ -33,12 +33,12 @@
             <td class="action">
               <i
                 class="fas fa-check success"
-                (click)="updatePaymentStatus(paymentInfo.paymentId, 'APPROVED')"
+                (click)="updatePaymentStatus(paymentInfo.trxId, 'APPROVED')"
                 *ngIf="!(paymentInfo.status === 'APPROVED')"
               ></i>
               <i
                 class="fas fa-times failure"
-                (click)="updatePaymentStatus(paymentInfo.paymentId, 'DENIED')"
+                (click)="updatePaymentStatus(paymentInfo.trxId, 'DENIED')"
                 *ngIf="paymentInfo.status === 'APPROVED'"
               ></i>
             </td>
