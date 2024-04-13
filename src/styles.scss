@@ -85,7 +85,7 @@ a {
   &:disabled {
     background-color: $dark-gray;
     color: $white;
-    cursor: auto;
+    cursor: not-allowed;
   }
 }
 
@@ -111,7 +111,7 @@ a {
   &:disabled {
     color: $dark-gray;
     border: 1px solid $dark-gray;
-    cursor: auto;
+    cursor: not-allowed;
   }
 }
 

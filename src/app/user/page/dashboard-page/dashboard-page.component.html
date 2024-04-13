@@ -1,1 +1,52 @@
-<p>dashboard-page works!</p>
+<div class="top-banner-section">
+  <div class="section">
+    <div class="grid-wrapper">
+      <div class="left-div">
+        <p class="top-line">Hello Rezaur Rahman</p>
+        <h2>Welcome to Learning Dashboard</h2>
+        <p class="desc">
+          This is the admin dashboard of E-Learning Platform. From here you can
+          add, update and manage the system users and their information. You can
+          also add, update and view all the running courses and manage their
+          activities. Please be aware of any changes that you make as it affects
+          the entire system.
+        </p>
+      </div>
+      <div class="right-div">
+        <img
+          src="../../../../assets/image/admin_dashboard.svg"
+          alt="admin_dashboard.svg"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="enrolled-course-section">
+  <div class="section">
+    <h2>Enrolled Courses</h2>
+    <div class="grid-wrapper">
+      <div class="card shadow" *ngFor="let course of enrolledCourses">
+        <div class="top-div">
+          <img [src]="course.image" alt="" />
+        </div>
+        <div class="mid-div">
+          <h3>{{ course.courseName }}</h3>
+          <p class="desc">
+            {{ course.description }}
+          </p>
+        </div>
+        <div class="bottom-div">
+          <p>Payment In Review</p>
+          <button
+            class="button"
+            [routerLink]="['/general/course-preview', course.courseId]"
+            disabled
+          >
+            Visit Course
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
