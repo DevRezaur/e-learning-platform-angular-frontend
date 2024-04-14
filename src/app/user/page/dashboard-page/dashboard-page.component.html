@@ -37,11 +37,12 @@
           </p>
         </div>
         <div class="bottom-div">
-          <p>Payment In Review</p>
+          <p *ngIf="course.status === 'IN_REVIEW'">Payment In Review</p>
+          <p *ngIf="course.status === 'DECLINED'">Payment Declined</p>
           <button
             class="button"
             [routerLink]="['/general/course-preview', course.courseId]"
-            disabled
+            [disabled]="course.status != 'APPROVED'"
           >
             Visit Course
           </button>

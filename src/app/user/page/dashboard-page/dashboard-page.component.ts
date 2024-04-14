@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 
 @Component({
@@ -9,26 +10,32 @@ import { BackendApiService } from 'src/app/shared/service/backend-api.service';
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  enrolledCourses: any[] = [
-    {
-      courseId: '550e8400-e29b-41d4-a716-446655440002',
-      courseName: 'Introduction to Programming',
-      description:
-        'Learn the basics of programming with our easy and intuitive programming course. Highly recommended for CS students.',
-      imageUrl: 'file-system-storage/b1e8dcd36f581b8b3f05e2528b2463a5.jpg',
-      isEnrollmentEnabled: true,
-      courseFee: 10000,
-      discount: 10,
-    },
-  ];
+  enrolledCourses: any[];
 
   constructor(
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) {
+    this.enrolledCourses = [];
+  }
 
   ngOnInit(): void {
-    this.loadImages();
+    this.fetchEnrolledCourses();
+  }
+
+  fetchEnrolledCourses(): void {
+    this.backendApiService
+      .callGetAllEnrolledCoursesAPI(this.authService.getUserId())
+      .subscribe({
+        next: (response) => {
+          this.enrolledCourses = response.responseBody.courseList;
+          this.loadImages();
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 
   loadImages(): void {
