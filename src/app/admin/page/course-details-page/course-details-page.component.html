@@ -163,9 +163,19 @@
               </div>
             </div>
           </div>
-          <button class="button">
-            {{ courseId ? "Update Course" : "Create Course" }}
-          </button>
+          <div class="button-wrapper" type="submit">
+            <button class="button">
+              {{ courseId ? "Update Course" : "Create Course" }}
+            </button>
+            <button
+              class="button-outline"
+              type="button"
+              *ngIf="courseId"
+              [routerLink]="['/general/course-dashboard', courseId]"
+            >
+              Go To Dashboard
+            </button>
+          </div>
         </form>
       </div>
     </div>

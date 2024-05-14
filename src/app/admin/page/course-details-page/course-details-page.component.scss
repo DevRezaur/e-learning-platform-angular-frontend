@@ -106,9 +106,11 @@
             }
           }
 
-          .button {
-            display: block;
-            margin: 28px 0 0 auto;
+          .button-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            column-gap: 12px;
+            margin-top: 28px;
           }
         }
       }
