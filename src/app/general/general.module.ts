@@ -7,6 +7,7 @@ import { GeneralRoutingModule } from './general-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationPageComponent } from './page/registration-page/registration-page.component';
 import { CoursePreviewPageComponent } from './page/course-preview-page/course-preview-page.component';
+import { CourseDashboardComponent } from './page/course-dashboard/course-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CoursePreviewPageComponent } from './page/course-preview-page/course-pr
     ProfilePageComponent,
     RegistrationPageComponent,
     CoursePreviewPageComponent,
+    CourseDashboardComponent,
   ],
   imports: [GeneralRoutingModule, CommonModule, ReactiveFormsModule],
   exports: [],
