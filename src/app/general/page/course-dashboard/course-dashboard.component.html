@@ -1,1 +1,18 @@
-<p>course-dashboard works!</p>
+<div class="course-dashboard-section">
+  <div class="section">
+    <div class="grid-wrapper" *ngIf="course">
+      <div class="left-div">
+        <img [src]="course.image" alt="" />
+      </div>
+      <div class="right-div"></div>
+    </div>
+    <div class="add-content-section">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onContentSelected($event)"
+        #fileInput
+      />
+    </div>
+  </div>
+</div>
