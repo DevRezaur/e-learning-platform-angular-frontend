@@ -4,8 +4,12 @@
       <div class="left-div">
         <img [src]="course.image" alt="" />
       </div>
-      <div class="right-div"></div>
+      <div class="right-div">
+        <h2>{{ course.courseName }}</h2>
+        <p>{{ course.description }}</p>
+      </div>
     </div>
+
     <div class="add-content-section">
       <input
         type="file"

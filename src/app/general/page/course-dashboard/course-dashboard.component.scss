@@ -1,7 +1,57 @@
 @import "../../../../styles.scss";
 
 .course-dashboard-section {
-  padding: 100px 16px;
+  padding: 40px 16px;
   background-color: $primary;
-  color: $white;
+
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "left-div" "right-div";
+    column-gap: 20px;
+    padding: 12px;
+    background-color: $white;
+    border-radius: 4px;
+
+    .left-div {
+      grid-area: left-div;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+        max-width: 450px;
+        height: 100%;
+      }
+    }
+
+    .right-div {
+      grid-area: right-div;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 20px;
+
+      h2 {
+        margin: 20px 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .desc {
+        flex-grow: 1;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "left-div right-div";
+    }
+  }
 }
