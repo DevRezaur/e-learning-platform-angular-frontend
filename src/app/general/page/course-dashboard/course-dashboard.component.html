@@ -7,16 +7,23 @@
       <div class="right-div">
         <h2>{{ course.courseName }}</h2>
         <p>{{ course.description }}</p>
-      </div>
-    </div>
 
-    <div class="add-content-section">
-      <input
-        type="file"
-        accept="image/*"
-        (change)="onContentSelected($event)"
-        #fileInput
-      />
+        <div class="add-content">
+          <form [formGroup]="contentDataForm" (ngSubmit)="saveContentData()">
+            <div class="field">
+              <label for="courseName">Content Name</label>
+              <input type="text" id="courseName" formControlName="courseName" />
+            </div>
+          </form>
+
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onContentSelected($event)"
+            #fileInput
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>

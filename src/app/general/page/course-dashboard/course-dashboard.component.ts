@@ -11,8 +11,8 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./course-dashboard.component.scss'],
 })
 export class CourseDashboardComponent implements OnInit {
-  image: any;
   course: any;
+  contentDataForm: any;
 
   constructor(
     private backendApiService: BackendApiService,
@@ -65,4 +65,6 @@ export class CourseDashboardComponent implements OnInit {
       console.log(content);
     }
   }
+
+  saveContentData(): void {}
 }
