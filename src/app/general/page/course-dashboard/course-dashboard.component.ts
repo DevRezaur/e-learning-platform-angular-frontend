@@ -51,7 +51,6 @@ export class CourseDashboardComponent implements OnInit {
     this.backendApiService.callGetCourseContentsAPI(courseId).subscribe({
       next: (response) => {
         this.courseContents = response.responseBody.courseContents;
-        console.log(this.courseContents);
       },
       error: (error) => {
         this.popNotificationService.error(error.error.errorMessage);

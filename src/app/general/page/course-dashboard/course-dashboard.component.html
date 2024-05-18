@@ -1,4 +1,4 @@
-<div class="course-dashboard-section">
+<div class="top-banner-section">
   <div class="section">
     <div class="grid-wrapper" *ngIf="course">
       <div class="left-div">
@@ -23,6 +23,21 @@
             #fileInput
           />
         </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contents-section">
+  <div class="section">
+    <div class="grid-wrapper">
+      <div class="card shadow" *ngFor="let content of courseContents">
+        <div class="top-div">
+          <img [src]="course.image" alt="" />
+        </div>
+        <div class="bottom-div">
+          <p>{{ content.contentTitle }}</p>
+        </div>
       </div>
     </div>
   </div>
