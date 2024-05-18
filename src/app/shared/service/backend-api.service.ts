@@ -58,6 +58,12 @@ export class BackendApiService {
     );
   }
 
+  callGetCourseContentsAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-content-api/${courseId}`
+    );
+  }
+
   callCreateCourseAPI(courseData: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/course-page-api`, courseData);
   }

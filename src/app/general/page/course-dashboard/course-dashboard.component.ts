@@ -11,7 +11,9 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./course-dashboard.component.scss'],
 })
 export class CourseDashboardComponent implements OnInit {
+  courseId: string | null = null;
   course: any;
+  courseContents: any[] = [];
   contentDataForm: any;
 
   constructor(
@@ -23,9 +25,10 @@ export class CourseDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const courseId = params['courseId'];
-      if (courseId) {
-        this.fetchCourseDetails(courseId);
+      this.courseId = params['courseId'];
+      if (this.courseId) {
+        this.fetchCourseDetails(this.courseId);
+        this.fetchCourseContents(this.courseId);
       }
     });
   }
@@ -37,6 +40,18 @@ export class CourseDashboardComponent implements OnInit {
         if (this.course.imageUrl) {
           this.loadCourseImage(this.course.imageUrl);
         }
+      },
+      error: (error) => {
+        this.popNotificationService.error(error.error.errorMessage);
+      },
+    });
+  }
+
+  fetchCourseContents(courseId: string): void {
+    this.backendApiService.callGetCourseContentsAPI(courseId).subscribe({
+      next: (response) => {
+        this.courseContents = response.responseBody.courseContents;
+        console.log(this.courseContents);
       },
       error: (error) => {
         this.popNotificationService.error(error.error.errorMessage);
