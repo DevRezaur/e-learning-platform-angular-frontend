@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
+import { CommonUtil } from 'src/app/shared/util/common.util';
 
 @Component({
   selector: 'app-home-page',
@@ -17,33 +18,32 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadHomePageData();
+    this.getFeaturedCourses();
   }
 
-  loadHomePageData(): void {
+  getFeaturedCourses(): void {
     this.backendApiService.callGetAllCoursesAPI().subscribe({
-      next: (response) => {
-        this.featuredCourses = response?.responseBody?.courseList || [];
+      next: (successResponse) => {
+        this.featuredCourses = successResponse.responseBody.courseList || [];
         this.loadImages();
       },
-      error: (error) => console.error(error),
+      error: (errorResponse) => {
+        console.error(errorResponse);
+      },
     });
   }
 
   loadImages(): void {
     this.featuredCourses.forEach((course) => {
-      this.getImage(course.imageUrl).subscribe({
+      CommonUtil.getImageFromImageUrl(
+        course.imageUrl,
+        this.backendApiService
+      ).subscribe({
         next: (image) => {
           course.image = this.sanitizer.bypassSecurityTrustUrl(image);
         },
         error: (error) => console.error(error),
       });
     });
-  }
-
-  getImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
   }
 }
