@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
   }
 
   loadHomePageData(): void {
-    this.backendApiService.callHomePageAPI().subscribe({
+    this.backendApiService.callGetAllCoursesAPI().subscribe({
       next: (response) => {
         this.featuredCourses = response?.responseBody?.courseList || [];
         this.loadImages();

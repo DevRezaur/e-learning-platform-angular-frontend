@@ -33,7 +33,9 @@
     <div class="grid-wrapper">
       <div class="card shadow" *ngFor="let content of courseContents">
         <div class="top-div">
-          <img [src]="course.image" alt="" />
+          <video *ngIf="videoUrl" controls>
+            <source [src]="videoUrl" type="video/mp4" />
+          </video>
         </div>
         <div class="bottom-div">
           <p>{{ content.contentTitle }}</p>

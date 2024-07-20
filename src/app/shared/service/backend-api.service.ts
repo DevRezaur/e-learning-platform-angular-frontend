@@ -10,6 +10,26 @@ export class BackendApiService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // User Management APIs
+  callGetUserByIdAPI(userId: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/user-management-api/${userId}`);
+  }
+
+  callUpdatePasswordAPI(userId: string, password: string): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/password`,
+      {
+        userId: userId,
+        password: password,
+      }
+    );
+  }
+
+  // Course Management APIs
+  callGetAllCoursesAPI(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/course-management-api`);
+  }
+
   callUserRegistrationAPI(userData: any): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/user-management-api`,
@@ -17,14 +37,13 @@ export class BackendApiService {
     );
   }
 
-  callHomePageAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/home-page-api`);
-  }
-
   callGetContentAPI(contentUrl: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/content-api/${contentUrl}`, {
-      responseType: 'arraybuffer',
-    });
+    return this.httpClient.get(
+      `${this.baseUrl}/content-management-api/${contentUrl}`,
+      {
+        responseType: 'arraybuffer',
+      }
+    );
   }
 
   callSaveContentsAPI(contents: any[]): Observable<any> {
@@ -75,15 +94,14 @@ export class BackendApiService {
     );
   }
 
-  callGetUserDataAPI(userId: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/profile-page-api/${userId}`);
+  callUpdateProfileAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/profile`,
+      userData
+    );
   }
 
-  callUpdateUserDataAPI(userData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/profile-page-api`, userData);
-  }
-
-  callUpdateUserImageAPI(userId: string, image: File): Observable<any> {
+  callUpdateImageUrlAPI(userId: string, image: File): Observable<any> {
     const formData = new FormData();
     formData.append('image', image);
 
@@ -96,13 +114,6 @@ export class BackendApiService {
       formData,
       { headers: headers }
     );
-  }
-
-  callUpdatePasswordAPI(userId: string, password: string): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/profile-page-api/password`, {
-      userId: userId,
-      password: password,
-    });
   }
 
   callSavePaymentAPI(paymentInfo: any): Observable<any> {
@@ -130,6 +141,18 @@ export class BackendApiService {
   callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-page-api/enrolled-courses?userId=${userId}`
+    );
+  }
+
+  callVideoStreamAPI(videoUrl: string): Observable<any> {
+    return this.httpClient.get(
+      'http://localhost:8082/content/stream/' + videoUrl,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'video/mp4',
+        }),
+        responseType: 'blob',
+      }
     );
   }
 }
