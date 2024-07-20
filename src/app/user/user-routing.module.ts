@@ -17,6 +17,13 @@ const routes: Routes = [
     path: 'purchase-course/:courseId',
     component: CoursePurchasePageComponent,
   },
+  {
+    path: 'general',
+    loadChildren: () =>
+      import('../general/general.module').then(
+        (module) => module.GeneralModule
+      ),
+  },
 ];
 
 @NgModule({

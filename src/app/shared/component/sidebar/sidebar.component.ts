@@ -11,34 +11,27 @@ import { Observable, map } from 'rxjs';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  isLoggedIn: boolean;
-  isAdmin: boolean;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  showSidebar: boolean = false;
   userImage: any;
-  showSidebar: boolean;
   userMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
     { label: 'Learning Dashboard', route: '/user/dashboard' },
-    { label: 'Notifications', route: '/' },
-    { label: 'Manage Profile', route: '/' },
+    { label: 'Profile', route: '/user/general/profile' },
   ];
   adminMenu: MenuItem[] = [
     { label: 'Home', route: '/' },
-    { label: 'Dashboard', route: '/admin/dashboard' },
-    { label: 'Profile', route: '/admin/general/profile' },
-    { label: 'Notifications', route: '/admin/notification' },
+    { label: 'Admin Dashboard', route: '/admin/dashboard' },
     { label: 'Payment Requests', route: '/admin/payments' },
-    { label: 'Statistics', route: '/admin/statistics' },
+    { label: 'Profile', route: '/admin/general/profile' },
   ];
 
   constructor(
     private authService: AuthService,
     private backendApiService: BackendApiService,
     private sanitizer: DomSanitizer
-  ) {
-    this.isLoggedIn = false;
-    this.isAdmin = false;
-    this.showSidebar = false;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.setLoginStatusAndLoadUserInfo();
@@ -56,7 +49,7 @@ export class SidebarComponent implements OnInit {
 
   loadProfileData(): void {
     this.backendApiService
-      .callGetUserDataAPI(this.authService.getUserId())
+      .callGetUserByIdAPI(this.authService.getUserId())
       .subscribe({
         next: (response) => {
           const userData = response?.responseBody?.user || [];
