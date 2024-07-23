@@ -1,21 +1,42 @@
 @import "../../../../styles.scss";
 
+/* Backdrop Styles */
+.backdrop {
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  background-color: $black;
+  opacity: 0.5;
+}
+
+/* Notification Styles */
 .notification {
   position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 9999;
-  padding: 8px 12px;
-  min-height: 50px;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  padding: 20px;
   width: 300px;
-  letter-spacing: 1px;
-  color: $white;
+  background-color: $white;
+
+  p {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .button {
+    display: block;
+    margin: 12px auto 0 auto;
+    min-width: 75px;
+  }
 }
 
-.success {
-  background-color: $accent-2;
-}
-
-.error {
-  background-color: $accent-1;
+/* Media Queries */
+@media screen and (min-width: 768px) {
+  .notification {
+    width: 400px;
+  }
 }

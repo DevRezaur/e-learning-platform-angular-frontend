@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PopNotificationService } from '../../service/pop-notification.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pop-notification',
@@ -8,34 +9,36 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./pop-notification.component.scss'],
 })
 export class PopNotificationComponent implements OnInit, OnDestroy {
-  message: string;
-  type: 'success' | 'error';
-
-  isVisible: boolean;
+  message: string = '';
+  actionName: string = '';
+  actionUrl: string = '';
+  isVisible: boolean = false;
   subscription!: Subscription;
 
-  constructor(private popNotificationService: PopNotificationService) {
-    this.message = '';
-    this.type = 'success';
-    this.isVisible = false;
-  }
+  constructor(
+    private popNotificationService: PopNotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.popNotificationService
       .getMessage()
       .subscribe((notification) => {
         this.message = notification.message;
-        this.type = notification.type;
-        if (this.message) {
-          this.isVisible = true;
-          setTimeout(() => {
-            this.isVisible = false;
-          }, 2000);
-        }
+        this.actionName = notification.actionName;
+        this.actionUrl = notification.actionUrl;
+        this.isVisible = this.message ? true : false;
       });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  handleNotification() {
+    if (this.actionUrl) {
+      this.router.navigate([this.actionUrl]);
+    }
+    this.popNotificationService.resetMessage();
   }
 }

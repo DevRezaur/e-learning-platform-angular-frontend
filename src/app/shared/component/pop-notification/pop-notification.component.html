@@ -1,7 +1,12 @@
-<div
-  *ngIf="isVisible"
-  class="notification"
-  [ngClass]="{ success: type == 'success', error: type == 'error' }"
->
-  {{ message }}
+<!-- Backdrop Starts -->
+<div class="backdrop" *ngIf="isVisible"></div>
+<!-- Backdrop Ends -->
+
+<!-- Notification Starts -->
+<div class="notification" *ngIf="isVisible">
+  <p>{{ message }}</p>
+  <button class="button" (click)="handleNotification()">
+    {{ actionName }}
+  </button>
 </div>
+<!-- Notification Ends -->
