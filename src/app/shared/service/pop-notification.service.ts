@@ -7,20 +7,43 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class PopNotificationService {
   private messageSubject = new BehaviorSubject<{
     message: string;
-    type: 'success' | 'error';
-  }>({ message: '', type: 'success' });
-
-  constructor() {}
+    actionName: string;
+    actionUrl: string;
+  }>({
+    message: '',
+    actionName: '',
+    actionUrl: '',
+  });
 
   getMessage(): Observable<any> {
     return this.messageSubject.asObservable();
   }
 
-  success(message: string): void {
-    this.messageSubject.next({ message, type: 'success' });
+  setMessage(message: string): void {
+    this.messageSubject.next({
+      message: message,
+      actionName: 'Ok',
+      actionUrl: '',
+    });
   }
 
-  error(message: string): void {
-    this.messageSubject.next({ message, type: 'error' });
+  setMessageWithAction(
+    message: string,
+    actionName: string,
+    actionUrl: string
+  ): void {
+    this.messageSubject.next({
+      message: message,
+      actionName: actionName,
+      actionUrl: actionUrl,
+    });
+  }
+
+  resetMessage(): void {
+    this.messageSubject.next({
+      message: '',
+      actionName: '',
+      actionUrl: '',
+    });
   }
 }
