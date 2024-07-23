@@ -65,41 +65,13 @@
 <div class="category-section">
   <div class="section">
     <h2>Browse By Category</h2>
-    <div class="category">
-      <h3>Programming</h3>
-      <div class="grid-wrapper">
-        <div class="item">
-          <p>Java</p>
-        </div>
-        <div class="item">
-          <p>Spring & Spring Boot</p>
-        </div>
-        <div class="item">
-          <p>Angular</p>
-        </div>
-        <div class="item">
-          <p>React JS</p>
-        </div>
-        <div class="item">
-          <p>HTML & CSS</p>
-        </div>
-        <div class="item">
-          <p>Bootstrap</p>
-        </div>
-      </div>
-    </div>
-    <div class="category">
-      <h3>Others</h3>
-      <div class="grid-wrapper">
-        <div class="item">
-          <p>Business Studies</p>
-        </div>
-        <div class="item">
-          <p>Math</p>
-        </div>
-        <div class="item">
-          <p>General Studies</p>
-        </div>
+    <div class="category-wrapper">
+      <div
+        class="item"
+        *ngFor="let category of categories"
+        (click)="getCoursesByCategory(category)"
+      >
+        <p>{{ category }}</p>
       </div>
     </div>
   </div>

@@ -152,57 +152,47 @@
       font-size: 32px;
     }
 
-    .category {
-      h3 {
-        margin-bottom: 20px;
-        margin-left: 2px;
-        font-size: 20px;
-        letter-spacing: 1px;
-        color: $accent-1;
+    .category-wrapper {
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      row-gap: 16px;
+      column-gap: 16px;
+
+      .item {
+        padding: 16px;
+        background-color: $white;
+
+        &:hover {
+          color: $accent-1;
+          cursor: pointer;
+        }
+
+        p {
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
       }
 
-      .grid-wrapper {
-        margin-bottom: 28px;
-        display: grid;
-        grid-template-columns: 1fr;
+      @media screen and (min-width: 576px) {
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
-        row-gap: 16px;
-        column-gap: 16px;
+      }
 
-        .item {
-          padding: 16px;
-          background-color: $white;
+      @media screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+      }
 
-          &:hover {
-            color: $accent-1;
-            cursor: pointer;
-          }
+      @media screen and (min-width: 992px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto;
+      }
 
-          p {
-            font-size: 16px;
-            letter-spacing: 1px;
-          }
-        }
-
-        @media screen and (min-width: 576px) {
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: auto;
-        }
-
-        @media screen and (min-width: 768px) {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: auto;
-        }
-
-        @media screen and (min-width: 992px) {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-          grid-template-rows: auto;
-        }
-
-        @media screen and (min-width: 1200px) {
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-          grid-template-rows: auto;
-        }
+      @media screen and (min-width: 1200px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto;
       }
     }
   }
