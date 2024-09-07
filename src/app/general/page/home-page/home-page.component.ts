@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
-import { CategoryService } from 'src/app/shared/service/category.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
-import { CommonUtil } from 'src/app/shared/util/common.util';
 
 @Component({
   selector: 'app-home-page',
@@ -16,9 +14,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private backendApiService: BackendApiService,
-    private categoryService: CategoryService,
-    private popNotificationService: PopNotificationService,
-    private sanitizer: DomSanitizer
+    private commonService: CommonService,
+    private popNotificationService: PopNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -27,33 +24,24 @@ export class HomePageComponent implements OnInit {
   }
 
   getFeaturedCourses(): void {
-    this.backendApiService.callGetAllCoursesAPI().subscribe({
-      next: (successResponse) => {
-        this.featuredCourses = successResponse.responseBody.courseList || [];
-        this.loadImages();
-      },
-      error: (errorResponse) => {
-        console.error(errorResponse);
-      },
+    this.backendApiService.callGetAllCoursesAPI().subscribe((response) => {
+      this.featuredCourses = response.responseBody.courseList;
+      this.loadImages();
     });
   }
 
   loadImages(): void {
-    this.featuredCourses.forEach((course) => {
-      CommonUtil.getImageFromImageUrl(
-        course.imageUrl,
-        this.backendApiService
-      ).subscribe({
-        next: (image) => {
-          course.image = this.sanitizer.bypassSecurityTrustUrl(image);
-        },
-        error: (error) => console.error(error),
-      });
-    });
+    this.featuredCourses.forEach((course) =>
+      this.commonService
+        .getImageFromImageUrl(course.imageUrl)
+        .subscribe((safeUrl) => {
+          course.image = safeUrl;
+        })
+    );
   }
 
   getCategories(): void {
-    this.categories = this.categoryService.getCategories();
+    this.categories = this.commonService.getCategories();
   }
 
   getCoursesByCategory(category: string): void {
