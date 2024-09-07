@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from '../../model/menu-item';
 import { AuthService } from '../../service/auth.service';
 import { BackendApiService } from '../../service/backend-api.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Observable, map } from 'rxjs';
+import { CommonService } from '../../service/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,22 +13,11 @@ export class SidebarComponent implements OnInit {
   isAdmin: boolean = false;
   showSidebar: boolean = false;
   userImage: any;
-  userMenu: MenuItem[] = [
-    { label: 'Home', route: '/' },
-    { label: 'Learning Dashboard', route: '/user/dashboard' },
-    { label: 'Profile', route: '/user/general/profile' },
-  ];
-  adminMenu: MenuItem[] = [
-    { label: 'Home', route: '/' },
-    { label: 'Admin Dashboard', route: '/admin/dashboard' },
-    { label: 'Payment Requests', route: '/admin/payments' },
-    { label: 'Profile', route: '/admin/general/profile' },
-  ];
 
   constructor(
     private authService: AuthService,
     private backendApiService: BackendApiService,
-    private sanitizer: DomSanitizer
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -50,28 +37,15 @@ export class SidebarComponent implements OnInit {
   loadProfileData(): void {
     this.backendApiService
       .callGetUserByIdAPI(this.authService.getUserId())
-      .subscribe({
-        next: (response) => {
-          const userData = response?.responseBody?.user || [];
-          this.loadImage(userData.imageUrl);
-        },
-        error: (error) => console.error(error),
+      .subscribe((response) => {
+        this.loadImage(response.responseBody.user.imageUrl);
       });
   }
 
   loadImage(imageUrl: string): void {
-    this.getImage(imageUrl).subscribe({
-      next: (image) => {
-        this.userImage = this.sanitizer.bypassSecurityTrustUrl(image);
-      },
-      error: (error) => console.error(error),
+    this.commonService.getImageFromImageUrl(imageUrl).subscribe((safeUrl) => {
+      this.userImage = safeUrl;
     });
-  }
-
-  getImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
   }
 
   login(): void {
@@ -86,11 +60,11 @@ export class SidebarComponent implements OnInit {
     this.showSidebar = !this.showSidebar;
   }
 
-  getActiveMenu(): MenuItem[] {
+  getActiveMenu(): any[] {
     if (this.isLoggedIn && this.isAdmin) {
-      return this.adminMenu;
+      return this.commonService.getAdminMenu();
     } else if (this.isLoggedIn) {
-      return this.userMenu;
+      return this.commonService.getUserMenu();
     } else {
       return [];
     }
