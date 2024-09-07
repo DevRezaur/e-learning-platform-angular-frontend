@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
+import { CategoryService } from 'src/app/shared/service/category.service';
+import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 import { CommonUtil } from 'src/app/shared/util/common.util';
 
 @Component({
@@ -11,14 +12,18 @@ import { CommonUtil } from 'src/app/shared/util/common.util';
 })
 export class HomePageComponent implements OnInit {
   featuredCourses: any[] = [];
+  categories: string[] = [];
 
   constructor(
     private backendApiService: BackendApiService,
+    private categoryService: CategoryService,
+    private popNotificationService: PopNotificationService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.getFeaturedCourses();
+    this.getCategories();
   }
 
   getFeaturedCourses(): void {
@@ -45,5 +50,15 @@ export class HomePageComponent implements OnInit {
         error: (error) => console.error(error),
       });
     });
+  }
+
+  getCategories(): void {
+    this.categories = this.categoryService.getCategories();
+  }
+
+  getCoursesByCategory(category: string): void {
+    this.popNotificationService.setMessage(
+      'This functionality will be available soon!'
+    );
   }
 }
