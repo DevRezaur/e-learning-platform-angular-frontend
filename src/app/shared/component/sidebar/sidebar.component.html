@@ -7,7 +7,7 @@
       (click)="toggleSidebar()"
     >
     </i>
-    <p>ELP</p>
+    <p [routerLink]="['/']">ELP</p>
   </div>
   <div *ngIf="!isLoggedIn" class="user-info">
     <button class="button-outline" [routerLink]="['/general/registration']">

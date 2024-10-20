@@ -17,7 +17,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: 12px;
+    column-gap: 24px;
 
     i {
       font-size: 22px;
@@ -26,6 +26,11 @@ nav {
 
     p {
       font-size: 18px;
+
+      &:hover {
+        color: $accent-1;
+        cursor: pointer;
+      }
     }
   }
 
