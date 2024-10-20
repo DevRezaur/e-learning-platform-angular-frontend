@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
@@ -14,8 +12,7 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
 })
 export class CoursePurchasePageComponent implements OnInit {
   courseData: any;
-  courseImage: any;
-  paymentOption: string;
+  paymentMethod: string;
   paymentData: any;
 
   constructor(
@@ -23,17 +20,13 @@ export class CoursePurchasePageComponent implements OnInit {
     private backendApiService: BackendApiService,
     private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,
-    private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer
+    private formBuilder: FormBuilder
   ) {
-    this.paymentOption = '';
+    this.paymentMethod = 'BANK_PAYMENT';
     this.paymentData = this.formBuilder.group({
       paymentVendor: ['', Validators.required],
       senderAccount: ['', Validators.required],
-      amount: [
-        '',
-        [Validators.required, Validators.min(100), Validators.max(100000)],
-      ],
+      amount: ['', [Validators.required, Validators.min(1)]],
       trxId: ['', Validators.required],
     });
   }
@@ -42,59 +35,40 @@ export class CoursePurchasePageComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const courseId = params['courseId'];
       if (courseId) {
-        this.fetchCoursePreview(courseId);
+        this.fetchCourseData(courseId);
       }
     });
   }
 
-  fetchCoursePreview(courseId: any): void {
-    this.backendApiService.callGetCoursePreviewAPI(courseId).subscribe({
-      next: (response) => {
-        this.courseData = response.responseBody.coursePreview;
-        this.loadImage(this.courseData.imageUrl);
-      },
-      error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
-      },
+  fetchCourseData(courseId: string) {
+    this.backendApiService.callGetCourseAPI(courseId).subscribe((response) => {
+      this.courseData = response.responseBody.course;
     });
   }
 
-  loadImage(imageUrl: string): void {
-    this.getImage(imageUrl).subscribe({
-      next: (image) => {
-        this.courseImage = this.sanitizer.bypassSecurityTrustUrl(image);
-      },
-      error: (error) => console.error(error),
-    });
-  }
-
-  getImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
-  }
-
-  togglePaymentOption(paymentOption: string) {
-    this.paymentOption = paymentOption;
+  togglePaymentMethod(paymentMethod: string) {
+    this.paymentMethod = paymentMethod;
     this.paymentData.reset({ paymentVendor: '' });
   }
 
   savePaymentInfo(): void {
-    if (this.paymentData.valid) {
-      const paymentInfo = {
-        ...this.paymentData.value,
-        userId: this.authService.getUserId(),
-        courseId: this.courseData.courseId,
-      };
-      this.backendApiService.callSavePaymentAPI(paymentInfo).subscribe({
-        next: (response) => {
-          this.popNotificationService.success(response.responseBody.message);
-          this.paymentData.reset();
-        },
-        error: (error) => {
-          this.popNotificationService.error(error.error.errorMessage);
-        },
-      });
-    }
+    const paymentInfo = {
+      ...this.paymentData.value,
+      userId: this.authService.getUserId(),
+      courseId: this.courseData.courseId,
+    };
+    this.backendApiService.callSavePaymentAPI(paymentInfo).subscribe({
+      next: (successResponse) => {
+        this.popNotificationService.setMessage(
+          successResponse.responseBody.message
+        );
+        this.paymentData.reset();
+      },
+      error: (errorResponse) => {
+        this.popNotificationService.setMessage(
+          errorResponse.error.errorMessage
+        );
+      },
+    });
   }
 }

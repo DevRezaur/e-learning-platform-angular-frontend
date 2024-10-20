@@ -1,90 +1,58 @@
 @import "../../../../styles.scss";
 
-.top-banner-section {
-  padding: 40px 16px;
-  background-color: $primary;
-
-  .grid-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: "right-div" "left-div";
-    column-gap: 20px;
-    padding: 12px;
-    background-color: $white;
-    border-radius: 4px;
-
-    .right-div {
-      grid-area: left-div;
-      display: flex;
-      flex-direction: column;
-      padding: 10px 20px;
-
-      h2 {
-        margin: 20px 0;
-        font-size: 28px;
-        letter-spacing: 1px;
-      }
-
-      .desc {
-        flex-grow: 1;
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-      }
-
-      .info-section {
-        background-color: $gray;
-        padding: 12px;
-        display: flex;
-        column-gap: 20px;
-        justify-content: space-between;
-        align-items: flex-end;
-
-        .statistics {
-          letter-spacing: 1px;
-        }
-
-        .price {
-          letter-spacing: 1px;
-
-          .original-price {
-            margin-bottom: 4px;
-            text-decoration: line-through;
-            opacity: 0.5;
-          }
-        }
-      }
-    }
-
-    .left-div {
-      grid-area: right-div;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        width: 100%;
-        max-width: 450px;
-        height: 100%;
-      }
-    }
-
-    @media screen and (min-width: 992px) {
-      grid-template-columns: auto 1fr;
-      grid-template-rows: 1fr;
-      grid-template-areas: "right-div left-div";
-    }
-  }
-}
-
 .payment-section {
   padding: 60px 16px;
 
   h2 {
     margin-bottom: 28px;
     font-size: 32px;
+  }
+
+  .course-details {
+    margin-bottom: 20px;
+  }
+
+  .field {
+    padding-left: 2px;
+
+    label {
+      display: block;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      height: 24px;
+      width: 100%;
+      padding: 2px 6px;
+      margin-bottom: 12px;
+      border: 1px solid $dark-gray;
+      outline: none;
+      letter-spacing: 1px;
+
+      &:focus {
+        border: 1px solid $black;
+      }
+    }
+
+    .error {
+      margin-top: 8px;
+      color: $accent-1;
+    }
+
+    select {
+      height: 24px;
+      width: 100%;
+      padding: 2px;
+      outline: none;
+      letter-spacing: 1px;
+      border: 1px solid $dark-gray;
+      background: none;
+
+      &:focus {
+        border: 1px solid $black;
+      }
+    }
   }
 
   .title {
@@ -96,12 +64,13 @@
   }
 
   .payment-selector {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 
     .button-wrapper {
       display: flex;
       flex-direction: row;
       column-gap: 24px;
+      padding-left: 2px;
 
       input {
         margin-right: 4px;
@@ -111,15 +80,11 @@
 
   .payment-details {
     .instructions {
+      line-height: 24px;
+      background-color: $off-white;
       padding: 16px;
       margin-bottom: 20px;
       border: 1px solid $gray;
-      border-radius: 4px;
-
-      p {
-        font-size: 16px;
-        letter-spacing: 1px;
-      }
     }
 
     form {
@@ -134,46 +99,6 @@
         row-gap: 12px;
         column-gap: 24px;
         margin-bottom: 12px;
-
-        .field {
-          label {
-            display: block;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-          }
-
-          input {
-            height: 24px;
-            width: 100%;
-            padding: 2px 6px;
-            border: 1px solid $dark-gray;
-            outline: none;
-            letter-spacing: 1px;
-
-            &:focus {
-              border: 1px solid $black;
-            }
-          }
-
-          .error {
-            margin-top: 8px;
-            color: $accent-1;
-          }
-
-          select {
-            height: 24px;
-            width: 100%;
-            padding: 2px;
-            outline: none;
-            letter-spacing: 1px;
-            border: 1px solid $dark-gray;
-            background: none;
-
-            &:focus {
-              border: 1px solid $black;
-            }
-          }
-        }
 
         @media screen and (min-width: 768px) {
           grid-template-columns: 1fr 1fr;
