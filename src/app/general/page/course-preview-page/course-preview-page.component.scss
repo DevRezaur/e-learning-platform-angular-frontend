@@ -34,26 +34,15 @@
         margin-bottom: 20px;
       }
 
-      .info-section {
+      .price {
         background-color: $gray;
         padding: 12px;
-        display: flex;
-        column-gap: 20px;
-        justify-content: space-between;
-        align-items: flex-end;
+        letter-spacing: 1px;
 
-        .statistics {
-          letter-spacing: 1px;
-        }
-
-        .price {
-          letter-spacing: 1px;
-
-          .original-price {
-            margin-bottom: 4px;
-            text-decoration: line-through;
-            opacity: 0.5;
-          }
+        .original-price {
+          margin-bottom: 4px;
+          text-decoration: line-through;
+          opacity: 0.5;
         }
       }
 
@@ -71,7 +60,6 @@
 
       img {
         width: 100%;
-        max-width: 450px;
         height: 100%;
       }
     }

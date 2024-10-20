@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
-import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-course-preview-page',
@@ -12,48 +10,44 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
 })
 export class CoursePreviewPageComponent implements OnInit {
   courseData: any;
-  courseImage: any;
+  contentsPreview: any[] = [];
 
   constructor(
     private backendApiService: BackendApiService,
-    private route: ActivatedRoute,
-    private popNotificationService: PopNotificationService,
-    private sanitizer: DomSanitizer
+    private commonService: CommonService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const courseId = params['courseId'];
       if (courseId) {
+        this.fetchCourseData(courseId);
         this.fetchCoursePreview(courseId);
       }
     });
   }
 
+  fetchCourseData(courseId: string) {
+    this.backendApiService.callGetCourseAPI(courseId).subscribe((response) => {
+      this.courseData = response.responseBody.course;
+      this.loadImage();
+    });
+  }
+
+  loadImage(): void {
+    this.commonService
+      .getImageFromImageUrl(this.courseData.imageUrl)
+      .subscribe((safeUrl) => {
+        this.courseData.image = safeUrl;
+      });
+  }
+
   fetchCoursePreview(courseId: any): void {
-    this.backendApiService.callGetCoursePreviewAPI(courseId).subscribe({
-      next: (response) => {
-        this.courseData = response.responseBody.coursePreview;
-        this.loadImage(this.courseData.imageUrl);
-      },
-      error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
-      },
-    });
-  }
-
-  loadImage(imageUrl: string): void {
-    this.getImage(imageUrl).subscribe({
-      next: (image) => {
-        this.courseImage = this.sanitizer.bypassSecurityTrustUrl(image);
-      },
-      error: (error) => console.error(error),
-    });
-  }
-
-  getImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
+    this.backendApiService
+      .callGetCoursePreviewAPI(courseId)
+      .subscribe((response) => {
+        this.contentsPreview = response.responseBody.courseContentsPreview;
+      });
   }
 }

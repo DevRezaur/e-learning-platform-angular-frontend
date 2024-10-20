@@ -2,30 +2,25 @@
   <div class="section">
     <div class="grid-wrapper" *ngIf="courseData">
       <div class="left-div">
-        <img *ngIf="courseImage" [src]="courseImage" alt="" />
+        <img [src]="courseData.image" alt="" />
       </div>
       <div class="right-div">
         <h2>{{ courseData.courseName }}</h2>
         <p class="desc">
           {{ courseData.description }}
         </p>
-        <div class="info-section">
-          <div class="statistics">
-            <p><strong>Total Enrolled:</strong> --</p>
-          </div>
-          <div class="price">
-            <p class="original-price" *ngIf="courseData.discount != 0">
-              {{ courseData.courseFee }} BDT
-            </p>
-            <p>
-              <strong>Price:</strong>
-              {{
-                courseData.courseFee -
-                  (courseData.courseFee * courseData.discount) / 100
-              }}
-              BDT
-            </p>
-          </div>
+        <div class="price">
+          <p class="original-price" *ngIf="courseData.discount != 0">
+            {{ courseData.courseFee }} BDT
+          </p>
+          <p>
+            <strong>Price:</strong>
+            {{
+              courseData.courseFee -
+                (courseData.courseFee * courseData.discount) / 100
+            }}
+            BDT
+          </p>
         </div>
         <button
           class="button"
@@ -40,15 +35,15 @@
 
 <div
   class="course-content-section"
-  *ngIf="courseData && courseData.courseContents.length > 0"
+  *ngIf="contentsPreview && contentsPreview.length > 0"
 >
   <div class="section">
     <h2>Course Contents</h2>
     <hr />
-    <div *ngFor="let courseContent of courseData.courseContents">
+    <div *ngFor="let content of contentsPreview">
       <p>
-        <strong>Lecture No {{ courseContent.contentSequence }}:</strong>
-        {{ courseContent.contentTitle }}
+        <strong>Lecture No {{ content.contentSequence }}:</strong>
+        {{ content.contentTitle }}
       </p>
     </div>
   </div>
