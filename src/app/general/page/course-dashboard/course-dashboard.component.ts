@@ -44,7 +44,7 @@ export class CourseDashboardComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
+        this.popNotificationService.setMessage(error.error.errorMessage);
       },
     });
   }
@@ -55,7 +55,7 @@ export class CourseDashboardComponent implements OnInit {
         this.courseContents = response.responseBody.courseContents;
       },
       error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
+        this.popNotificationService.setMessage(error.error.errorMessage);
       },
     });
   }

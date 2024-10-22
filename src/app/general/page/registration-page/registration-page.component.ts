@@ -61,11 +61,13 @@ export class RegistrationPageComponent {
         .callUserRegistrationAPI(this.userDataForm.value)
         .subscribe({
           next: (response) => {
-            this.popNotificationService.success(response.responseBody.message);
+            this.popNotificationService.setMessage(
+              response.responseBody.message
+            );
             this.isRegistrationSuccessful = true;
           },
           error: (error) => {
-            this.popNotificationService.error(error.error.errorMessage);
+            this.popNotificationService.setMessage(error.error.errorMessage);
             this.isRegistrationSuccessful = false;
           },
         });

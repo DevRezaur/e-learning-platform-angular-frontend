@@ -34,13 +34,13 @@ export class CheckPaymentsPageComponent implements OnInit {
       .callUpdatePaymentStatusAPI(paymentStatusMap)
       .subscribe({
         next: (response) => {
-          this.popNotificationService.success(response.responseBody.message);
+          this.popNotificationService.setMessage(response.responseBody.message);
           this.paymentInfoList.find(
             (paymentInfo) => paymentInfo.trxId === trxId
           ).status = status;
         },
         error: (error) => {
-          this.popNotificationService.error(error.error.errorMessage);
+          this.popNotificationService.setMessage(error.error.errorMessage);
         },
       });
   }

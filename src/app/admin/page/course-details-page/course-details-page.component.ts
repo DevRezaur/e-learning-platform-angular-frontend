@@ -66,7 +66,7 @@ export class CourseDetailsPageComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
+        this.popNotificationService.setMessage(error.error.errorMessage);
       },
     });
   }
@@ -104,7 +104,7 @@ export class CourseDetailsPageComponent implements OnInit {
           this.createNewCourse();
         },
         error: () => {
-          this.popNotificationService.error('Choose a course image!');
+          this.popNotificationService.setMessage('Choose a course image!');
         },
       });
     }
@@ -120,7 +120,7 @@ export class CourseDetailsPageComponent implements OnInit {
             this.updateCourse();
           },
           error: () => {
-            this.popNotificationService.error('Choose a course image!');
+            this.popNotificationService.setMessage('Choose a course image!');
           },
         });
       } else {
@@ -161,10 +161,10 @@ export class CourseDetailsPageComponent implements OnInit {
     };
     this.backendApiService.callCreateCourseAPI(formData).subscribe({
       next: (response) => {
-        this.popNotificationService.success(response.responseBody.message);
+        this.popNotificationService.setMessage(response.responseBody.message);
       },
       error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
+        this.popNotificationService.setMessage(error.error.errorMessage);
       },
     });
   }
@@ -177,10 +177,10 @@ export class CourseDetailsPageComponent implements OnInit {
     };
     this.backendApiService.callUpdateCourseAPI(formData).subscribe({
       next: (response) => {
-        this.popNotificationService.success(response.responseBody.message);
+        this.popNotificationService.setMessage(response.responseBody.message);
       },
       error: (error) => {
-        this.popNotificationService.error(error.error.errorMessage);
+        this.popNotificationService.setMessage(error.error.errorMessage);
       },
     });
   }

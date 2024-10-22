@@ -30,6 +30,20 @@ export class BackendApiService {
     return this.httpClient.get(`${this.baseUrl}/course-management-api`);
   }
 
+  callGetCourseAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-management-api/${courseId}`
+    );
+  }
+
+  callGetCoursePreviewAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-content-management-api/${courseId}/preview`
+    );
+  }
+
+  ///
+
   callUserRegistrationAPI(userData: any): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/user-management-api`,
@@ -64,16 +78,6 @@ export class BackendApiService {
   callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
-    );
-  }
-
-  callGetCourseAPI(courseId: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/course-page-api/${courseId}`);
-  }
-
-  callGetCoursePreviewAPI(courseId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-page-api/${courseId}/preview`
     );
   }
 
