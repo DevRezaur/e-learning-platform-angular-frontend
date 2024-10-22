@@ -16,15 +16,35 @@ export class CommonService {
     'Others',
   ];
   private userMenu: any[] = [
-    { label: 'Home', route: '/' },
-    { label: 'Learning Dashboard', route: '/user/dashboard' },
-    { label: 'Profile', route: '/user/general/profile' },
+    { label: 'Home', route: '/', logo: 'fas fa-laptop-code' },
+    {
+      label: 'Learning Dashboard',
+      route: '/user/dashboard',
+      logo: 'fas fa-laptop-code',
+    },
+    {
+      label: 'Profile',
+      route: '/user/general/profile',
+      logo: 'fas fa-laptop-code',
+    },
   ];
   private adminMenu: any[] = [
-    { label: 'Home', route: '/' },
-    { label: 'Admin Dashboard', route: '/admin/dashboard' },
-    { label: 'Payment Requests', route: '/admin/payments' },
-    { label: 'Profile', route: '/admin/general/profile' },
+    { label: 'Home', route: '/', logo: 'fas fa-laptop-code' },
+    {
+      label: 'Admin Dashboard',
+      route: '/admin/dashboard',
+      logo: 'fas fa-laptop-code',
+    },
+    {
+      label: 'Payment Requests',
+      route: '/admin/payments',
+      logo: 'fas fa-laptop-code',
+    },
+    {
+      label: 'Profile',
+      route: '/admin/general/profile',
+      logo: 'fas fa-laptop-code',
+    },
   ];
 
   constructor(
