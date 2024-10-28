@@ -47,10 +47,6 @@ nav {
       background-color: $white;
       color: $black;
     }
-
-    @media screen and (max-width: 768px) {
-      display: none;
-    }
   }
 }
 
@@ -113,5 +109,12 @@ nav {
     display: block;
     margin: 20px auto 0 auto;
     width: 80%;
+  }
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  nav .user-info {
+    display: none;
   }
 }

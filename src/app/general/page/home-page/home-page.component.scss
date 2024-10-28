@@ -168,51 +168,50 @@
         letter-spacing: 1px;
       }
     }
-
-    @media screen and (min-width: 576px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-    }
-
-    @media screen and (min-width: 768px) {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto;
-    }
-
-    @media screen and (min-width: 992px) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: auto;
-    }
-
-    @media screen and (min-width: 1200px) {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      grid-template-rows: auto;
-    }
   }
 }
 
 /* Media Queries */
+@media screen and (min-width: 576px) {
+  .category-section .section .category-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .featured-course-section .section .grid-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .category-section .section .category-wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
 @media screen and (min-width: 992px) {
-  .top-banner-section .grid-wrapper {
+  .top-banner-section .section .grid-wrapper {
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
     grid-template-areas: "left-div right-div";
   }
 
-  .featured-course-section .grid-wrapper {
-    @media screen and (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-    }
+  .category-section .section .category-wrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
 
-    @media screen and (min-width: 992px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-    }
+@media screen and (min-width: 1200px) {
+  .featured-course-section .section .grid-wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
 
-    @media screen and (min-width: 1200px) {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto;
-    }
+  .category-section .section .category-wrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
   }
 }
