@@ -9,7 +9,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class CommonService {
   private categories: string[] = [
     'Java',
-    'Spring & Spring Boot',
+    'Spring Boot',
     'Angular',
     'React JS',
     'HTML & CSS',
