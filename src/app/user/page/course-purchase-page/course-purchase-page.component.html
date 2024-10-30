@@ -1,212 +1,228 @@
-<div class="section payment-section" *ngIf="courseData">
-  <h2>Payment Information</h2>
+<!-- Course Purchase Section Starts -->
+<div class="course-purchase-section" *ngIf="courseData">
+  <div class="card">
+    <h2>Payment Information</h2>
 
-  <div class="course-details">
-    <div class="field">
-      <label for="courseName">Course Name</label>
-      <input
-        type="text"
-        id="courseName"
-        value="{{ courseData.courseName }}"
-        disabled
-      />
-    </div>
-    <div class="field">
-      <label for="price">Course Fee</label>
-      <input
-        type="text"
-        id="courseFee"
-        value="{{
-          courseData.courseFee -
-            (courseData.courseFee * courseData.discount) / 100
-        }} BDT"
-        disabled
-      />
-    </div>
-  </div>
-
-  <div class="payment-selector">
-    <p class="title">Select Payment Method</p>
-    <div class="button-wrapper">
-      <div>
+    <div class="course-details">
+      <div class="form-field">
+        <label for="courseName">Course Name</label>
         <input
-          type="radio"
-          name="paymentOption"
-          id="bank"
-          value="BANK_PAYMENT"
-          [checked]="paymentMethod === 'BANK_PAYMENT'"
-          (click)="togglePaymentMethod('BANK_PAYMENT')"
+          type="text"
+          id="courseName"
+          value="{{ courseData.courseName }}"
+          disabled
         />
-        <label for="bank">Bank Payment</label>
       </div>
-      <div>
+
+      <div class="form-field">
+        <label for="courseFee">Course Fee</label>
         <input
-          type="radio"
-          name="paymentOption"
-          id="mobile"
-          value="MOBILE_BANKING"
-          [checked]="paymentMethod === 'MOBILE_BANKING'"
-          (click)="togglePaymentMethod('MOBILE_BANKING')"
+          type="text"
+          id="courseFee"
+          value="{{
+            courseData.courseFee -
+              (courseData.courseFee * courseData.discount) / 100
+          }} BDT"
+          disabled
         />
-        <label for="mobile">Mobile Banking</label>
       </div>
     </div>
-  </div>
 
-  <div class="payment-details" *ngIf="paymentMethod">
-    <p class="title">Payment Details</p>
+    <div class="payment-selector">
+      <h3>Select Payment Method</h3>
 
-    <form [formGroup]="paymentData" (ngSubmit)="savePaymentInfo()">
-      <div class="instructions">
-        <p *ngIf="paymentMethod === 'BANK_PAYMENT'">
-          To complete your payment via bank, send the required amount at
-          ACC-XXXXXXXXXXX. Also ensure that, you are providing a valid account
-          number and check number. Double check all details to avoid any payment
-          delays.
-        </p>
-        <p *ngIf="paymentMethod === 'MOBILE_BANKING'">
-          For mobile banking, send the required amount to 018XXXXXXXX. Also
-          ensure that, you are using the correct mobile wallet service and
-          provide a valid transaction ID. Double check the details before
-          submission.
-        </p>
-      </div>
-
-      <div class="field-wrapper">
-        <div class="field">
-          <label for="paymentVendor">
-            {{
-              paymentMethod === "BANK_PAYMENT" ? "Select Bank" : "Select Agent"
-            }}
-          </label>
-          <div class="dropdown">
-            <select id="paymentVendor" formControlName="paymentVendor">
-              <option value="">
-                {{
-                  paymentMethod === "BANK_PAYMENT"
-                    ? "Select Bank"
-                    : "Select Vendor"
-                }}
-              </option>
-              <option
-                *ngIf="paymentMethod === 'BANK_PAYMENT'"
-                value="City Bank"
-              >
-                City Bank
-              </option>
-              <option
-                *ngIf="paymentMethod === 'BANK_PAYMENT'"
-                value="Dutch Bangla Bank"
-              >
-                Dutch Bangla Bank
-              </option>
-              <option
-                *ngIf="paymentMethod === 'BANK_PAYMENT'"
-                value="Islami Bank Bangladesh"
-              >
-                Islami Bank Bangladesh
-              </option>
-              <option *ngIf="paymentMethod === 'MOBILE_BANKING'" value="BKash">
-                BKash
-              </option>
-              <option *ngIf="paymentMethod === 'MOBILE_BANKING'" value="Nagad">
-                Nagad
-              </option>
-            </select>
-          </div>
-          <div
-            *ngIf="
-              paymentData.get('paymentVendor')?.invalid &&
-              (paymentData.get('paymentVendor')?.touched ||
-                paymentData.get('paymentVendor')?.dirty)
-            "
-          >
-            <div
-              class="error"
-              *ngIf="paymentData.get('paymentVendor')?.hasError('required')"
-            >
-              Please select a
-              {{
-                paymentMethod === "BANK_PAYMENT" ? "bank" : "payment vendor"
-              }}!
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="senderAccount">Sender's Account No</label>
+      <div class="form-field-wrapper">
+        <div class="form-field">
           <input
-            type="text"
-            id="senderAccount"
-            formControlName="senderAccount"
+            type="radio"
+            name="paymentOption"
+            id="bank"
+            value="BANK_PAYMENT"
+            [checked]="paymentMethod === 'BANK_PAYMENT'"
+            (click)="togglePaymentMethod('BANK_PAYMENT')"
           />
-          <div
-            *ngIf="
-              paymentData.get('senderAccount')?.invalid &&
-              (paymentData.get('senderAccount')?.touched ||
-                paymentData.get('senderAccount')?.dirty)
-            "
-          >
-            <div
-              class="error"
-              *ngIf="paymentData.get('senderAccount')?.hasError('required')"
-            >
-              Sender's account is required!
-            </div>
-          </div>
+          <label for="bank">Bank Payment</label>
         </div>
 
-        <div class="field">
-          <label for="amount">Amount</label>
-          <input type="number" id="amount" formControlName="amount" />
-          <div
-            *ngIf="
-              paymentData.get('amount')?.invalid &&
-              (paymentData.get('amount')?.touched ||
-                paymentData.get('amount')?.dirty)
-            "
-          >
-            <div
-              class="error"
-              *ngIf="paymentData.get('amount')?.hasError('required')"
-            >
-              Amount is required!
-            </div>
-            <div
-              class="error"
-              *ngIf="paymentData.get('amount')?.hasError('min')"
-            >
-              Enter valid amount!
-            </div>
-          </div>
+        <div class="form-field">
+          <input
+            type="radio"
+            name="paymentOption"
+            id="mobile"
+            value="MOBILE_BANKING"
+            [checked]="paymentMethod === 'MOBILE_BANKING'"
+            (click)="togglePaymentMethod('MOBILE_BANKING')"
+          />
+          <label for="mobile">Mobile Banking</label>
         </div>
+      </div>
+    </div>
 
-        <div class="field">
-          <label for="trxId">{{
-            paymentMethod === "BANK_PAYMENT" ? "Check No" : "Transaction Id"
-          }}</label>
-          <input type="text" id="trxId" formControlName="trxId" />
-          <div
-            *ngIf="
-              paymentData.get('trxId')?.invalid &&
-              (paymentData.get('trxId')?.touched ||
-                paymentData.get('trxId')?.dirty)
-            "
-          >
-            <div
-              class="error"
-              *ngIf="paymentData.get('trxId')?.hasError('required')"
-            >
+    <div class="payment-instructions">
+      <p *ngIf="paymentMethod === 'BANK_PAYMENT'">
+        To complete your payment via bank, send the required amount at
+        <strong>ACC-XXXXXXXXXXX</strong>. Also ensure that, you are providing a
+        valid account number and check number. Double check all details to avoid
+        any payment delays.
+      </p>
+      <p *ngIf="paymentMethod === 'MOBILE_BANKING'">
+        For mobile banking, send the required amount to
+        <strong>018XXXXXXXX</strong>. Also ensure that, you are using the
+        correct mobile wallet service and provide a valid transaction ID. Double
+        check the details before submission.
+      </p>
+    </div>
+
+    <div class="payment-details" *ngIf="paymentMethod">
+      <h3>Payment Details</h3>
+
+      <form [formGroup]="paymentData" (ngSubmit)="savePaymentInfo()">
+        <div class="form-field-wrapper">
+          <div class="form-field">
+            <label for="paymentVendor">
               {{
                 paymentMethod === "BANK_PAYMENT"
-                  ? "Check no is required!"
-                  : "Transaction id is required!"
+                  ? "Select Bank"
+                  : "Select Agent"
               }}
+            </label>
+            <div class="dropdown">
+              <select id="paymentVendor" formControlName="paymentVendor">
+                <option value="">
+                  {{
+                    paymentMethod === "BANK_PAYMENT"
+                      ? "Select Bank"
+                      : "Select Vendor"
+                  }}
+                </option>
+                <option
+                  *ngIf="paymentMethod === 'BANK_PAYMENT'"
+                  value="City Bank"
+                >
+                  City Bank
+                </option>
+                <option
+                  *ngIf="paymentMethod === 'BANK_PAYMENT'"
+                  value="Dutch Bangla Bank"
+                >
+                  Dutch Bangla Bank
+                </option>
+                <option
+                  *ngIf="paymentMethod === 'BANK_PAYMENT'"
+                  value="Islami Bank Bangladesh"
+                >
+                  Islami Bank Bangladesh
+                </option>
+                <option
+                  *ngIf="paymentMethod === 'MOBILE_BANKING'"
+                  value="BKash"
+                >
+                  BKash
+                </option>
+                <option
+                  *ngIf="paymentMethod === 'MOBILE_BANKING'"
+                  value="Nagad"
+                >
+                  Nagad
+                </option>
+              </select>
+            </div>
+            <div
+              *ngIf="
+                paymentData.get('paymentVendor')?.invalid &&
+                (paymentData.get('paymentVendor')?.touched ||
+                  paymentData.get('paymentVendor')?.dirty)
+              "
+            >
+              <div
+                class="error"
+                *ngIf="paymentData.get('paymentVendor')?.hasError('required')"
+              >
+                Please select a
+                {{
+                  paymentMethod === "BANK_PAYMENT" ? "bank" : "payment vendor"
+                }}!
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="senderAccount">Sender's Account No</label>
+            <input
+              type="text"
+              id="senderAccount"
+              formControlName="senderAccount"
+            />
+            <div
+              *ngIf="
+                paymentData.get('senderAccount')?.invalid &&
+                (paymentData.get('senderAccount')?.touched ||
+                  paymentData.get('senderAccount')?.dirty)
+              "
+            >
+              <div
+                class="error"
+                *ngIf="paymentData.get('senderAccount')?.hasError('required')"
+              >
+                Sender's account is required!
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" formControlName="amount" />
+            <div
+              *ngIf="
+                paymentData.get('amount')?.invalid &&
+                (paymentData.get('amount')?.touched ||
+                  paymentData.get('amount')?.dirty)
+              "
+            >
+              <div
+                class="error"
+                *ngIf="paymentData.get('amount')?.hasError('required')"
+              >
+                Amount is required!
+              </div>
+              <div
+                class="error"
+                *ngIf="paymentData.get('amount')?.hasError('min')"
+              >
+                Enter valid amount!
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="trxId">{{
+              paymentMethod === "BANK_PAYMENT" ? "Check No" : "Transaction Id"
+            }}</label>
+            <input type="text" id="trxId" formControlName="trxId" />
+            <div
+              *ngIf="
+                paymentData.get('trxId')?.invalid &&
+                (paymentData.get('trxId')?.touched ||
+                  paymentData.get('trxId')?.dirty)
+              "
+            >
+              <div
+                class="error"
+                *ngIf="paymentData.get('trxId')?.hasError('required')"
+              >
+                {{
+                  paymentMethod === "BANK_PAYMENT"
+                    ? "Check no is required!"
+                    : "Transaction id is required!"
+                }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <button class="button" [disabled]="!paymentData.valid">Submit</button>
-    </form>
+
+        <button class="button" [disabled]="!paymentData.valid">Submit</button>
+      </form>
+    </div>
   </div>
 </div>
+<!-- Course Purchase Section Ends -->
