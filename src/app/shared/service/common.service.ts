@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BackendApiService } from './backend-api.service';
 import { map, Observable } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +72,21 @@ export class CommonService {
         return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
       })
     );
+  }
+
+  confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    if (!confirmPassword) {
+      return null;
+    }
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    formGroup.markAllAsTouched();
+    Object.values(formGroup.controls)
+      .filter((control) => control instanceof FormGroup)
+      .forEach((control) => this.markFormGroupTouched(control as FormGroup));
   }
 }
