@@ -58,7 +58,7 @@ export class RegistrationPageComponent {
   }
 
   private handleRegistrationError(response: any): void {
-    const message = response.error.errorMessage;
+    const message = response.error.errorBody.errorMessage;
     this.popNotificationService.setMessage(message);
   }
 }
