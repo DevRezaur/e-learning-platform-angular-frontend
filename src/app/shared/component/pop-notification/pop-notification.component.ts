@@ -36,7 +36,9 @@ export class PopNotificationComponent implements OnInit, OnDestroy {
   }
 
   handleNotification() {
-    this.router.navigate([this.actionUrl]);
+    if (this.actionUrl) {
+      this.router.navigate([this.actionUrl]);
+    }
     this.popNotificationService.resetMessage();
   }
 }
