@@ -11,6 +11,13 @@ export class BackendApiService {
   constructor(private httpClient: HttpClient) {}
 
   // User Management APIs
+  callUserRegistrationAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api`,
+      userData
+    );
+  }
+
   callGetUserByIdAPI(userId: string): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/user-management-api/${userId}`);
   }
@@ -42,14 +49,7 @@ export class BackendApiService {
     );
   }
 
-  ///
-
-  callUserRegistrationAPI(userData: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/user-management-api`,
-      userData
-    );
-  }
+  /// Un-managed APIs (Will be fixed later)
 
   callGetContentAPI(contentUrl: string): Observable<any> {
     return this.httpClient.get(
