@@ -49,9 +49,14 @@
         max-width: 600px;
         margin: 0 auto;
 
-        .button {
-          display: block;
-          margin: 28px 0 0 auto;
+        .button-wrapper {
+          display: flex;
+          justify-content: space-between;
+          margin: 28px 0;
+
+          p {
+            font-size: 15px;
+          }
         }
       }
     }
