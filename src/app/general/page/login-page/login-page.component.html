@@ -1,1 +1,79 @@
-<p>login-page works!</p>
+<!-- Login Page Starts -->
+<div class="login-page-section">
+  <div class="grid-wrapper">
+    <div class="left-div">
+      <div>
+        <p class="top-line">Welcome to</p>
+        <h2>E-Learning Platform</h2>
+      </div>
+      <img
+        src="../../../../assets/image/learning-female.svg"
+        alt="Login Page Logo"
+      />
+    </div>
+
+    <div class="right-div">
+      <h2>Login Page</h2>
+
+      <form [formGroup]="loginDataForm" (ngSubmit)="login()">
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            autocomplete="email"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              loginDataForm.get('email')?.invalid &&
+              (loginDataForm.get('email')?.touched ||
+                loginDataForm.get('email')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="loginDataForm.get('email')?.hasError('required')"
+            >
+              Email is required!
+            </div>
+            <div
+              class="error"
+              *ngIf="loginDataForm.get('email')?.hasError('email')"
+            >
+              Invalid email format!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" />
+          <div
+            *ngIf="
+              loginDataForm.get('password')?.invalid &&
+              (loginDataForm.get('password')?.touched ||
+                loginDataForm.get('password')?.dirty)
+            "
+          >
+            <div
+              class="error"
+              *ngIf="loginDataForm.get('password')?.hasError('required')"
+            >
+              Password is required!
+            </div>
+          </div>
+        </div>
+
+        <div class="button-wrapper">
+          <p>
+            Don't have an account?
+            <a routerLink="/general/registration">Sign Up</a>
+          </p>
+          <button class="button" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Login Page Ends -->

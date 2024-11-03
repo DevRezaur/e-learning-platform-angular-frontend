@@ -1,0 +1,87 @@
+@import "../../../../styles.scss";
+
+.login-page-section {
+  height: 100%;
+
+  .grid-wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "right-div";
+
+    .left-div {
+      grid-area: left-div;
+      display: none;
+      padding: 40px 16px;
+      background-color: $off-white;
+
+      .top-line {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: $accent-1;
+      }
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 24px;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        max-width: 450px;
+      }
+    }
+
+    .right-div {
+      grid-area: right-div;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 16px;
+
+      h2 {
+        font-size: 24px;
+        margin-bottom: 28px;
+      }
+
+      form {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+
+        .button-wrapper {
+          display: flex;
+          justify-content: space-between;
+          margin: 28px 0;
+
+          p {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Media Queries */
+@media screen and (min-width: 992px) {
+  .login-page-section .grid-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "left-div right-div";
+  }
+
+  .login-page-section .grid-wrapper .left-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-page-section .grid-wrapper .right-div h2 {
+    margin-top: -28px;
+  }
+}
