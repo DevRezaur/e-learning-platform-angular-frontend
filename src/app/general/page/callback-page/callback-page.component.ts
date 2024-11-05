@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/service/auth.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AUTH_SERVICE,
+  AuthServiceInterface,
+} from 'src/app/shared/service/auth-service.interface';
 
 @Component({
   selector: 'app-callback-page',
@@ -7,9 +10,11 @@ import { AuthService } from 'src/app/shared/service/auth.service';
   styleUrls: ['./callback-page.component.scss'],
 })
 export class CallbackPageComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    @Inject(AUTH_SERVICE) private authService: AuthServiceInterface
+  ) {}
 
   ngOnInit(): void {
-    this.authService.redirectOnCallback();
+    this.authService.handleOAuthEvents();
   }
 }

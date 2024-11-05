@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/shared/service/auth.service';
+import {
+  AUTH_SERVICE,
+  AuthServiceInterface,
+} from 'src/app/shared/service/auth-service.interface';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
@@ -16,7 +19,7 @@ export class CoursePurchasePageComponent implements OnInit {
   paymentData: any;
 
   constructor(
-    private authService: AuthService,
+    @Inject(AUTH_SERVICE) private authService: AuthServiceInterface,
     private backendApiService: BackendApiService,
     private route: ActivatedRoute,
     private popNotificationService: PopNotificationService,

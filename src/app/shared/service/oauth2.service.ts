@@ -8,7 +8,7 @@ import {
   OAuthSuccessEvent,
 } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthServiceInterface } from './oath2-service-interface';
+import { AuthServiceInterface } from './auth-service.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -97,7 +97,7 @@ export class Oauth2Service implements AuthServiceInterface {
     this.loggedInStatus.next(this.oauthService.hasValidAccessToken());
   }
 
-  private handleOAuthEvents(): void {
+  public handleOAuthEvents(): void {
     this.oauthService.events.subscribe((event) => {
       if (
         event instanceof OAuthSuccessEvent &&
