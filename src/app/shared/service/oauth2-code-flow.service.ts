@@ -13,7 +13,7 @@ import { AuthServiceInterface } from './auth-service.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class Oauth2Service implements AuthServiceInterface {
+export class Oauth2CodeFlowService implements AuthServiceInterface {
   private loggedInStatus = new BehaviorSubject<boolean>(false);
   private authConfig: AuthConfig = {
     responseType: 'code',
