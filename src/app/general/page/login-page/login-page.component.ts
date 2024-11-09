@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AUTH_SERVICE,
+  AuthServiceInterface,
+} from 'src/app/shared/service/auth-service.interface';
 import { CommonService } from 'src/app/shared/service/common.service';
-import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,12 +15,12 @@ export class LoginPageComponent {
   loginDataForm: FormGroup;
 
   constructor(
+    @Inject(AUTH_SERVICE) private authService: AuthServiceInterface,
     private commonService: CommonService,
-    private popNotificationService: PopNotificationService,
     private formBuilder: FormBuilder
   ) {
     this.loginDataForm = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
@@ -25,12 +28,10 @@ export class LoginPageComponent {
   login(): void {
     this.commonService.markFormGroupTouched(this.loginDataForm);
     if (!this.loginDataForm.valid) return;
-  }
 
-  private handleLoginSuccess(response: any): void {}
-
-  private handleLoginError(response: any): void {
-    const message = response.error.errorBody.errorMessage;
-    this.popNotificationService.setMessage(message);
+    this.authService.login(
+      this.loginDataForm.value.email,
+      this.loginDataForm.value.password
+    );
   }
 }
