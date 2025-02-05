@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
@@ -15,6 +16,7 @@ export class RegistrationPageComponent {
   userDataForm: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private commonService: CommonService,
     private popNotificationService: PopNotificationService,
@@ -34,6 +36,10 @@ export class RegistrationPageComponent {
       },
       { validators: [this.commonService.confirmPasswordValidator] }
     );
+  }
+
+  login(): void {
+    this.authService.login();
   }
 
   registerUser(): void {

@@ -1,10 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
-import {
-  AUTH_SERVICE,
-  AuthServiceInterface,
-} from 'src/app/shared/service/auth-service.interface';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 
 @Component({
@@ -16,7 +13,7 @@ export class DashboardPageComponent implements OnInit {
   enrolledCourses: any[];
 
   constructor(
-    @Inject(AUTH_SERVICE) private authService: AuthServiceInterface,
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private sanitizer: DomSanitizer
   ) {

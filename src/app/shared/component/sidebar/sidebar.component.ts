@@ -1,10 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BackendApiService } from '../../service/backend-api.service';
 import { CommonService } from '../../service/common.service';
-import {
-  AUTH_SERVICE,
-  AuthServiceInterface,
-} from '../../service/auth-service.interface';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +15,7 @@ export class SidebarComponent implements OnInit {
   userImage: any;
 
   constructor(
-    @Inject(AUTH_SERVICE) private authService: AuthServiceInterface,
+    private authService: AuthService,
     private backendApiService: BackendApiService,
     private commonService: CommonService
   ) {}
