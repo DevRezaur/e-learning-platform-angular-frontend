@@ -11,16 +11,9 @@ export class BackendApiService {
   constructor(private httpClient: HttpClient) {}
 
   // User Management APIs
-  callLoginAPI(username: string, password: string): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/user-management-api/login`, {
-      username: username,
-      password: password,
-    });
-  }
-
   callUserRegistrationAPI(userData: any): Observable<any> {
     return this.httpClient.post(
-      `${this.baseUrl}/user-management-api`,
+      `${this.baseUrl}/user-management-api/register`,
       userData
     );
   }

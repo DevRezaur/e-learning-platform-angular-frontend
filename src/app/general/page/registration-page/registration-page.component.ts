@@ -56,11 +56,7 @@ export class RegistrationPageComponent {
 
   private handleRegistrationSuccess(response: any): void {
     const message = response.responseBody.message;
-    this.popNotificationService.setMessageWithAction(
-      message,
-      'Login',
-      '/general/login'
-    );
+    this.popNotificationService.setMessage(message);
   }
 
   private handleRegistrationError(response: any): void {

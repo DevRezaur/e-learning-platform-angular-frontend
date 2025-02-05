@@ -8,13 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationPageComponent } from './page/registration-page/registration-page.component';
 import { CoursePreviewPageComponent } from './page/course-preview-page/course-preview-page.component';
 import { CourseDashboardComponent } from './page/course-dashboard/course-dashboard.component';
-import { LoginPageComponent } from './page/login-page/login-page.component';
 
 @NgModule({
   declarations: [
     HomePageComponent,
     CallbackPageComponent,
-    LoginPageComponent,
     RegistrationPageComponent,
     ProfilePageComponent,
     CoursePreviewPageComponent,
