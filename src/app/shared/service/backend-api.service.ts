@@ -49,6 +49,14 @@ export class BackendApiService {
     );
   }
 
+  // Payment Management APIs
+  callSavePaymentAPI(paymentInfo: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/payment-management-api`,
+      paymentInfo
+    );
+  }
+
   /// Un-managed APIs (Will be fixed later)
 
   callGetContentAPI(contentUrl: string): Observable<any> {
@@ -118,10 +126,6 @@ export class BackendApiService {
       formData,
       { headers: headers }
     );
-  }
-
-  callSavePaymentAPI(paymentInfo: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/payment-api`, paymentInfo);
   }
 
   callGetAllPaymentsAPI(): Observable<any> {
