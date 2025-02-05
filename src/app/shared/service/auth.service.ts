@@ -57,7 +57,9 @@ export class AuthService {
         if (this.isAdmin()) {
           this.router.navigate(['/admin']);
         } else if (this.isUser()) {
-          this.router.navigate(['/common/home']);
+          const redirectUrl = sessionStorage.getItem('redirectUrl') ?? '';
+          sessionStorage.removeItem('redirectUrl');
+          this.router.navigateByUrl(redirectUrl);
         }
       } else if (event instanceof OAuthErrorEvent) {
         console.error(event);
