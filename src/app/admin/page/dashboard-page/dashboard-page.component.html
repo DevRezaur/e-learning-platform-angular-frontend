@@ -24,10 +24,32 @@
 </div>
 <!-- Top Banner Section Ends -->
 
+<!-- Action Panel Section Starts -->
 <div class="action-panel-section">
   <div class="section">
     <div class="grid-wrapper">
-      <div class="card shadow">
+      <a class="card" [routerLink]="['/route']">
+        <i class="fas fa-file-word"></i>
+        <p class="name">Manage Courses</p>
+      </a>
+      <a class="card" [routerLink]="['/route']">
+        <i class="fas fa-file-import"></i>
+        <p class="name">Add New Course</p>
+      </a>
+      <a class="card" [routerLink]="['/route']">
+        <i class="fas fa-users"></i>
+        <p class="name">All Users</p>
+      </a>
+      <a class="card" [routerLink]="['/route']">
+        <i class="fas fa-user-plus"></i>
+        <p class="name">Add New User</p>
+      </a>
+      <a class="card" [routerLink]="['/route']">
+        <i class="fas fa-money-check-alt"></i>
+        <p class="name">Payment Dashboard</p>
+      </a>
+
+      <!-- <div class="card shadow">
         <div class="top-div">
           <img src="../../../../assets/image/courses.svg" alt="" />
         </div>
@@ -78,7 +100,8 @@
             <a class="button" href="#">Check Statistics</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
+<!-- Action Panel Section Ends -->
