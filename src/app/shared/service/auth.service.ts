@@ -78,14 +78,14 @@ export class AuthService {
   }
 
   public isAdmin(): boolean {
-    return this.getClaims().includes('ADMIN') ? true : false;
+    return this.getRoles().includes('ADMIN') ? true : false;
   }
 
   public isUser(): boolean {
-    return this.getClaims().includes('USER') ? true : false;
+    return this.getRoles().includes('USER') ? true : false;
   }
 
-  public getClaims(): string[] {
+  public getRoles(): string[] {
     const accessToken: string = this.oauthService.getAccessToken();
     const splittedToken: string[] = accessToken.split('.');
     const claims = JSON.parse(atob(splittedToken[1]));

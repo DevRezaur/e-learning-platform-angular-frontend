@@ -14,11 +14,13 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardPageComponent,
     canActivate: [AuthGuard],
+    data: { roles: ['USER'] },
   },
   {
     path: 'purchase-course/:courseId',
     component: CoursePurchasePageComponent,
     canActivate: [AuthGuard],
+    data: { roles: ['USER'] },
   },
   {
     path: 'general',

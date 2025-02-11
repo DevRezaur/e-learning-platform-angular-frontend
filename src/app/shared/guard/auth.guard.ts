@@ -20,7 +20,18 @@ export class AuthGuard implements CanActivate {
     return new Observable((observer) => {
       this.authService.isLoggedIn().subscribe((loggedInStatus) => {
         if (loggedInStatus) {
-          observer.next(true);
+          const userRoles = this.authService.getRoles();
+          const requiredRoles = route.data['roles'] as string[];
+          if (
+            !requiredRoles ||
+            requiredRoles.length === 0 ||
+            userRoles.some((role) => requiredRoles.includes(role))
+          ) {
+            observer.next(true);
+          } else {
+            alert('Unauthorized');
+            observer.next(false);
+          }
           observer.complete();
         } else {
           sessionStorage.setItem('redirectUrl', state.url);
