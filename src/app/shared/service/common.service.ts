@@ -47,6 +47,33 @@ export class CommonService {
       logo: 'fas fa-laptop-code',
     },
   ];
+  private adminActionItems: any[] = [
+    {
+      label: 'Manage Courses',
+      route: '/admin/manage-course',
+      logo: 'fas fa-file-word',
+    },
+    {
+      label: 'Add New Course',
+      route: '/admin/course-details',
+      logo: 'fas fa-file-import',
+    },
+    {
+      label: 'All Users',
+      route: '',
+      logo: 'fas fa-users',
+    },
+    {
+      label: 'Add New User',
+      route: '',
+      logo: 'fas fa-user-plus',
+    },
+    {
+      label: 'Payment Requests',
+      route: '/admin/check-payments',
+      logo: 'fas fa-money-check-alt',
+    },
+  ];
 
   constructor(
     private backendApiService: BackendApiService,
@@ -63,6 +90,10 @@ export class CommonService {
 
   getAdminMenu(): any[] {
     return this.adminMenu;
+  }
+
+  getAdminActionItems(): any[] {
+    return this.adminActionItems;
   }
 
   getImageFromImageUrl(imageUrl: string): Observable<SafeUrl> {
