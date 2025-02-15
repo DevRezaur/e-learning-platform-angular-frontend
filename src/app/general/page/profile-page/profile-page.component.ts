@@ -55,7 +55,7 @@ export class ProfilePageComponent implements OnInit {
     this.backendApiService
       .callGetUserByIdAPI(this.userId)
       .subscribe((response) => {
-        const userData = response?.responseBody?.user;
+        const userData = response.responseBody.user;
         this.profileDataForm.patchValue(userData);
         this.loadImage(userData.imageUrl);
       });

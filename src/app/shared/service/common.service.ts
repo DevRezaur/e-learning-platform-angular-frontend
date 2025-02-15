@@ -123,4 +123,13 @@ export class CommonService {
       .filter((control) => control instanceof FormGroup)
       .forEach((control) => this.markFormGroupTouched(control as FormGroup));
   }
+
+  isNextPageEnabled(
+    totalCount: number,
+    currentPageNo: number,
+    limit: number
+  ): boolean {
+    const totalPages = Math.ceil(totalCount / limit);
+    return currentPageNo < totalPages;
+  }
 }

@@ -47,8 +47,10 @@ export class BackendApiService {
   }
 
   // Course Management APIs
-  callGetAllCoursesAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/course-management-api`);
+  callGetAllCoursesAPI(pageNumber: number, limit: number): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-management-api?pageNumber=${pageNumber}&limit=${limit}`
+    );
   }
 
   callGetCourseAPI(courseId: string): Observable<any> {
@@ -115,11 +117,6 @@ export class BackendApiService {
   }
 
   /// Un-managed APIs (Will be fixed later)
-  callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
-    );
-  }
 
   callGetCourseContentsAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
