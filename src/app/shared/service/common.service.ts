@@ -64,9 +64,9 @@ export class CommonService {
       logo: 'fas fa-users',
     },
     {
-      label: 'Add New User',
+      label: 'All Admins',
       route: '',
-      logo: 'fas fa-user-plus',
+      logo: 'fas fa-user-shield',
     },
     {
       label: 'Payment Requests',
