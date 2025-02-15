@@ -1,3 +1,4 @@
+<!-- Course Details Section Starts -->
 <div class="course-details-section">
   <div class="section">
     <div class="grid-wrapper">
@@ -5,31 +6,39 @@
         <img
           *ngIf="courseImage; else defaultImage"
           [src]="courseImage"
-          alt=""
+          alt="Course Image"
         />
+
         <ng-template #defaultImage>
-          <img src="../../../../assets/image/no-image.png" alt="" />
+          <img
+            src="../../../../assets/image/no-image.png"
+            alt="Default Course Image"
+          />
         </ng-template>
+
         <input
+          #fileInput
           type="file"
           accept="image/*"
-          (change)="onImageSelected($event)"
-          #fileInput
+          (change)="updateCourseImage($event)"
         />
       </div>
+
       <div class="right-div">
-        <h3>Course Details</h3>
+        <h2>Course Details</h2>
+
         <form
           [formGroup]="courseDataForm"
-          (ngSubmit)="courseId ? updateCourseData() : saveCourseData()"
+          (ngSubmit)="courseId ? updateCourse() : addNewCourse()"
         >
-          <div class="field">
+          <div class="form-field">
             <label for="courseName">Course Name</label>
             <input type="text" id="courseName" formControlName="courseName" />
             <div
               *ngIf="
                 courseDataForm.get('courseName')?.invalid &&
-                courseDataForm.get('courseName')?.touched
+                (courseDataForm.get('courseName')?.touched ||
+                  courseDataForm.get('courseName')?.dirty)
               "
             >
               <div
@@ -40,18 +49,19 @@
               </div>
             </div>
           </div>
-          <div class="field">
+
+          <div class="form-field">
             <label for="description">Description</label>
             <textarea
-              rows="4"
-              maxlength="251"
               id="description"
               formControlName="description"
+              maxlength="500"
             ></textarea>
             <div
               *ngIf="
                 courseDataForm.get('description')?.invalid &&
-                courseDataForm.get('description')?.touched
+                (courseDataForm.get('description')?.touched ||
+                  courseDataForm.get('description')?.dirty)
               "
             >
               <div
@@ -64,18 +74,20 @@
                 class="error"
                 *ngIf="courseDataForm.get('description')?.hasError('maxlength')"
               >
-                Course description shouldn't exceed 250 char length!
+                Course description shouldn't exceed 500 char length!
               </div>
             </div>
           </div>
-          <div class="field-wrapper">
-            <div class="field">
+
+          <div class="form-field-wrapper">
+            <div class="form-field">
               <label for="courseFee">Course Fee</label>
               <input type="number" id="courseFee" formControlName="courseFee" />
               <div
                 *ngIf="
                   courseDataForm.get('courseFee')?.invalid &&
-                  courseDataForm.get('courseFee')?.touched
+                  (courseDataForm.get('courseFee')?.touched ||
+                    courseDataForm.get('courseFee')?.dirty)
                 "
               >
                 <div
@@ -98,8 +110,9 @@
                 </div>
               </div>
             </div>
-            <div class="field">
-              <label for="discount">Discount Percentage (If applicable)</label>
+
+            <div class="form-field">
+              <label for="discount">Discount Percentage</label>
               <input
                 type="number"
                 value="0"
@@ -109,7 +122,8 @@
               <div
                 *ngIf="
                   courseDataForm.get('discount')?.invalid &&
-                  courseDataForm.get('discount')?.touched
+                  (courseDataForm.get('discount')?.touched ||
+                    courseDataForm.get('discount')?.dirty)
                 "
               >
                 <div
@@ -132,7 +146,8 @@
                 </div>
               </div>
             </div>
-            <div class="field">
+
+            <div class="form-field">
               <label for="isEnrollmentEnabled">Enrollment Status</label>
               <div class="dropdown">
                 <select
@@ -163,12 +178,13 @@
               </div>
             </div>
           </div>
+
           <div class="button-wrapper" type="submit">
-            <button class="button">
+            <button class="button-outline">
               {{ courseId ? "Update Course" : "Create Course" }}
             </button>
             <button
-              class="button-outline"
+              class="button"
               type="button"
               *ngIf="courseId"
               [routerLink]="['/general/course-dashboard', courseId]"
@@ -181,3 +197,4 @@
     </div>
   </div>
 </div>
+<!-- Course Details Section Ends -->

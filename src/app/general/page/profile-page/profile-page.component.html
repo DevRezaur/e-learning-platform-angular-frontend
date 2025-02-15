@@ -8,19 +8,22 @@
           [src]="userImage"
           alt="User Image"
         />
+
         <ng-template #defaultImage>
           <img
             src="../../../../assets/image/male-avatar.svg"
             alt="Default User Image"
           />
         </ng-template>
+
         <input
+          #fileInput
           type="file"
           class="hidden"
-          (change)="updateUserImage($event)"
           accept="image/*"
-          #fileInput
+          (change)="updateUserImage($event)"
         />
+
         <button class="button" (click)="fileInput.click()">
           Change Picture
         </button>

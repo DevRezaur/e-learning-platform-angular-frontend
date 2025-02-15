@@ -36,7 +36,7 @@ export class CourseDashboardComponent implements OnInit {
   }
 
   fetchCourseDetails(courseId: string): void {
-    this.backendApiService.callGetCourseAPI(courseId).subscribe({
+    this.backendApiService.callGetCourseByIdAPI(courseId).subscribe({
       next: (response) => {
         this.course = response.responseBody.course;
         if (this.course.imageUrl) {

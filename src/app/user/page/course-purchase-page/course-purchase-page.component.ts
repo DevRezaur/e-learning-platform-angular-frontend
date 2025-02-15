@@ -41,9 +41,11 @@ export class CoursePurchasePageComponent implements OnInit {
   }
 
   fetchCourseData(courseId: string) {
-    this.backendApiService.callGetCourseAPI(courseId).subscribe((response) => {
-      this.courseData = response.responseBody.course;
-    });
+    this.backendApiService
+      .callGetCourseByIdAPI(courseId)
+      .subscribe((response) => {
+        this.courseData = response.responseBody.course;
+      });
   }
 
   togglePaymentMethod(paymentMethod: string) {

@@ -53,13 +53,28 @@ export class BackendApiService {
     );
   }
 
-  callGetCourseAPI(courseId: string): Observable<any> {
+  callGetCourseByIdAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-management-api/${courseId}`
     );
   }
 
-  callGetCoursePreviewAPI(courseId: string): Observable<any> {
+  callCreateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-management-api`,
+      courseData
+    );
+  }
+
+  callUpdateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-management-api/update`,
+      courseData
+    );
+  }
+
+  // Course Content Management APIs
+  callGetCourseContentPreviewAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-content-management-api/${courseId}/preview`
     );
@@ -121,17 +136,6 @@ export class BackendApiService {
   callGetCourseContentsAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-content-api/${courseId}`
-    );
-  }
-
-  callCreateCourseAPI(courseData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/course-page-api`, courseData);
-  }
-
-  callUpdateCourseAPI(courseData: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/course-page-api/update`,
-      courseData
     );
   }
 

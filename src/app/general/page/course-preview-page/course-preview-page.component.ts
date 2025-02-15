@@ -23,19 +23,21 @@ export class CoursePreviewPageComponent implements OnInit {
       const courseId = params['courseId'];
       if (courseId) {
         this.fetchCourseData(courseId);
-        this.fetchCoursePreview(courseId);
+        this.fetchCourseContentPreview(courseId);
       }
     });
   }
 
-  fetchCourseData(courseId: string) {
-    this.backendApiService.callGetCourseAPI(courseId).subscribe((response) => {
-      this.courseData = response.responseBody.course;
-      this.loadImage();
-    });
+  private fetchCourseData(courseId: string) {
+    this.backendApiService
+      .callGetCourseByIdAPI(courseId)
+      .subscribe((response) => {
+        this.courseData = response.responseBody.course;
+        this.loadImage();
+      });
   }
 
-  loadImage(): void {
+  private loadImage(): void {
     this.commonService
       .getImageFromImageUrl(this.courseData.imageUrl)
       .subscribe((safeUrl) => {
@@ -43,9 +45,9 @@ export class CoursePreviewPageComponent implements OnInit {
       });
   }
 
-  fetchCoursePreview(courseId: any): void {
+  private fetchCourseContentPreview(courseId: any): void {
     this.backendApiService
-      .callGetCoursePreviewAPI(courseId)
+      .callGetCourseContentPreviewAPI(courseId)
       .subscribe((response) => {
         this.contentsPreview = response.responseBody.courseContentsPreview;
       });

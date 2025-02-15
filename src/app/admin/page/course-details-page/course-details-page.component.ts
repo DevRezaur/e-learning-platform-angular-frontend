@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, catchError, map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 import { PopNotificationService } from 'src/app/shared/service/pop-notification.service';
 
 @Component({
@@ -12,22 +11,22 @@ import { PopNotificationService } from 'src/app/shared/service/pop-notification.
   styleUrls: ['./course-details-page.component.scss'],
 })
 export class CourseDetailsPageComponent implements OnInit {
-  courseId: string | null = null;
+  courseId?: string;
   courseImage: any;
   courseImageUrl: any;
-  courseImageFile: any;
   courseDataForm: FormGroup;
 
   constructor(
     private backendApiService: BackendApiService,
-    private route: ActivatedRoute,
+    private commonService: CommonService,
     private popNotificationService: PopNotificationService,
-    private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {
     this.courseDataForm = this.formBuilder.group({
       courseName: ['', Validators.required],
-      description: ['', [Validators.required, Validators.maxLength(250)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
       courseFee: [
         '',
         [Validators.required, Validators.min(100), Validators.max(100000)],
@@ -50,138 +49,90 @@ export class CourseDetailsPageComponent implements OnInit {
   }
 
   fetchCourseDetails(courseId: string): void {
-    this.backendApiService.callGetCourseAPI(courseId).subscribe({
+    this.backendApiService.callGetCourseByIdAPI(courseId).subscribe({
       next: (response) => {
         const courseDetails = response.responseBody.course;
-        this.courseDataForm.patchValue({
-          courseName: courseDetails.courseName,
-          description: courseDetails.description,
-          courseFee: courseDetails.courseFee,
-          discount: courseDetails.discount,
-          isEnrollmentEnabled: courseDetails.isEnrollmentEnabled,
-        });
-        if (courseDetails.imageUrl) {
-          this.courseImageUrl = courseDetails.imageUrl;
-          this.loadCourseImage(this.courseImageUrl);
-        }
+        this.courseImageUrl = courseDetails.imageUrl;
+        this.courseDataForm.patchValue(courseDetails);
+        this.loadImage();
       },
-      error: (error) => {
-        this.popNotificationService.setMessage(error.error.errorMessage);
-      },
+      error: (error) => this.handleErrorResponse(error),
     });
   }
 
-  loadCourseImage(imageUrl: string): void {
-    this.getCourseImage(imageUrl).subscribe({
-      next: (image) => {
-        this.courseImage = this.sanitizer.bypassSecurityTrustUrl(image);
-      },
-      error: (error) => console.error(error),
-    });
-  }
-
-  getCourseImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
-  }
-
-  onImageSelected(event: any) {
-    this.courseImageFile = event.target.files[0];
-    if (this.courseImageFile) {
-      this.courseImage = this.sanitizer.bypassSecurityTrustUrl(
-        URL.createObjectURL(this.courseImageFile)
-      );
-    }
-  }
-
-  saveCourseData(): void {
-    this.markFormGroupTouched(this.courseDataForm);
-    if (this.courseDataForm.valid) {
-      this.saveCourseImage().subscribe({
-        next: (response) => {
-          this.courseImageUrl = response;
-          this.createNewCourse();
-        },
-        error: () => {
-          this.popNotificationService.setMessage('Choose a course image!');
-        },
+  private loadImage(): void {
+    this.commonService
+      .getImageFromImageUrl(this.courseImageUrl)
+      .subscribe((safeUrl) => {
+        this.courseImage = safeUrl;
       });
-    }
   }
 
-  updateCourseData(): void {
-    this.markFormGroupTouched(this.courseDataForm);
-    if (this.courseDataForm.valid) {
-      if (this.courseImageFile) {
-        this.saveCourseImage().subscribe({
-          next: (response) => {
-            this.courseImageUrl = response;
-            this.updateCourse();
-          },
-          error: () => {
-            this.popNotificationService.setMessage('Choose a course image!');
-          },
-        });
-      } else {
-        this.updateCourse();
-      }
-    }
-  }
+  updateCourseImage(event: any) {
+    const image: File = event.target.files[0];
+    if (!image) return;
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach((control) => {
-      control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
+    this.backendApiService.callSaveContentsAPI([image]).subscribe({
+      next: (response) => {
+        this.courseImageUrl = response.responseBody.urlList[0];
+        this.loadImage();
+      },
+      error: (error) => this.handleErrorResponse(error),
     });
   }
 
-  saveCourseImage(): Observable<string> {
-    return this.backendApiService
-      .callSaveContentsAPI([this.courseImageFile])
-      .pipe(
-        map((response) =>
-          response.responseBody.urlList &&
-          response.responseBody.urlList.length > 0
-            ? response.responseBody.urlList[0]
-            : ''
-        ),
-        catchError((error) => {
-          throw new Error(error.error.errorMessage);
-        })
-      );
-  }
+  addNewCourse(): void {
+    this.commonService.markFormGroupTouched(this.courseDataForm);
+    if (!this.courseDataForm.valid) {
+      return;
+    } else if (!this.courseImageUrl) {
+      this.popNotificationService.setMessage('Choose a course image!');
+      return;
+    }
 
-  createNewCourse(): void {
-    const formData = {
+    const courseData = {
       ...this.courseDataForm.value,
       imageUrl: this.courseImageUrl,
     };
-    this.backendApiService.callCreateCourseAPI(formData).subscribe({
+
+    this.backendApiService.callCreateCourseAPI(courseData).subscribe({
       next: (response) => {
-        this.popNotificationService.setMessage(response.responseBody.message);
+        this.courseId = response.responseBody.course.courseId;
+        this.router.navigate(['/admin/course-details', this.courseId]);
+        this.handleSuccessResponse(response);
       },
-      error: (error) => {
-        this.popNotificationService.setMessage(error.error.errorMessage);
-      },
+      error: (error) => this.handleErrorResponse(error),
     });
   }
 
   updateCourse(): void {
-    const formData = {
+    this.commonService.markFormGroupTouched(this.courseDataForm);
+    if (!this.courseDataForm.valid) {
+      return;
+    } else if (!this.courseImageUrl) {
+      this.popNotificationService.setMessage('Choose a course image!');
+      return;
+    }
+
+    const courseData = {
       ...this.courseDataForm.value,
       courseId: this.courseId,
       imageUrl: this.courseImageUrl,
     };
-    this.backendApiService.callUpdateCourseAPI(formData).subscribe({
-      next: (response) => {
-        this.popNotificationService.setMessage(response.responseBody.message);
-      },
-      error: (error) => {
-        this.popNotificationService.setMessage(error.error.errorMessage);
-      },
+
+    this.backendApiService.callUpdateCourseAPI(courseData).subscribe({
+      next: (response) => this.handleSuccessResponse(response),
+      error: (error) => this.handleErrorResponse(error),
     });
+  }
+
+  private handleSuccessResponse(response: any): void {
+    const message = response.responseBody.message;
+    this.popNotificationService.setMessage(message);
+  }
+
+  private handleErrorResponse(response: any): void {
+    const message = response.error.errorBody.errorMessage;
+    this.popNotificationService.setMessage(message);
   }
 }
