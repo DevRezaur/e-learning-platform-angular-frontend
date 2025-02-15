@@ -6,12 +6,16 @@ import {
 } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
+import { PopNotificationService } from '../service/pop-notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private popNotificationService: PopNotificationService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -29,7 +33,9 @@ export class AuthGuard implements CanActivate {
           ) {
             observer.next(true);
           } else {
-            alert('Unauthorized');
+            this.popNotificationService.setMessage(
+              'You are not authorized to access this page!'
+            );
             observer.next(false);
           }
           observer.complete();
