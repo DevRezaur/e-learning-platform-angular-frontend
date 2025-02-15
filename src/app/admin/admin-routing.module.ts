@@ -4,6 +4,7 @@ import { DashboardPageComponent } from './page/dashboard-page/dashboard-page.com
 import { ManageCoursePageComponent } from './page/manage-course-page/manage-course-page.component';
 import { CourseDetailsPageComponent } from './page/course-details-page/course-details-page.component';
 import { CheckPaymentsPageComponent } from './page/check-payments-page/check-payments-page.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,22 +15,32 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'manage-course',
     component: ManageCoursePageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'course-details',
     component: CourseDetailsPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'course-details/:courseId',
     component: CourseDetailsPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'check-payments',
     component: CheckPaymentsPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'general',
