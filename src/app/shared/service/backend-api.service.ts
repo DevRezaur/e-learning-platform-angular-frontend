@@ -64,10 +64,24 @@ export class BackendApiService {
   }
 
   // Payment Management APIs
-  callSavePaymentAPI(paymentInfo: any): Observable<any> {
+  callGetAllPaymentInfoAPI(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/payment-management-api`);
+  }
+
+  callSavePaymentInfoAPI(paymentInfo: any): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/payment-management-api`,
       paymentInfo
+    );
+  }
+
+  callUpdatePaymentStatusAPI(trxId: string, status: string): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/payment-management-api/approval`,
+      {
+        trxId: trxId,
+        status: status,
+      }
     );
   }
 
@@ -121,17 +135,6 @@ export class BackendApiService {
     return this.httpClient.post(
       `${this.baseUrl}/course-page-api/update`,
       courseData
-    );
-  }
-
-  callGetAllPaymentsAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/payment-api`);
-  }
-
-  callUpdatePaymentStatusAPI(paymentStatusMap: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/payment-api/approval`,
-      paymentStatusMap
     );
   }
 

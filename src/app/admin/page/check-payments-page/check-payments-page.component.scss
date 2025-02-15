@@ -1,79 +1,70 @@
 @import "../../../../styles.scss";
 
 .payments-section {
-  padding: 40px 16px;
+  padding: 60px 0;
 
   h2 {
-    margin-bottom: 24px;
-    font-size: 36px;
+    font-size: 24px;
+    margin-bottom: 28px;
   }
 
   .table-wrapper {
-    min-height: 400px;
     overflow-x: auto;
+    min-height: 400px;
+    border: 1px solid $off-white;
 
     table {
-      background-color: $off-white;
       border-collapse: collapse;
 
-      thead {
-        tr {
-          th {
-            height: 50px;
-            font-size: 16px;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            padding: 8px 16px;
-            background-color: $primary;
-            color: $white;
+      tr {
+        height: 40px;
+        white-space: nowrap;
+        border-bottom: 1px solid $dark-gray;
+      }
 
-            &:not(:last-child) {
-              border-right: 1px solid $white;
-            }
+      th {
+        height: 40px;
+        padding: 0 16px;
+        font-size: 15px;
+        letter-spacing: 1px;
+        background-color: $dark-gray;
+
+        &:not(:last-child) {
+          border-right: 1px solid $white;
+        }
+      }
+
+      td {
+        padding: 0 16px;
+        font-size: 15px;
+
+        &:not(:last-child) {
+          border-right: 1px solid $dark-gray;
+        }
+
+        i {
+          cursor: pointer;
+          padding: 4px 8px;
+          border-radius: 4px;
+
+          &:not(:last-child) {
+            margin-right: 12px;
+          }
+
+          &:hover {
+            opacity: 0.8;
           }
         }
       }
 
-      tbody {
-        tr {
-          border-bottom: 1px solid $dark-gray;
+      .success {
+        background-color: $accent-2;
+        color: $white;
+      }
 
-          td {
-            padding: 8px 16px;
-            white-space: nowrap;
-            color: $secondary;
-
-            &:not(:last-child) {
-              border-right: 1px solid $dark-gray;
-            }
-
-            i {
-              padding: 4px;
-              min-width: 24px;
-              font-size: 16px;
-              text-align: center;
-              cursor: pointer;
-
-              &:not(:last-child) {
-                margin-right: 16px;
-              }
-
-              &:hover {
-                opacity: 0.75;
-              }
-            }
-
-            .success {
-              background-color: $accent-2;
-              color: $white;
-            }
-
-            .failure {
-              background-color: $accent-1;
-              color: $white;
-            }
-          }
-        }
+      .failure {
+        background-color: $accent-1;
+        color: $white;
       }
     }
   }
