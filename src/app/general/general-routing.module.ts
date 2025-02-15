@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './page/profile-page/profile-page.component
 import { RegistrationPageComponent } from './page/registration-page/registration-page.component';
 import { CoursePreviewPageComponent } from './page/course-preview-page/course-preview-page.component';
 import { CourseDashboardComponent } from './page/course-dashboard/course-dashboard.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfilePageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'course-preview/:courseId',

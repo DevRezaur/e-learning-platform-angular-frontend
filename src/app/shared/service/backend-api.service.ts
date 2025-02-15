@@ -32,6 +32,20 @@ export class BackendApiService {
     );
   }
 
+  callUpdateProfileAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/profile`,
+      userData
+    );
+  }
+
+  callUpdateUserImageUrlAPI(userId: string, imageUrl: string): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/user-management-api/image`, {
+      userId: userId,
+      imageUrl: imageUrl,
+    });
+  }
+
   // Course Management APIs
   callGetAllCoursesAPI(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/course-management-api`);
@@ -57,8 +71,7 @@ export class BackendApiService {
     );
   }
 
-  /// Un-managed APIs (Will be fixed later)
-
+  // Content Management APIs
   callGetContentAPI(contentUrl: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/content-management-api/${contentUrl}`,
@@ -78,11 +91,16 @@ export class BackendApiService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
 
-    return this.httpClient.post(`${this.baseUrl}/content-api`, formData, {
-      headers: headers,
-    });
+    return this.httpClient.post(
+      `${this.baseUrl}/content-management-api`,
+      formData,
+      {
+        headers: headers,
+      }
+    );
   }
 
+  /// Un-managed APIs (Will be fixed later)
   callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
@@ -103,28 +121,6 @@ export class BackendApiService {
     return this.httpClient.post(
       `${this.baseUrl}/course-page-api/update`,
       courseData
-    );
-  }
-
-  callUpdateProfileAPI(userData: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/user-management-api/profile`,
-      userData
-    );
-  }
-
-  callUpdateImageUrlAPI(userId: string, image: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-
-    return this.httpClient.post(
-      `${this.baseUrl}/profile-page-api/image/${userId}`,
-      formData,
-      { headers: headers }
     );
   }
 

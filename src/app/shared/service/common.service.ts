@@ -97,16 +97,19 @@ export class CommonService {
   }
 
   getImageFromImageUrl(imageUrl: string): Observable<SafeUrl> {
-    return this.backendApiService.callGetContentAPI(imageUrl).pipe(
-      map((response) => {
-        const objectUrl = URL.createObjectURL(new Blob([response]));
-        return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
-      })
-    );
+    return this.backendApiService
+      .callGetContentAPI(imageUrl)
+      .pipe(map((response) => this.getImage(response)));
+  }
+
+  getImage(imageData: any): SafeUrl {
+    const objectUrl = URL.createObjectURL(new Blob([imageData]));
+    return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
   }
 
   confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
+    const password =
+      control.get('password')?.value ?? control.get('newPassword')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
     if (!confirmPassword) {
       return null;
