@@ -22,6 +22,10 @@ export class BackendApiService {
     return this.httpClient.get(`${this.baseUrl}/user-management-api/${userId}`);
   }
 
+  callGetAllRegularUser(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/user-management-api`);
+  }
+
   callUpdatePasswordAPI(userId: string, password: string): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/user-management-api/password`,
@@ -80,6 +84,12 @@ export class BackendApiService {
     );
   }
 
+  callGetCourseContentsAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-content-management-api/${courseId}`
+    );
+  }
+
   // Payment Management APIs
   callGetAllPaymentInfoAPI(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/payment-management-api`);
@@ -132,12 +142,6 @@ export class BackendApiService {
   }
 
   /// Un-managed APIs (Will be fixed later)
-
-  callGetCourseContentsAPI(courseId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-content-api/${courseId}`
-    );
-  }
 
   callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
     return this.httpClient.post(

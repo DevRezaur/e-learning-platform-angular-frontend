@@ -60,13 +60,8 @@ export class CommonService {
     },
     {
       label: 'All Users',
-      route: '',
+      route: '/admin/all-users',
       logo: 'fas fa-users',
-    },
-    {
-      label: 'All Admins',
-      route: '',
-      logo: 'fas fa-user-shield',
     },
     {
       label: 'Payment Requests',

@@ -62,6 +62,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   private loadImage(imageUrl: string): void {
+    if (!imageUrl) return;
+
     this.commonService.getImageFromImageUrl(imageUrl).subscribe((safeUrl) => {
       this.userImage = safeUrl;
     });

@@ -5,6 +5,7 @@ import { ManageCoursePageComponent } from './page/manage-course-page/manage-cour
 import { CourseDetailsPageComponent } from './page/course-details-page/course-details-page.component';
 import { CheckPaymentsPageComponent } from './page/check-payments-page/check-payments-page.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
+import { AllUsersPageComponent } from './page/all-users-page/all-users-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,12 @@ const routes: Routes = [
   {
     path: 'course-details/:courseId',
     component: CourseDetailsPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
+  },
+  {
+    path: 'all-users',
+    component: AllUsersPageComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
   },

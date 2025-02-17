@@ -38,6 +38,7 @@ const routes: Routes = [
   {
     path: 'course-dashboard/:courseId',
     component: CourseDashboardComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
