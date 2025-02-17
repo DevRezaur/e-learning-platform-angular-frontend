@@ -17,34 +17,29 @@ export class CommonService {
     'Others',
   ];
   private userMenu: any[] = [
-    { label: 'Home', route: '/', logo: 'fas fa-laptop-code' },
+    { label: 'Home', route: '/', logo: 'fas fa-home' },
     {
       label: 'Learning Dashboard',
       route: '/user/dashboard',
-      logo: 'fas fa-laptop-code',
+      logo: 'fas fa-chalkboard-teacher',
     },
     {
       label: 'Profile',
       route: '/user/general/profile',
-      logo: 'fas fa-laptop-code',
+      logo: 'far fa-address-card',
     },
   ];
   private adminMenu: any[] = [
-    { label: 'Home', route: '/', logo: 'fas fa-laptop-code' },
+    { label: 'Home', route: '/', logo: 'fas fa-home' },
     {
       label: 'Admin Dashboard',
       route: '/admin/dashboard',
-      logo: 'fas fa-laptop-code',
-    },
-    {
-      label: 'Payment Requests',
-      route: '/admin/payments',
-      logo: 'fas fa-laptop-code',
+      logo: 'fas fa-user-shield',
     },
     {
       label: 'Profile',
       route: '/admin/general/profile',
-      logo: 'fas fa-laptop-code',
+      logo: 'far fa-address-card',
     },
   ];
   private adminActionItems: any[] = [
