@@ -101,7 +101,7 @@ export class CourseDashboardComponent implements OnInit {
     });
   }
 
-  onContentSelected(event: any) {
+  onCourseContentSelected(event: any) {
     this.contentToUpload = event.target.files[0];
     this.courseContentDataForm.patchValue({
       contentTitle: this.contentToUpload.name,
@@ -109,7 +109,7 @@ export class CourseDashboardComponent implements OnInit {
     });
   }
 
-  uploadContent(): void {
+  uploadCourseContent(): void {
     this.commonService.markFormGroupTouched(this.courseContentDataForm);
     if (!this.courseContentDataForm.valid) {
       return;
@@ -122,14 +122,21 @@ export class CourseDashboardComponent implements OnInit {
       observable.subscribe({
         next: (response) => {
           const contentUrl = response.responseBody.urlList[0];
-          this.saveContentData(this.courseId, contentUrl);
+          this.saveCourseContentData(this.courseId, contentUrl);
         },
         error: (error) => this.handleErrorResponse(error),
       });
     });
   }
 
-  private saveContentData(courseId: string, contentUrl: string): void {
+  deleteCourseContent(contentId: string): void {
+    this.backendApiService.callDeleteCourseContentAPI(contentId).subscribe({
+      next: (response) => this.handleSuccessResponse(response),
+      error: (error) => this.handleErrorResponse(error),
+    });
+  }
+
+  private saveCourseContentData(courseId: string, contentUrl: string): void {
     const formData = {
       ...this.courseContentDataForm.value,
       courseId,
@@ -145,6 +152,7 @@ export class CourseDashboardComponent implements OnInit {
   private handleSuccessResponse(response: any): void {
     this.fileInput.nativeElement.value = '';
     this.courseContentDataForm.reset();
+    this.fetchCourseContents();
 
     const message = response.responseBody.message;
     this.popNotificationService.setMessage(message);

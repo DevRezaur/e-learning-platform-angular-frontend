@@ -97,6 +97,12 @@ export class BackendApiService {
     );
   }
 
+  callDeleteCourseContentAPI(contentId: string): Observable<any> {
+    return this.httpClient.delete(
+      `${this.baseUrl}/course-content-management-api/${contentId}`
+    );
+  }
+
   // Payment Management APIs
   callGetAllPaymentInfoAPI(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/payment-management-api`);

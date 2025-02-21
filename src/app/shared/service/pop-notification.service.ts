@@ -27,7 +27,7 @@ export class PopNotificationService {
     });
   }
 
-  setMessageWithAction(
+  setMessageWithActionUrl(
     message: string,
     actionName: string,
     actionUrl: string
