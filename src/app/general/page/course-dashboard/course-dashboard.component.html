@@ -13,7 +13,7 @@
     </div>
 
     <form
-      [formGroup]="contentDataForm"
+      [formGroup]="courseContentDataForm"
       (ngSubmit)="uploadContent()"
       *ngIf="isAdmin"
     >
@@ -22,14 +22,16 @@
         <input type="text" id="contentTitle" formControlName="contentTitle" />
         <div
           *ngIf="
-            contentDataForm.get('contentTitle')?.invalid &&
-            (contentDataForm.get('contentTitle')?.touched ||
-              contentDataForm.get('contentTitle')?.dirty)
+            courseContentDataForm.get('contentTitle')?.invalid &&
+            (courseContentDataForm.get('contentTitle')?.touched ||
+              courseContentDataForm.get('contentTitle')?.dirty)
           "
         >
           <div
             class="error"
-            *ngIf="contentDataForm.get('contentTitle')?.hasError('required')"
+            *ngIf="
+              courseContentDataForm.get('contentTitle')?.hasError('required')
+            "
           >
             Content title is required!
           </div>
@@ -42,7 +44,14 @@
         accept="video/mp4,video/webm,video/ogg"
         (change)="onContentSelected($event)"
       />
-      <button class="button">Upload</button>
+
+      <button *ngIf="!isUploading; else disabledButton" class="button">
+        Upload
+      </button>
+
+      <ng-template #disabledButton>
+        <button class="button" disabled>Uploading</button>
+      </ng-template>
     </form>
   </div>
 </div>

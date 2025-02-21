@@ -90,6 +90,13 @@ export class BackendApiService {
     );
   }
 
+  callAddCourseContentAPI(courseContentData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-content-management-api`,
+      courseContentData
+    );
+  }
+
   // Payment Management APIs
   callGetAllPaymentInfoAPI(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/payment-management-api`);
@@ -151,6 +158,21 @@ export class BackendApiService {
         responseType: 'blob',
       }
     );
+  }
+
+  callSaveVideoContentAPI(contents: any[]): Observable<any> {
+    const formData = new FormData();
+    contents.forEach((content) => {
+      formData.append('contents', content);
+    });
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.httpClient.post('http://localhost:8082/content', formData, {
+      headers: headers,
+    });
   }
 
   /// Un-managed APIs (Will be fixed later)
