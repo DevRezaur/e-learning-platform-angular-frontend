@@ -1,8 +1,9 @@
+<!-- Top Banner Section Starts -->
 <div class="top-banner-section">
   <div class="section">
     <div class="grid-wrapper">
       <div class="left-div">
-        <p class="top-line">Hello Rezaur Rahman</p>
+        <p class="top-line">Hello {{ getUserName() }}</p>
         <h2>Welcome to Admin Dashboard</h2>
         <p class="desc">
           This is the admin dashboard of E-Learning Platform. From here you can
@@ -21,62 +22,21 @@
     </div>
   </div>
 </div>
+<!-- Top Banner Section Ends -->
 
+<!-- Action Panel Section Starts -->
 <div class="action-panel-section">
   <div class="section">
     <div class="grid-wrapper">
-      <div class="card shadow">
-        <div class="top-div">
-          <img src="../../../../assets/image/courses.svg" alt="" />
-        </div>
-        <div class="bottom-div">
-          <p><strong>Total Course:</strong> 54</p>
-          <div class="button-wrapper">
-            <a class="button" [routerLink]="['/admin/manage-course']">
-              Manage Courses
-            </a>
-            <a class="button" [routerLink]="['/admin/course-details']">
-              Add New Course
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img src="../../../../assets/image/user-1.svg" alt="" />
-        </div>
-        <div class="bottom-div">
-          <p><strong>Total Users:</strong> 54</p>
-          <div class="button-wrapper">
-            <a class="button" href="#">Manage Users</a>
-            <a class="button" href="#">Add New Admin</a>
-          </div>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img src="../../../../assets/image/payments.svg" alt="" />
-        </div>
-        <div class="bottom-div">
-          <p><strong>Payment Requests:</strong> 54</p>
-          <div class="button-wrapper">
-            <a class="button" [routerLink]="['/admin/check-payments']">
-              Check Payments
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="card shadow">
-        <div class="top-div">
-          <img src="../../../../assets/image/statistics-1.svg" alt="" />
-        </div>
-        <div class="bottom-div">
-          <p><strong>Statistics Reports</strong></p>
-          <div class="button-wrapper">
-            <a class="button" href="#">Check Statistics</a>
-          </div>
-        </div>
-      </div>
+      <a
+        class="card"
+        *ngFor="let actionItem of getAdminActionItems()"
+        [routerLink]="actionItem.route"
+      >
+        <i [ngClass]="actionItem.logo"></i>
+        <p>{{ actionItem.label }}</p>
+      </a>
     </div>
   </div>
 </div>
+<!-- Action Panel Section Ends -->

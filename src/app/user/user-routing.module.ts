@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CoursePurchasePageComponent } from './page/course-purchase-page/course-purchase-page.component';
 import { DashboardPageComponent } from './page/dashboard-page/dashboard-page.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,10 +13,14 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['USER'] },
   },
   {
     path: 'purchase-course/:courseId',
     component: CoursePurchasePageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['USER'] },
   },
   {
     path: 'general',

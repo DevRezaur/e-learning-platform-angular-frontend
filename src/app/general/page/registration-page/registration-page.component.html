@@ -1,16 +1,22 @@
+<!-- Registration Page Starts -->
 <div class="registration-page-section">
   <div class="grid-wrapper">
     <div class="left-div">
-      <div class="welcome-text">
-        <p>Welcome to</p>
+      <div>
+        <p class="top-line">Welcome to</p>
         <h2>E-Learning Platform</h2>
       </div>
-      <img src="../../../../assets/image/learning-female.svg" alt="" />
+      <img
+        src="../../../../assets/image/learning-female.svg"
+        alt="Registration Page Logo"
+      />
     </div>
+
     <div class="right-div">
-      <h3>User Registration Form</h3>
+      <h2>User Registration Form</h2>
+
       <form [formGroup]="userDataForm" (ngSubmit)="registerUser()">
-        <div class="field">
+        <div class="form-field">
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" formControlName="firstName" />
           <div
@@ -34,7 +40,8 @@
             </div>
           </div>
         </div>
-        <div class="field">
+
+        <div class="form-field">
           <label for="lastName">Last Name</label>
           <input type="text" id="lastName" formControlName="lastName" />
           <div
@@ -58,7 +65,8 @@
             </div>
           </div>
         </div>
-        <div class="field">
+
+        <div class="form-field">
           <label for="email">Email</label>
           <input
             type="email"
@@ -87,7 +95,8 @@
             </div>
           </div>
         </div>
-        <div class="field">
+
+        <div class="form-field">
           <label for="gender">Gender</label>
           <div class="dropdown">
             <select id="gender" formControlName="gender">
@@ -110,7 +119,8 @@
             </div>
           </div>
         </div>
-        <div class="field">
+
+        <div class="form-field">
           <label for="password">Password</label>
           <input type="password" id="password" formControlName="password" />
           <div
@@ -136,7 +146,8 @@
             </div>
           </div>
         </div>
-        <div class="field">
+
+        <div class="form-field">
           <label for="confirmPassword">Confirm Password</label>
           <input
             type="password"
@@ -161,17 +172,18 @@
             </div>
           </div>
         </div>
-        <button
-          class="button"
-          type="submit"
-          *ngIf="!isRegistrationSuccessful; else showLoginButton"
-        >
-          Register
-        </button>
-        <ng-template #showLoginButton>
-          <button class="button" type="button" (click)="login()">Login</button>
-        </ng-template>
+
+        <div class="button-wrapper">
+          <p>
+            Already have an account?
+            <button class="button-link" type="button" (click)="login()">
+              Login
+            </button>
+          </p>
+          <button class="button" type="submit">Register</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
+<!-- Registration Page Ends -->

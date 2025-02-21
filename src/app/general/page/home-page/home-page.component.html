@@ -1,3 +1,4 @@
+<!-- Top Banner Section Starts -->
 <div class="top-banner-section">
   <div class="section">
     <div class="grid-wrapper">
@@ -12,31 +13,51 @@
           cutting edge content created by industry experts to help you master
           the latest technologies, frameworks and best practices.
         </p>
+        <div class="info-wrapper">
+          <div class="info">
+            <i class="fas fa-wifi"></i>
+            <p>Full Online</p>
+          </div>
+          <div class="info">
+            <i class="far fa-building"></i>
+            <p>Industry Focused</p>
+          </div>
+          <div class="info">
+            <i class="far fa-question-circle"></i>
+            <p>Q&A Support</p>
+          </div>
+        </div>
       </div>
+
       <div class="right-div">
         <img
           src="../../../../assets/image/home_page_banner.svg"
-          alt="home_page_banner.svg"
+          alt="Banner Image"
         />
       </div>
     </div>
   </div>
 </div>
+<!-- Top Banner Section Ends -->
 
+<!-- Featured Course Section Starts -->
 <div class="featured-course-section">
   <div class="section">
     <h2>Featured Courses</h2>
+
     <div class="grid-wrapper">
-      <div class="card shadow" *ngFor="let course of featuredCourses">
+      <div class="card" *ngFor="let course of featuredCourses">
         <div class="top-div">
-          <img [src]="course.image" alt="" />
+          <img [src]="course.image" alt="Course Image" />
         </div>
+
         <div class="mid-div">
           <h3>{{ course.courseName }}</h3>
           <p class="desc">
             {{ course.description }}
           </p>
         </div>
+
         <div class="bottom-div">
           <div class="price">
             <p class="original-price" *ngIf="course.discount != 0">
@@ -61,7 +82,9 @@
     </div>
   </div>
 </div>
+<!-- Featured Course Section Ends -->
 
+<!-- Category Section Starts -->
 <div class="category-section">
   <div class="section">
     <h2>Browse By Category</h2>
@@ -76,3 +99,4 @@
     </div>
   </div>
 </div>
+<!-- Category Section Ends -->

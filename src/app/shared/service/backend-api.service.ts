@@ -11,8 +11,19 @@ export class BackendApiService {
   constructor(private httpClient: HttpClient) {}
 
   // User Management APIs
+  callUserRegistrationAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/register`,
+      userData
+    );
+  }
+
   callGetUserByIdAPI(userId: string): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/user-management-api/${userId}`);
+  }
+
+  callGetAllRegularUser(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/user-management-api`);
   }
 
   callUpdatePasswordAPI(userId: string, password: string): Observable<any> {
@@ -25,32 +36,96 @@ export class BackendApiService {
     );
   }
 
-  // Course Management APIs
-  callGetAllCoursesAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/course-management-api`);
+  callUpdateProfileAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/profile`,
+      userData
+    );
   }
 
-  callGetCourseAPI(courseId: string): Observable<any> {
+  callUpdateUserImageUrlAPI(userId: string, imageUrl: string): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/user-management-api/image`, {
+      userId: userId,
+      imageUrl: imageUrl,
+    });
+  }
+
+  // Course Management APIs
+  callGetAllCoursesAPI(pageNumber: number, limit: number): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-management-api?pageNumber=${pageNumber}&limit=${limit}`
+    );
+  }
+
+  callGetCourseByIdAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-management-api/${courseId}`
     );
   }
 
-  callGetCoursePreviewAPI(courseId: string): Observable<any> {
+  callCreateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-management-api`,
+      courseData
+    );
+  }
+
+  callUpdateCourseAPI(courseData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-management-api/update`,
+      courseData
+    );
+  }
+
+  // Course Content Management APIs
+  callGetCourseContentPreviewAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-content-management-api/${courseId}/preview`
     );
   }
 
-  ///
-
-  callUserRegistrationAPI(userData: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/user-management-api`,
-      userData
+  callGetCourseContentsAPI(courseId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-content-management-api/${courseId}`
     );
   }
 
+  callAddCourseContentAPI(courseContentData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-content-management-api`,
+      courseContentData
+    );
+  }
+
+  callDeleteCourseContentAPI(contentId: string): Observable<any> {
+    return this.httpClient.delete(
+      `${this.baseUrl}/course-content-management-api/${contentId}`
+    );
+  }
+
+  // Payment Management APIs
+  callGetAllPaymentInfoAPI(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/payment-management-api`);
+  }
+
+  callSavePaymentInfoAPI(paymentInfo: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/payment-management-api`,
+      paymentInfo
+    );
+  }
+
+  callUpdatePaymentStatusAPI(trxId: string, status: string): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/payment-management-api/approval`,
+      {
+        trxId: trxId,
+        status: status,
+      }
+    );
+  }
+
+  // Content Management APIs
   callGetContentAPI(contentUrl: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/content-management-api/${contentUrl}`,
@@ -70,81 +145,12 @@ export class BackendApiService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
 
-    return this.httpClient.post(`${this.baseUrl}/content-api`, formData, {
-      headers: headers,
-    });
-  }
-
-  callGetCourseListAPI(pageNumber: number, limit: number): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-page-api?pageNumber=${pageNumber}&limit=${limit}`
-    );
-  }
-
-  callGetCourseContentsAPI(courseId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-content-api/${courseId}`
-    );
-  }
-
-  callCreateCourseAPI(courseData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/course-page-api`, courseData);
-  }
-
-  callUpdateCourseAPI(courseData: any): Observable<any> {
     return this.httpClient.post(
-      `${this.baseUrl}/course-page-api/update`,
-      courseData
-    );
-  }
-
-  callUpdateProfileAPI(userData: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/user-management-api/profile`,
-      userData
-    );
-  }
-
-  callUpdateImageUrlAPI(userId: string, image: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-
-    return this.httpClient.post(
-      `${this.baseUrl}/profile-page-api/image/${userId}`,
+      `${this.baseUrl}/content-management-api`,
       formData,
-      { headers: headers }
-    );
-  }
-
-  callSavePaymentAPI(paymentInfo: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}/payment-api`, paymentInfo);
-  }
-
-  callGetAllPaymentsAPI(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/payment-api`);
-  }
-
-  callUpdatePaymentStatusAPI(paymentStatusMap: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/payment-api/approval`,
-      paymentStatusMap
-    );
-  }
-
-  callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/course-page-api/enroll`,
-      courseEnrollmentInfo
-    );
-  }
-
-  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-page-api/enrolled-courses?userId=${userId}`
+      {
+        headers: headers,
+      }
     );
   }
 
@@ -157,6 +163,36 @@ export class BackendApiService {
         }),
         responseType: 'blob',
       }
+    );
+  }
+
+  callSaveVideoContentAPI(contents: any[]): Observable<any> {
+    const formData = new FormData();
+    contents.forEach((content) => {
+      formData.append('contents', content);
+    });
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.httpClient.post('http://localhost:8082/content', formData, {
+      headers: headers,
+    });
+  }
+
+  /// Un-managed APIs (Will be fixed later)
+
+  callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/course-page-api/enroll`,
+      courseEnrollmentInfo
+    );
+  }
+
+  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-page-api/enrolled-courses?userId=${userId}`
     );
   }
 }

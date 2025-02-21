@@ -1,97 +1,126 @@
 @import "../../../../styles.scss";
 
 .top-banner-section {
-  padding: 40px 16px;
-  background-color: $primary;
+  padding: 60px 0;
 
   .grid-wrapper {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    grid-template-areas: "right-div" "left-div";
-    column-gap: 20px;
-    padding: 12px;
-    background-color: $white;
-    border-radius: 4px;
+    grid-template-areas: "left-div" "right-div";
+    row-gap: 28px;
+    column-gap: 48px;
 
-    .right-div {
+    .left-div {
       grid-area: left-div;
-      display: flex;
-      flex-direction: column;
-      padding: 10px 20px;
 
       h2 {
-        margin: 20px 0;
-        font-size: 28px;
-        letter-spacing: 1px;
+        font-size: 32px;
       }
 
       .desc {
-        flex-grow: 1;
-        font-size: 18px;
         line-height: 24px;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
+        margin: 24px 0;
       }
-
-      .price {
-        background-color: $gray;
-        padding: 12px;
-        letter-spacing: 1px;
-
-        .original-price {
-          margin-bottom: 4px;
-          text-decoration: line-through;
-          opacity: 0.5;
-        }
-      }
-
-      .button {
-        display: block;
-        margin: 20px 0 0 auto;
-      }
-    }
-
-    .left-div {
-      grid-area: right-div;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       img {
         width: 100%;
-        height: 100%;
+        max-width: 500px;
+        height: auto;
+        border: 1px solid $gray;
+        border-radius: 4px;
       }
     }
 
-    @media screen and (min-width: 992px) {
-      grid-template-columns: auto 1fr;
-      grid-template-rows: 1fr;
-      grid-template-areas: "right-div left-div";
+    .right-div {
+      grid-area: right-div;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid $gray;
+        border-radius: 4px;
+
+        .top-div {
+          padding: 8px 12px;
+          text-align: center;
+          background-color: $secondary;
+          color: $white;
+
+          h3 {
+            font-size: 18px;
+          }
+        }
+
+        .mid-div {
+          padding: 20px 16px;
+
+          p {
+            font-size: 14px;
+            padding: 4px 8px;
+            margin-bottom: 8px;
+            background-color: $off-white;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+
+          strong {
+            font-weight: 500;
+          }
+        }
+
+        .bottom-div {
+          padding: 16px;
+          background-color: $off-white;
+
+          .button {
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
 
 .course-content-section {
-  .section {
-    padding: 60px 16px;
+  padding: 40px 0;
+  background-color: $off-white;
 
-    h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
+  h2 {
+    font-size: 24px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .content {
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: $white;
+    border-radius: 4px;
+
+    .content-no {
+      padding: 12px 16px;
+      color: $accent-1;
+      border-bottom: 1px solid $gray;
     }
 
-    hr {
-      margin-bottom: 24px;
+    .content-name {
+      display: flex;
+      column-gap: 12px;
+      font-size: 15px;
+      padding: 12px 16px;
     }
+  }
+}
 
-    p {
-      background-color: $off-white;
-      height: 48px;
-      padding: 16px;
-      margin-bottom: 12px;
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
+/* Media Queries */
+@media screen and (min-width: 992px) {
+  .top-banner-section .section .grid-wrapper {
+    grid-template-columns: 2fr 0.8fr;
+    grid-template-rows: auto;
+    grid-template-areas: "left-div right-div";
   }
 }

@@ -1,17 +1,21 @@
+<!-- Manage Course Section Starts -->
 <div class="manage-course-section">
   <div class="section">
     <h2>Course Management Panel</h2>
+
     <div class="grid-wrapper">
-      <div class="card shadow" *ngFor="let course of courseList">
+      <div class="card" *ngFor="let course of courseList">
         <div class="top-div">
-          <img [src]="course.image" alt="" />
+          <img [src]="course.image" alt="Course Image" />
         </div>
+
         <div class="mid-div">
           <h3>{{ course.courseName }}</h3>
           <p class="desc">
             {{ course.description }}
           </p>
         </div>
+
         <div class="bottom-div">
           <div class="price">
             <p class="original-price" *ngIf="course.discount != 0">
@@ -25,26 +29,32 @@
               BDT
             </p>
           </div>
-          <button
+          <a
             class="button"
             [routerLink]="['/admin/course-details', course.courseId]"
           >
-            Manage Course
-          </button>
+            Edit Course
+          </a>
         </div>
       </div>
     </div>
+
     <div class="button-wrapper">
       <button
         class="button"
-        (click)="onPageChange(pageNumber - 1)"
         [disabled]="pageNumber == 1"
+        (click)="onPageChange(pageNumber - 1)"
       >
         Back
       </button>
-      <button class="button" (click)="onPageChange(pageNumber + 1)">
+      <button
+        class="button"
+        [disabled]="!isNextPageEnabled()"
+        (click)="onPageChange(pageNumber + 1)"
+      >
         Next
       </button>
     </div>
   </div>
 </div>
+<!-- Manage Course Section Ends -->

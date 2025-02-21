@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
-import { BackendApiService } from '../../service/backend-api.service';
 import { CommonService } from '../../service/common.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,39 +11,22 @@ export class SidebarComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   showSidebar: boolean = false;
-  userImage: any;
 
   constructor(
     private authService: AuthService,
-    private backendApiService: BackendApiService,
     private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
-    this.setLoginStatusAndLoadUserInfo();
+    this.updateLoggedInStatus();
   }
 
-  setLoginStatusAndLoadUserInfo(): void {
+  updateLoggedInStatus(): void {
     this.authService.isLoggedIn().subscribe((loggedInStatus) => {
       this.isLoggedIn = loggedInStatus;
       if (this.isLoggedIn) {
         this.isAdmin = this.authService.isAdmin();
-        this.loadProfileData();
       }
-    });
-  }
-
-  loadProfileData(): void {
-    this.backendApiService
-      .callGetUserByIdAPI(this.authService.getUserId())
-      .subscribe((response) => {
-        this.loadImage(response.responseBody.user.imageUrl);
-      });
-  }
-
-  loadImage(imageUrl: string): void {
-    this.commonService.getImageFromImageUrl(imageUrl).subscribe((safeUrl) => {
-      this.userImage = safeUrl;
     });
   }
 

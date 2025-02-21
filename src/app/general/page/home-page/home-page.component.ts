@@ -23,14 +23,14 @@ export class HomePageComponent implements OnInit {
     this.getCategories();
   }
 
-  getFeaturedCourses(): void {
-    this.backendApiService.callGetAllCoursesAPI().subscribe((response) => {
+  private getFeaturedCourses(): void {
+    this.backendApiService.callGetAllCoursesAPI(0, 10).subscribe((response) => {
       this.featuredCourses = response.responseBody.courseList;
       this.loadImages();
     });
   }
 
-  loadImages(): void {
+  private loadImages(): void {
     this.featuredCourses.forEach((course) =>
       this.commonService
         .getImageFromImageUrl(course.imageUrl)
@@ -40,7 +40,7 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  getCategories(): void {
+  private getCategories(): void {
     this.categories = this.commonService.getCategories();
   }
 

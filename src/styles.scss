@@ -1,13 +1,5 @@
-/* Global SCSS Style Variables */
-$white: #ffffff;
-$off-white: #f5f5f5;
-$gray: #ececec;
-$dark-gray: #cecece;
-$black: #252525;
-$primary: #1f2833;
-$secondary: #314152;
-$accent-1: #fc5c7d;
-$accent-2: #62b076;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap");
+@import "./variables.scss";
 
 /* Global Style Reset */
 *,
@@ -19,18 +11,27 @@ $accent-2: #62b076;
 }
 
 html {
+  height: 100%;
   max-width: 100%;
   scroll-behavior: smooth;
 }
 
 body {
+  height: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  font-family: "Noto Sans Bengali", sans-serif;
+  background-color: $white;
+  color: $black;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: $accent-1;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 /* Custom CSS Classes */
@@ -42,8 +43,8 @@ a {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 32px;
+  padding-right: 32px;
 
   @media screen and (min-width: 576px) {
     max-width: 550px;
@@ -64,7 +65,7 @@ a {
 
 .button {
   padding: 6px 16px;
-  background-color: $primary;
+  background-color: $accent-1;
   color: $white;
   display: inline-block;
   text-align: center;
@@ -73,18 +74,15 @@ a {
   font-size: 14px;
   letter-spacing: 1px;
   border: none;
-  border-radius: 15px;
-  cursor: pointer;
+  border-radius: 4px;
 
   &:hover {
-    background-color: $accent-1;
-    color: $black;
+    opacity: 0.8;
     cursor: pointer;
   }
 
   &:disabled {
     background-color: $dark-gray;
-    color: $white;
     cursor: not-allowed;
   }
 }
@@ -100,7 +98,7 @@ a {
   font-size: 14px;
   letter-spacing: 1px;
   border: 1px solid $accent-1;
-  border-radius: 15px;
+  border-radius: 4px;
 
   &:hover {
     color: $white;
@@ -111,11 +109,94 @@ a {
   &:disabled {
     color: $dark-gray;
     border: 1px solid $dark-gray;
-    cursor: not-allowed;
+
+    &:hover {
+      background-color: $dark-gray;
+      color: $white;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.button-link {
+  background: none;
+  color: $accent-1;
+  font-size: 14px;
+  border: none;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
   }
 }
 
 .shadow {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.form-field {
+  padding-left: 2px;
+
+  label {
+    display: block;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    height: 24px;
+    padding: 2px 6px;
+    margin-bottom: 16px;
+    outline: none;
+    border: 1px solid $dark-gray;
+    letter-spacing: 1px;
+
+    &:focus {
+      border: 1px solid $black;
+    }
+  }
+
+  input[type="radio"] {
+    width: auto;
+    height: auto;
+    margin-right: 8px;
+
+    + label {
+      display: inline-block;
+    }
+  }
+
+  .error {
+    font-size: 15px;
+    color: $accent-1;
+    margin: -4px 0 16px 0;
+  }
+
+  select {
+    width: 100%;
+    height: 24px;
+    padding: 2px 6px;
+    margin-bottom: 16px;
+    outline: none;
+    border: 1px solid $dark-gray;
+    letter-spacing: 1px;
+    background: none;
+
+    &:focus {
+      border: 1px solid $black;
+    }
+  }
+}
+
+.form-field-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  column-gap: 24px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }

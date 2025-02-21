@@ -1,111 +1,59 @@
 @import "../../../../styles.scss";
 
-.payment-section {
-  padding: 60px 16px;
+.course-purchase-section {
+  height: 100%;
+  padding: 40px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $off-white;
 
-  h2 {
-    margin-bottom: 28px;
-    font-size: 32px;
-  }
+  .card {
+    flex-grow: 1;
+    max-width: 800px;
+    padding: 40px 20px;
+    background-color: $white;
+    border: 1px solid $gray;
+    border-radius: 4px;
 
-  .course-details {
-    margin-bottom: 20px;
-  }
-
-  .field {
-    padding-left: 2px;
-
-    label {
-      display: block;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 28px;
     }
 
-    input {
-      height: 24px;
-      width: 100%;
-      padding: 2px 6px;
+    h3 {
+      font-size: 18px;
       margin-bottom: 12px;
-      border: 1px solid $dark-gray;
-      outline: none;
-      letter-spacing: 1px;
-
-      &:focus {
-        border: 1px solid $black;
-      }
     }
 
-    .error {
-      margin-top: 8px;
-      color: $accent-1;
+    .course-details {
+      margin-bottom: 28px;
     }
 
-    select {
-      height: 24px;
-      width: 100%;
-      padding: 2px;
-      outline: none;
-      letter-spacing: 1px;
-      border: 1px solid $dark-gray;
-      background: none;
-
-      &:focus {
-        border: 1px solid $black;
-      }
+    .payment-selector {
+      margin-bottom: 12px;
     }
-  }
 
-  .title {
-    font-size: 16px;
-    letter-spacing: 1px;
-    background-color: $gray;
-    padding: 8px;
-    margin-bottom: 20px;
-  }
-
-  .payment-selector {
-    margin-bottom: 32px;
-
-    .button-wrapper {
-      display: flex;
-      flex-direction: row;
-      column-gap: 24px;
-      padding-left: 2px;
-
-      input {
-        margin-right: 4px;
-      }
-    }
-  }
-
-  .payment-details {
-    .instructions {
-      line-height: 24px;
-      background-color: $off-white;
-      padding: 16px;
-      margin-bottom: 20px;
+    .payment-instructions {
+      padding: 12px;
+      margin-bottom: 28px;
       border: 1px solid $gray;
+      border-radius: 4px;
+
+      p {
+        padding: 4px 8px;
+        font-size: 15px;
+        line-height: 24px;
+        background-color: $off-white;
+      }
+
+      strong {
+        color: $accent-1;
+      }
     }
 
-    form {
-      &:not(:last-child) {
-        margin-bottom: 40px;
-      }
-
-      .field-wrapper {
-        display: grid;
-        grid-column: 1fr;
-        grid-row: 1fr 1fr;
-        row-gap: 12px;
-        column-gap: 24px;
-        margin-bottom: 12px;
-
-        @media screen and (min-width: 768px) {
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: 1fr;
-        }
-      }
-
+    .payment-details {
       .button {
         display: block;
         margin: 28px 0 0 auto;

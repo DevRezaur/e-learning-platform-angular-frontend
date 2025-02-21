@@ -57,7 +57,9 @@ export class AuthService {
         if (this.isAdmin()) {
           this.router.navigate(['/admin']);
         } else if (this.isUser()) {
-          this.router.navigate(['/common/home']);
+          const redirectUrl = sessionStorage.getItem('redirectUrl') ?? '';
+          sessionStorage.removeItem('redirectUrl');
+          this.router.navigateByUrl(redirectUrl);
         }
       } else if (event instanceof OAuthErrorEvent) {
         console.error(event);
@@ -76,18 +78,21 @@ export class AuthService {
   }
 
   public isAdmin(): boolean {
-    return this.getClaims().includes('ADMIN') ? true : false;
+    return this.getRoles().includes('ADMIN') ? true : false;
   }
 
   public isUser(): boolean {
-    return this.getClaims().includes('USER') ? true : false;
+    return this.getRoles().includes('USER') ? true : false;
   }
 
-  public getClaims(): string[] {
+  public getRoles(): string[] {
     const accessToken: string = this.oauthService.getAccessToken();
-    const splittedToken: string[] = accessToken.split('.');
-    const claims = JSON.parse(atob(splittedToken[1]));
-    return claims.realm_access.roles;
+    if (accessToken) {
+      const splittedToken: string[] = accessToken.split('.');
+      const claims = JSON.parse(atob(splittedToken[1]));
+      return claims.realm_access.roles;
+    }
+    return [];
   }
 
   public getUserId(): string {

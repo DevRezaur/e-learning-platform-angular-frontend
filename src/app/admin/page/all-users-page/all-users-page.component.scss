@@ -1,0 +1,79 @@
+@import "../../../../styles.scss";
+
+.users-section {
+  padding: 60px 0;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 24px;
+    column-gap: 24px;
+
+    .card {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      border-radius: 4px;
+      border: 1px solid $off-white;
+
+      .top-div {
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .mid-div {
+        padding: 12px;
+        background-color: $off-white;
+
+        p {
+          text-align: center;
+          font-weight: 500;
+        }
+      }
+
+      .bottom-div {
+        padding: 12px;
+
+        p {
+          font-size: 15px;
+          word-break: break-all;
+
+          &:not(:last-child) {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Media Queries */
+@media screen and (min-width: 576px) {
+  .users-section .section .grid-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .users-section .section .grid-wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .users-section .section .grid-wrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}

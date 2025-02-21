@@ -41,9 +41,11 @@ export class CoursePurchasePageComponent implements OnInit {
   }
 
   fetchCourseData(courseId: string) {
-    this.backendApiService.callGetCourseAPI(courseId).subscribe((response) => {
-      this.courseData = response.responseBody.course;
-    });
+    this.backendApiService
+      .callGetCourseByIdAPI(courseId)
+      .subscribe((response) => {
+        this.courseData = response.responseBody.course;
+      });
   }
 
   togglePaymentMethod(paymentMethod: string) {
@@ -57,7 +59,7 @@ export class CoursePurchasePageComponent implements OnInit {
       userId: this.authService.getUserId(),
       courseId: this.courseData.courseId,
     };
-    this.backendApiService.callSavePaymentAPI(paymentInfo).subscribe({
+    this.backendApiService.callSavePaymentInfoAPI(paymentInfo).subscribe({
       next: (successResponse) => {
         this.popNotificationService.setMessage(
           successResponse.responseBody.message

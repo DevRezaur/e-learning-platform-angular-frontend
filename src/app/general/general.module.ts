@@ -13,8 +13,8 @@ import { CourseDashboardComponent } from './page/course-dashboard/course-dashboa
   declarations: [
     HomePageComponent,
     CallbackPageComponent,
-    ProfilePageComponent,
     RegistrationPageComponent,
+    ProfilePageComponent,
     CoursePreviewPageComponent,
     CourseDashboardComponent,
   ],

@@ -16,7 +16,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:9191'],
+        allowedUrls: ['http://localhost:9191', 'http://localhost:8082'],
         sendAccessToken: true,
       },
     }),

@@ -1,0 +1,36 @@
+<!-- Users Section Start -->
+<div class="users-section">
+  <div class="section">
+    <h2>All Users</h2>
+
+    <div class="grid-wrapper">
+      <div class="card" *ngFor="let user of users">
+        <div class="top-div">
+          <img
+            *ngIf="user.image; else defaultImage"
+            [src]="user.image"
+            alt="User Image"
+          />
+
+          <ng-template #defaultImage>
+            <img
+              src="../../../../assets/image/male-avatar.svg"
+              alt="Default User Image"
+            />
+          </ng-template>
+        </div>
+
+        <div class="mid-div">
+          <p>{{ user.firstName }} {{ user.lastName }}</p>
+        </div>
+
+        <div class="bottom-div">
+          <p><strong>Mail:</strong> {{ user.email }}</p>
+          <p><strong>Gender:</strong> {{ user.gender }}</p>
+          <p><strong>DoB:</strong> {{ user.dateOfBirth }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Users Section Ends -->

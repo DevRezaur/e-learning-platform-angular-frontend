@@ -1,50 +1,69 @@
-<div class="top-banner-section">
+<!-- Top Banner Section Starts -->
+<div class="top-banner-section" *ngIf="courseData">
   <div class="section">
-    <div class="grid-wrapper" *ngIf="courseData">
+    <div class="grid-wrapper">
       <div class="left-div">
-        <img [src]="courseData.image" alt="" />
-      </div>
-      <div class="right-div">
         <h2>{{ courseData.courseName }}</h2>
         <p class="desc">
           {{ courseData.description }}
         </p>
-        <div class="price">
-          <p class="original-price" *ngIf="courseData.discount != 0">
-            {{ courseData.courseFee }} BDT
-          </p>
-          <p>
-            <strong>Price:</strong>
-            {{
-              courseData.courseFee -
-                (courseData.courseFee * courseData.discount) / 100
-            }}
-            BDT
-          </p>
+        <img [src]="courseData.image" alt="Course Image" />
+      </div>
+
+      <div class="right-div">
+        <div class="card">
+          <div class="top-div">
+            <h3>Course Price</h3>
+          </div>
+
+          <div class="mid-div">
+            <p>
+              <strong>Original Price : </strong>{{ courseData.courseFee }} BDT
+            </p>
+            <p><strong>Discount : </strong>{{ courseData.discount }}%</p>
+            <p>
+              <strong>Final Price : </strong>
+              {{
+                courseData.courseFee -
+                  (courseData.courseFee * courseData.discount) / 100
+              }}
+              BDT
+            </p>
+          </div>
+
+          <div class="bottom-div">
+            <button
+              class="button"
+              [routerLink]="['/user/purchase-course', courseData.courseId]"
+            >
+              Purchase Course
+            </button>
+          </div>
         </div>
-        <button
-          class="button"
-          [routerLink]="['/user/purchase-course', courseData.courseId]"
-        >
-          Purchase Course
-        </button>
       </div>
     </div>
   </div>
 </div>
+<!-- Top Banner Section Ends -->
 
+<!-- Course Content Section Starts -->
 <div
   class="course-content-section"
   *ngIf="contentsPreview && contentsPreview.length > 0"
 >
   <div class="section">
     <h2>Course Contents</h2>
-    <hr />
-    <div *ngFor="let content of contentsPreview">
-      <p>
-        <strong>Lecture No {{ content.contentSequence }}:</strong>
-        {{ content.contentTitle }}
-      </p>
+
+    <div class="content" *ngFor="let content of contentsPreview">
+      <div class="content-no">
+        <p>Lecture No : {{ content.contentSequence }}</p>
+      </div>
+
+      <div class="content-name">
+        <i class="fas fa-caret-right"></i>
+        <p>{{ content.contentTitle }}</p>
+      </div>
     </div>
   </div>
 </div>
+<!-- Course Content Section Ends -->
