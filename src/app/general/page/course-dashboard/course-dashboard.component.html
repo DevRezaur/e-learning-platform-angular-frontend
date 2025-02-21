@@ -20,6 +20,20 @@
       <div class="form-field">
         <label for="contentTitle">Content Title</label>
         <input type="text" id="contentTitle" formControlName="contentTitle" />
+        <div
+          *ngIf="
+            contentDataForm.get('contentTitle')?.invalid &&
+            (contentDataForm.get('contentTitle')?.touched ||
+              contentDataForm.get('contentTitle')?.dirty)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="contentDataForm.get('contentTitle')?.hasError('required')"
+          >
+            Content title is required!
+          </div>
+        </div>
       </div>
 
       <input
