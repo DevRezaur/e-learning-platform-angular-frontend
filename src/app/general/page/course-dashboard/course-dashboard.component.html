@@ -1,46 +1,60 @@
+<!-- Top Banner Section Starts -->
 <div class="top-banner-section">
   <div class="section">
-    <div class="grid-wrapper" *ngIf="course">
+    <div class="grid-wrapper" *ngIf="courseData">
       <div class="left-div">
-        <img [src]="course.image" alt="" />
+        <img [src]="courseData.image" alt="" />
       </div>
+
       <div class="right-div">
-        <h2>{{ course.courseName }}</h2>
-        <p>{{ course.description }}</p>
-
-        <!-- <div class="add-content">
-          <form [formGroup]="contentDataForm" (ngSubmit)="saveContentData()">
-            <div class="field">
-              <label for="courseName">Content Name</label>
-              <input type="text" id="courseName" formControlName="courseName" />
-            </div>
-          </form>
-
-          <input
-            type="file"
-            accept="image/*"
-            (change)="onContentSelected($event)"
-            #fileInput
-          />
-        </div> -->
+        <h2>{{ courseData.courseName }}</h2>
+        <p>{{ courseData.description }}</p>
       </div>
     </div>
+
+    <form
+      [formGroup]="contentDataForm"
+      (ngSubmit)="uploadContent()"
+      *ngIf="isAdmin"
+    >
+      <div class="form-field">
+        <label for="contentTitle">Content Title</label>
+        <input type="text" id="contentTitle" formControlName="contentTitle" />
+      </div>
+
+      <input
+        #fileInput
+        type="file"
+        accept="video/mp4,video/webm,video/ogg"
+        (change)="onContentSelected($event)"
+      />
+      <button class="button">Upload</button>
+    </form>
   </div>
 </div>
+<!-- Top Banner Section Ends -->
 
+<!-- Contents Section Starts -->
 <div class="contents-section">
   <div class="section">
+    <h2>Course Contents</h2>
+
     <div class="grid-wrapper">
-      <div class="card shadow" *ngFor="let content of courseContents">
+      <div class="card" *ngFor="let content of courseContents">
         <div class="top-div">
-          <video *ngIf="videoUrl" controls>
-            <source [src]="videoUrl" type="video/mp4" />
+          <video *ngIf="content.video" controls>
+            <source [src]="content.video" type="video/mp4" />
           </video>
         </div>
+
         <div class="bottom-div">
-          <p>{{ content.contentTitle }}</p>
+          <p>
+            <strong>#{{ content.contentSequence }}: </strong>
+            {{ content.contentTitle }}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Contents Section Ends -->

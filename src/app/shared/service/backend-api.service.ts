@@ -141,6 +141,18 @@ export class BackendApiService {
     );
   }
 
+  callVideoStreamAPI(videoUrl: string): Observable<any> {
+    return this.httpClient.get(
+      'http://localhost:8082/content/stream/' + videoUrl,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'video/mp4',
+        }),
+        responseType: 'blob',
+      }
+    );
+  }
+
   /// Un-managed APIs (Will be fixed later)
 
   callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
@@ -153,18 +165,6 @@ export class BackendApiService {
   callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
     return this.httpClient.get(
       `${this.baseUrl}/course-page-api/enrolled-courses?userId=${userId}`
-    );
-  }
-
-  callVideoStreamAPI(videoUrl: string): Observable<any> {
-    return this.httpClient.get(
-      'http://localhost:8082/content/stream/' + videoUrl,
-      {
-        headers: new HttpHeaders({
-          'Content-Type': 'video/mp4',
-        }),
-        responseType: 'blob',
-      }
     );
   }
 }

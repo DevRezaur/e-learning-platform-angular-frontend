@@ -89,10 +89,16 @@ export class CommonService {
   getImageFromImageUrl(imageUrl: string): Observable<SafeUrl> {
     return this.backendApiService
       .callGetContentAPI(imageUrl)
-      .pipe(map((response) => this.getImage(response)));
+      .pipe(map((response) => this.getSafeUrl(response)));
   }
 
-  getImage(imageData: any): SafeUrl {
+  getVideoFromVideoUrl(videoUrl: string): Observable<SafeUrl> {
+    return this.backendApiService
+      .callVideoStreamAPI(videoUrl)
+      .pipe(map((response) => this.getSafeUrl(response)));
+  }
+
+  getSafeUrl(imageData: any): SafeUrl {
     const objectUrl = URL.createObjectURL(new Blob([imageData]));
     return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
   }
