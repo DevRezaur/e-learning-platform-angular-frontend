@@ -20,6 +20,10 @@ export class DashboardPageComponent implements OnInit {
     this.enrolledCourses = [];
   }
 
+  getUserName(): string {
+    return this.authService.getUsername();
+  }
+
   ngOnInit(): void {
     this.fetchEnrolledCourses();
   }
