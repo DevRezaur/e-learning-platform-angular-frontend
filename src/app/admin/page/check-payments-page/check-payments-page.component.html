@@ -28,11 +28,7 @@
             <td>{{ paymentInfo.amount }}</td>
             <td>{{ paymentInfo.trxId }}</td>
             <td>{{ paymentInfo.date }}</td>
-            <td>
-              <p *ngIf="paymentInfo.status === 'IN-REVIEW'">In Review</p>
-              <p *ngIf="paymentInfo.status === 'APPROVED'">Approved</p>
-              <p *ngIf="paymentInfo.status === 'DENIED'">Denied</p>
-            </td>
+            <td>{{ paymentInfo.status }}</td>
             <td class="payment-action">
               <i
                 class="fas fa-check success"
@@ -40,7 +36,7 @@
                   paymentInfo.status === 'IN-REVIEW' ||
                   paymentInfo.status === 'DENIED'
                 "
-                (click)="updatePaymentStatus(paymentInfo.trxId, 'APPROVED')"
+                (click)="updatePaymentStatus(paymentInfo, 'APPROVED')"
               ></i>
               <i
                 class="fas fa-window-close failure"
@@ -48,7 +44,7 @@
                   paymentInfo.status === 'IN-REVIEW' ||
                   paymentInfo.status === 'APPROVED'
                 "
-                (click)="updatePaymentStatus(paymentInfo.trxId, 'DENIED')"
+                (click)="updatePaymentStatus(paymentInfo, 'DENIED')"
               ></i>
             </td>
           </tr>

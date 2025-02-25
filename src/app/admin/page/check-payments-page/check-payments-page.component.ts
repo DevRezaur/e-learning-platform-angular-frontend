@@ -21,16 +21,17 @@ export class CheckPaymentsPageComponent implements OnInit {
     });
   }
 
-  updatePaymentStatus(trxId: string, status: string): void {
-    this.backendApiService.callUpdatePaymentStatusAPI(trxId, status).subscribe({
-      next: (response) => {
-        this.paymentInfoList.find(
-          (paymentInfo) => paymentInfo.trxId === trxId
-        ).status = status;
-        this.handleSuccessResponse(response);
-      },
-      error: (error) => this.handleErrorResponse(error),
-    });
+  updatePaymentStatus(paymentInfo: any, status: string): void {
+    const paymentInfoData = { ...paymentInfo, status };
+    this.backendApiService
+      .callUpdatePaymentStatusAPI(paymentInfoData)
+      .subscribe({
+        next: (response) => {
+          paymentInfo.status = status;
+          this.handleSuccessResponse(response);
+        },
+        error: (error) => this.handleErrorResponse(error),
+      });
   }
 
   private handleSuccessResponse(response: any): void {

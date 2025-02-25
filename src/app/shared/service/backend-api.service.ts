@@ -115,13 +115,10 @@ export class BackendApiService {
     );
   }
 
-  callUpdatePaymentStatusAPI(trxId: string, status: string): Observable<any> {
+  callUpdatePaymentStatusAPI(paymentInfo: any): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/payment-management-api/approval`,
-      {
-        trxId: trxId,
-        status: status,
-      }
+      paymentInfo
     );
   }
 
@@ -181,18 +178,19 @@ export class BackendApiService {
     });
   }
 
+  // Enrollment Management APIs
+  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/enrollment-management-api/${userId}`
+    );
+  }
+
   /// Un-managed APIs (Will be fixed later)
 
   callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
     return this.httpClient.post(
       `${this.baseUrl}/course-page-api/enroll`,
       courseEnrollmentInfo
-    );
-  }
-
-  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/course-page-api/enrolled-courses?userId=${userId}`
     );
   }
 }
