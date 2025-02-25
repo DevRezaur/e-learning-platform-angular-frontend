@@ -23,27 +23,36 @@
 </div>
 <!-- Top Banner Section Ends -->
 
+<!-- Enrolled Course Section Starts -->
 <div class="enrolled-course-section">
   <div class="section">
     <h2>Enrolled Courses</h2>
+
     <div class="grid-wrapper">
-      <div class="card shadow" *ngFor="let course of enrolledCourses">
+      <div class="card" *ngFor="let course of enrolledCourses">
         <div class="top-div">
-          <img [src]="course.image" alt="" />
+          <img [src]="course.image" alt="Course Image" />
         </div>
+
         <div class="mid-div">
           <h3>{{ course.courseName }}</h3>
           <p class="desc">
             {{ course.description }}
           </p>
         </div>
+
         <div class="bottom-div">
-          <p *ngIf="course.status === 'IN_REVIEW'">Payment In Review</p>
-          <p *ngIf="course.status === 'DECLINED'">Payment Declined</p>
+          <p *ngIf="course.enrollmentStatus === 'IN-REVIEW'">
+            Payment: Verifying
+          </p>
+          <p *ngIf="course.enrollmentStatus === 'DECLINED'">
+            Payment: Declined
+          </p>
+
           <button
             class="button"
-            [routerLink]="['/general/course-preview', course.courseId]"
-            [disabled]="course.status != 'APPROVED'"
+            [routerLink]="['/general/course-dashboard', course.courseId]"
+            [ngClass]="{ hidden: course.enrollmentStatus !== 'APPROVED' }"
           >
             Visit Course
           </button>
@@ -52,3 +61,4 @@
     </div>
   </div>
 </div>
+<!-- Enrolled Course Section Ends -->

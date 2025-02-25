@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -10,52 +9,40 @@ import { BackendApiService } from 'src/app/shared/service/backend-api.service';
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  enrolledCourses: any[];
+  userId!: string;
+  enrolledCourses: any[] = [];
 
   constructor(
     private authService: AuthService,
     private backendApiService: BackendApiService,
-    private sanitizer: DomSanitizer
-  ) {
-    this.enrolledCourses = [];
+    private commonService: CommonService
+  ) {}
+
+  ngOnInit(): void {
+    this.userId = this.authService.getUserId();
+    this.getEnrolledCourses();
+  }
+
+  private getEnrolledCourses(): void {
+    this.backendApiService
+      .callGetAllEnrolledCoursesAPI(this.userId)
+      .subscribe((response) => {
+        this.enrolledCourses = response.responseBody.enrolledCourseList;
+        this.loadImages();
+      });
+  }
+
+  private loadImages(): void {
+    this.enrolledCourses.forEach((course) =>
+      this.commonService
+        .getImageFromImageUrl(course.imageUrl)
+        .subscribe((safeUrl) => {
+          course.image = safeUrl;
+        })
+    );
   }
 
   getUserName(): string {
     return this.authService.getUsername();
-  }
-
-  ngOnInit(): void {
-    this.fetchEnrolledCourses();
-  }
-
-  fetchEnrolledCourses(): void {
-    this.backendApiService
-      .callGetAllEnrolledCoursesAPI(this.authService.getUserId())
-      .subscribe({
-        next: (response) => {
-          this.enrolledCourses = response.responseBody.courseList;
-          this.loadImages();
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
-  }
-
-  loadImages(): void {
-    this.enrolledCourses.forEach((course) => {
-      this.getImage(course.imageUrl).subscribe({
-        next: (image) => {
-          course.image = this.sanitizer.bypassSecurityTrustUrl(image);
-        },
-        error: (error) => console.error(error),
-      });
-    });
-  }
-
-  getImage(imageUrl: string): Observable<string> {
-    return this.backendApiService
-      .callGetContentAPI(imageUrl)
-      .pipe(map((response) => URL.createObjectURL(new Blob([response]))));
   }
 }

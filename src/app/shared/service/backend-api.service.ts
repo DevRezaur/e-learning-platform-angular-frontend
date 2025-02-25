@@ -77,6 +77,12 @@ export class BackendApiService {
     );
   }
 
+  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-management-api/enrollment/${userId}`
+    );
+  }
+
   // Course Content Management APIs
   callGetCourseContentPreviewAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
@@ -179,11 +185,6 @@ export class BackendApiService {
   }
 
   // Enrollment Management APIs
-  callGetAllEnrolledCoursesAPI(userId: string): Observable<any> {
-    return this.httpClient.get(
-      `${this.baseUrl}/enrollment-management-api/${userId}`
-    );
-  }
 
   /// Un-managed APIs (Will be fixed later)
 
