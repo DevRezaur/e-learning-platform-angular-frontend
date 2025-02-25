@@ -100,9 +100,23 @@ export class AuthService {
     return claims ? claims.sub : '';
   }
 
-  public getUsername(): string {
+  public getEmail(): string {
     let claims: any = this.oauthService.getIdentityClaims();
-    return claims ? `${claims.given_name} ${claims.family_name}` : '';
+    return claims ? claims.preferred_username : '';
+  }
+
+  public getFullname(): string {
+    return `${this.getFirstName()} ${this.getLastName()}`;
+  }
+
+  public getFirstName(): string {
+    let claims: any = this.oauthService.getIdentityClaims();
+    return claims ? claims.given_name : '';
+  }
+
+  public getLastName(): string {
+    let claims: any = this.oauthService.getIdentityClaims();
+    return claims ? claims.family_name : '';
   }
 
   public getIdToken(): string {

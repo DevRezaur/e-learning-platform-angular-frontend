@@ -42,7 +42,7 @@ export class DashboardPageComponent implements OnInit {
     );
   }
 
-  getUserName(): string {
-    return this.authService.getUsername();
+  getFullname(): string {
+    return this.authService.getFullname();
   }
 }

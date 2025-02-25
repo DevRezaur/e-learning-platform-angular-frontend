@@ -13,8 +13,8 @@ export class DashboardPageComponent {
     private commonService: CommonService
   ) {}
 
-  getUserName(): string {
-    return this.authService.getUsername();
+  getFullname(): string {
+    return this.authService.getFullname();
   }
 
   getAdminActionItems(): any[] {
