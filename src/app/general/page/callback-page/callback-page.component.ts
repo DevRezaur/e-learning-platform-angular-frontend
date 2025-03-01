@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 
 @Component({
@@ -7,9 +8,13 @@ import { AuthService } from 'src/app/shared/service/auth.service';
   styleUrls: ['./callback-page.component.scss'],
 })
 export class CallbackPageComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.redirectOnCallback();
+    if (this.authService.getUserId()) {
+      this.router.navigate(['/']);
+    } else {
+      this.authService.redirectOnCallback();
+    }
   }
 }
