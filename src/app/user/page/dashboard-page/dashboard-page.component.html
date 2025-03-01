@@ -28,7 +28,7 @@
   <div class="section">
     <h2>Enrolled Courses</h2>
 
-    <div class="grid-wrapper">
+    <div class="grid-wrapper" *ngIf="enrolledCourses.length; else noCourse">
       <div class="card" *ngFor="let course of enrolledCourses">
         <div class="top-div">
           <img [src]="course.image" alt="Course Image" />
@@ -59,6 +59,13 @@
         </div>
       </div>
     </div>
+
+    <ng-template #noCourse>
+      <div class="not-found">
+        <img src="../../../../assets/image/404_not_found.svg" alt="Not Found" />
+        <p>Oops! You are not enrolled to any course yet</p>
+      </div>
+    </ng-template>
   </div>
 </div>
 <!-- Enrolled Course Section Ends -->

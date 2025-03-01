@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { catchError, of } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { BackendApiService } from 'src/app/shared/service/backend-api.service';
 import { CommonService } from 'src/app/shared/service/common.service';
@@ -58,14 +59,14 @@ export class CoursePreviewPageComponent implements OnInit {
   }
 
   private setEnrollmentStatus(courseId: string): void {
-    if (this.authService.isAdmin()) return;
     const userId = this.authService.getUserId();
 
     if (userId) {
       this.backendApiService
         .callGetEnrollmentStatusAPI(courseId, userId)
+        .pipe(catchError(() => of(null)))
         .subscribe((response) => {
-          this.enrollmentStatus = response.responseBody.status;
+          this.enrollmentStatus = response?.responseBody.status;
         });
     }
   }

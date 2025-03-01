@@ -111,6 +111,19 @@
       }
     }
   }
+
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      max-width: 250px;
+      margin-bottom: 20px;
+    }
+  }
 }
 
 /* Media Queries */
