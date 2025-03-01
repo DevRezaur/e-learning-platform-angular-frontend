@@ -7,6 +7,7 @@ import { RegistrationPageComponent } from './page/registration-page/registration
 import { CoursePreviewPageComponent } from './page/course-preview-page/course-preview-page.component';
 import { CourseDashboardComponent } from './page/course-dashboard/course-dashboard.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
+import { EnrollmentGuard } from '../shared/guard/enrollment.guard';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
   {
     path: 'course-dashboard/:courseId',
     component: CourseDashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, EnrollmentGuard],
   },
 ];
 
