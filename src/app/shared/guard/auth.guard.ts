@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { PopNotificationService } from '../service/pop-notification.service';
 
 @Injectable({
@@ -21,31 +21,41 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return new Observable((observer) => {
-      this.authService.isLoggedIn().subscribe((loggedInStatus) => {
-        if (loggedInStatus) {
-          const userRoles = this.authService.getRoles();
-          const requiredRoles = route.data['roles'] as string[];
-          if (
-            !requiredRoles ||
-            requiredRoles.length === 0 ||
-            userRoles.some((role) => requiredRoles.includes(role))
-          ) {
-            observer.next(true);
-          } else {
-            this.popNotificationService.setMessage(
-              'You are not authorized to access this page!'
-            );
-            observer.next(false);
-          }
-          observer.complete();
-        } else {
-          sessionStorage.setItem('redirectUrl', state.url);
-          this.authService.login();
-          observer.next(false);
-          observer.complete();
+    return this.authService.isLoggedIn().pipe(
+      switchMap((loggedInStatus) => {
+        const requiredRoles = route.data['roles'] as string[];
+        const userRoles = this.authService.getRoles();
+
+        if (!loggedInStatus) {
+          return this.redirectToLoginPage(state);
         }
-      });
-    });
+
+        if (
+          !requiredRoles?.length ||
+          userRoles.some((role) => requiredRoles.includes(role))
+        ) {
+          return this.handleSuccessCase();
+        }
+
+        return this.handleFailureCase();
+      })
+    );
+  }
+
+  private redirectToLoginPage(state: RouterStateSnapshot): Observable<boolean> {
+    sessionStorage.setItem('redirectUrl', state.url);
+    this.authService.login();
+    return of(false);
+  }
+
+  private handleSuccessCase(): Observable<boolean> {
+    return of(true);
+  }
+
+  private handleFailureCase(): Observable<boolean> {
+    this.popNotificationService.setMessage(
+      'You are not authorized to access this page!'
+    );
+    return of(false);
   }
 }
