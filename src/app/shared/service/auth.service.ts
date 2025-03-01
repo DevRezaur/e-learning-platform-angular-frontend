@@ -44,7 +44,12 @@ export class AuthService {
     showDebugInformation: true,
   };
 
-  public login() {
+  public login(redirectUrl?: string) {
+    if (redirectUrl) {
+      sessionStorage.setItem('redirectUrl', redirectUrl);
+    } else {
+      sessionStorage.removeItem('redirectUrl');
+    }
     this.oauthService.initCodeFlow();
   }
 
@@ -79,7 +84,6 @@ export class AuthService {
     const firstName = this.getFirstName();
     const lastName = this.getLastName();
     const userData = { userId, email, firstName, lastName };
-
     this.backendApiService.callInitUserAPI(userData).subscribe();
   }
 

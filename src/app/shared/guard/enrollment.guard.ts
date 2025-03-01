@@ -60,8 +60,7 @@ export class EnrollmentGuard implements CanActivate {
   }
 
   private redirectToLoginPage(state: RouterStateSnapshot): Observable<boolean> {
-    sessionStorage.setItem('redirectUrl', state.url);
-    this.authService.login();
+    this.authService.login(state.url);
     return of(false);
   }
 
