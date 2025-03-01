@@ -76,8 +76,21 @@
           padding: 16px;
           background-color: $off-white;
 
+          p {
+            width: fit-content;
+            font-size: 13px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: $accent-1;
+            border: 1px solid $accent-1;
+          }
+
           .button {
             width: 100%;
+          }
+
+          .hidden {
+            display: none;
           }
         }
       }

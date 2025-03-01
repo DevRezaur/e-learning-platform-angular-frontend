@@ -32,9 +32,20 @@
           </div>
 
           <div class="bottom-div">
+            <p *ngIf="enrollmentStatus === 'IN-REVIEW'">Payment: Verifying</p>
+
+            <button
+              class="button"
+              [routerLink]="['/general/course-dashboard', courseData.courseId]"
+              [ngClass]="{ hidden: enrollmentStatus !== 'APPROVED' }"
+            >
+              Visit Course
+            </button>
+
             <button
               class="button"
               [routerLink]="['/user/purchase-course', courseData.courseId]"
+              *ngIf="!enrollmentStatus || enrollmentStatus === 'DECLINED'"
             >
               Purchase Course
             </button>

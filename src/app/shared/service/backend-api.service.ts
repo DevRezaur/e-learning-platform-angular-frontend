@@ -90,6 +90,15 @@ export class BackendApiService {
     );
   }
 
+  callGetEnrollmentStatusAPI(
+    courseId: string,
+    userId: string
+  ): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl}/course-management-api/enrollment/${courseId}/${userId}`
+    );
+  }
+
   // Course Content Management APIs
   callGetCourseContentPreviewAPI(courseId: string): Observable<any> {
     return this.httpClient.get(
@@ -189,16 +198,5 @@ export class BackendApiService {
     return this.httpClient.post('http://localhost:8082/content', formData, {
       headers: headers,
     });
-  }
-
-  // Enrollment Management APIs
-
-  /// Un-managed APIs (Will be fixed later)
-
-  callEnrollToCourseAPI(courseEnrollmentInfo: any): Observable<any> {
-    return this.httpClient.post(
-      `${this.baseUrl}/course-page-api/enroll`,
-      courseEnrollmentInfo
-    );
   }
 }
