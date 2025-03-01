@@ -58,7 +58,9 @@ export class CoursePreviewPageComponent implements OnInit {
   }
 
   private setEnrollmentStatus(courseId: string): void {
+    if (this.authService.isAdmin()) return;
     const userId = this.authService.getUserId();
+
     if (userId) {
       this.backendApiService
         .callGetEnrollmentStatusAPI(courseId, userId)
