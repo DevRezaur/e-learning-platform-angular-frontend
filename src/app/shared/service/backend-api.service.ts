@@ -18,6 +18,13 @@ export class BackendApiService {
     );
   }
 
+  callInitUserAPI(userData: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.baseUrl}/user-management-api/init`,
+      userData
+    );
+  }
+
   callGetUserByIdAPI(userId: string): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/user-management-api/${userId}`);
   }

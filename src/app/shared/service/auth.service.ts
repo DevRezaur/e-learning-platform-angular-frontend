@@ -8,6 +8,7 @@ import {
   OAuthSuccessEvent,
 } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { BackendApiService } from './backend-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   private loggedInStatus = new BehaviorSubject<boolean>(false);
 
-  constructor(private oauthService: OAuthService, private router: Router) {
+  constructor(
+    private oauthService: OAuthService,
+    private backendApiService: BackendApiService,
+    private router: Router
+  ) {
     this.configure();
     this.setIsLoggedInStatus();
   }
@@ -53,6 +58,7 @@ export class AuthService {
         event instanceof OAuthSuccessEvent &&
         event.type === 'token_received'
       ) {
+        this.initUser();
         this.setIsLoggedInStatus();
         if (this.isAdmin()) {
           this.router.navigate(['/admin']);
@@ -65,6 +71,16 @@ export class AuthService {
         console.error(event);
       }
     });
+  }
+
+  private initUser(): void {
+    const userId = this.getUserId();
+    const email = this.getEmail();
+    const firstName = this.getFirstName();
+    const lastName = this.getLastName();
+    const userData = { userId, email, firstName, lastName };
+
+    this.backendApiService.callInitUserAPI(userData).subscribe();
   }
 
   private setIsLoggedInStatus(): void {
