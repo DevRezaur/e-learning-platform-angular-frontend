@@ -45,7 +45,7 @@
             <button
               class="button"
               [routerLink]="['/user/purchase-course', courseData.courseId]"
-              *ngIf="!enrollmentStatus || enrollmentStatus === 'DECLINED'"
+              *ngIf="!enrollmentStatus || enrollmentStatus === 'DENIED'"
             >
               Purchase Course
             </button>
